@@ -9,5 +9,11 @@
     "debug": "DEBUG=* electron ."
   },
   "author": "Wojciech Bator",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.6.11",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2"
+  }
 }

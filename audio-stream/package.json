@@ -1,0 +1,11 @@
+{
+  "name": "audio-stream",
+  "version": "0.0.1",
+  "description": "audio-core component for wifi-guitar, low level audio control from sound card",
+  "main": "index.js",
+  "author": "Wojciech Bator",
+  "license": "ISC",
+  "dependencies": {
+    "node-core-audio": "^0.5.1"
+  }
+}
