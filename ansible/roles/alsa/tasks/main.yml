@@ -1,0 +1,9 @@
+- name: Install libasound2-dev package
+  apt:
+    name: libasound2-dev
+    state: present
+
+- name: Install alsa-utils package
+  apt:
+    name: alsa-utils
+    state: present
