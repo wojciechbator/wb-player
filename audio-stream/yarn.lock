@@ -2,127 +2,77 @@
 # yarn lockfile v1
 
 
-assert-plus@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-1.0.0.tgz#f12e0f3c5d77b0b1cdd9146942e4e96c1e4dd525"
+bindings@^1.2.1:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.3.0.tgz#b346f6ecf6a95f5a815c5839fc7cdb22502f1ed7"
 
-"audio-streamer@>= 0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/audio-streamer/-/audio-streamer-0.1.0.tgz#91df682967b96fd8f7693162411ff6b0c75ac8c5"
-  dependencies:
-    binaryjs ">= 0.0.1"
-
-"binaryjs@>= 0.0.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/binaryjs/-/binaryjs-0.2.1.tgz#28edb40b1830278f5598eb00c3679253e8e99dee"
-  dependencies:
-    binarypack ">=0.0.4"
-    streamers ">=0.1.0"
-    streamws ">=0.1.1"
-
-binarypack@>=0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/binarypack/-/binarypack-0.0.4.tgz#c4ab4acac7c659e228ed0b0b7335626c98d6c890"
-  dependencies:
-    buffercursor ">=0.0.3"
-
-buffercursor@>=0.0.3:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/buffercursor/-/buffercursor-0.0.12.tgz#78a9a7f4343ae7d820a8999acc80de591e25a779"
-  dependencies:
-    verror "^1.4.0"
-
-commander@~0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-0.6.1.tgz#fa68a14f6a945d54dbbe50d8cdb3320e9e3b1a06"
-
-core-util-is@1.0.2:
+core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-debug@~0.7.2:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
+debug@^2.2.0:
+  version "2.6.8"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
+  dependencies:
+    ms "2.0.0"
 
-extsprintf@^1.2.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"
+inherits@~2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
-eyes@>=0.1.6:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
+isarray@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
-fft@~0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/fft/-/fft-0.2.1.tgz#1044554fdba1a0b96c4843d5dea8525cab3621aa"
+line-in@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/line-in/-/line-in-0.1.2.tgz#0f0fc6191ccda8541c09f1abf17e28527e25ac7b"
+  dependencies:
+    nan "^2.3.3"
 
-mkdirp@0.0.x:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.0.7.tgz#d89b4f0e4c3e5e5ca54235931675e094fe1a5072"
+ms@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-nan@^2.1.0:
+nan@^2.2.0, nan@^2.3.3:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.6.2.tgz#e4ff34e6c95fdfb5aecc08de6596f43605a7db45"
 
-node-core-audio@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/node-core-audio/-/node-core-audio-0.5.1.tgz#bd7d3edc26bfea8adb659235d54ddfcbc261ef42"
+process-nextick-args@~1.0.6:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
+
+readable-stream@^2.0.5:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.3.tgz#368f2512d79f9d46fdfc71349ae7878bbc1eb95c"
   dependencies:
-    audio-streamer ">= 0.1.0"
-    fft "~0.2.1"
-    nan "^2.1.0"
-    node-waveheader "git://github.com/mrose17/node-waveheader.git"
-    portfinder "0.2.1"
+    core-util-is "~1.0.0"
+    inherits "~2.0.3"
+    isarray "~1.0.0"
+    process-nextick-args "~1.0.6"
+    safe-buffer "~5.1.1"
+    string_decoder "~1.0.3"
+    util-deprecate "~1.0.1"
 
-"node-waveheader@git://github.com/mrose17/node-waveheader.git":
-  version "0.0.2"
-  resolved "git://github.com/mrose17/node-waveheader.git#268ea1b55ad7bb818340ae230dfaae4f4c59f564"
+safe-buffer@~5.1.0, safe-buffer@~5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
+
+speaker@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/speaker/-/speaker-0.3.0.tgz#36e0ee37e74fb88f7ead9ac9b1f1517b9b82d253"
   dependencies:
-    debug "~0.7.2"
+    bindings "^1.2.1"
+    debug "^2.2.0"
+    nan "^2.2.0"
+    readable-stream "^2.0.5"
 
-options@latest:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/options/-/options-0.0.6.tgz#ec22d312806bb53e731773e7cdaefcf1c643128f"
-
-portfinder@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-0.2.1.tgz#b2b9b0164f9e17fa3a9c7db2304d0a75140c71ad"
+string_decoder@~1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.3.tgz#0fc67d7c141825de94282dd536bec6b9bce860ab"
   dependencies:
-    mkdirp "0.0.x"
+    safe-buffer "~5.1.0"
 
-streamers@>=0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/streamers/-/streamers-0.1.1.tgz#38793eae1447021682ed361d1e3106ac596b0c55"
-  dependencies:
-    underscore "1.2.3"
-    vows "0.6.1"
-
-streamws@>=0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/streamws/-/streamws-0.1.1.tgz#95c33b5ec795b5285361e9f73993e00438d33b1a"
-  dependencies:
-    commander "~0.6.1"
-    options latest
-    tinycolor "0.x"
-
-tinycolor@0.x:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/tinycolor/-/tinycolor-0.0.1.tgz#320b5a52d83abb5978d81a3e887d4aefb15a6164"
-
-underscore@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.2.3.tgz#11b874da70f4683d7d48bba2b44be1e600d2f6cf"
-
-verror@^1.4.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/verror/-/verror-1.10.0.tgz#3a105ca17053af55d6e270c1f8288682e18da400"
-  dependencies:
-    assert-plus "^1.0.0"
-    core-util-is "1.0.2"
-    extsprintf "^1.2.0"
-
-vows@0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/vows/-/vows-0.6.1.tgz#0d3ccec76794b7ac8600b5c700d689864a640a2b"
-  dependencies:
-    eyes ">=0.1.6"
+util-deprecate@~1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"

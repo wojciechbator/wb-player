@@ -1,4 +1,0 @@
-- hosts: wifi
-  become: true
-  roles:
-    - alsa
