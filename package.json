@@ -4,7 +4,6 @@
   "description": "Bachelor's Thesis. This application enables recording sounds that comes from line-in jack interface",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "debug": "DEBUG=* electron ."
   },
@@ -12,8 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^1.6.11",
+    "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
+    "koa-router": "^7.2.1",
+    "mongoose": "^4.11.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2"
-  }
+  },
+  "devDependencies": {}
 }
