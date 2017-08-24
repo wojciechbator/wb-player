@@ -1,5 +1,5 @@
 const presetSchema = require('../models/preset');
-const Router = require('koa-router');
+const Router = require('cottage');
 
 const presets = new Router();
 

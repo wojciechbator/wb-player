@@ -7,6 +7,10 @@ const output = new Speaker({
     bitDepth: 16,
     sampleRate: 44100
 });
-// Some low level audio data processing
 
-module.exports = { input, output };
+const streamData = () => {
+    console.log("Streaming data!!!!!!");
+    input.pipe(output);
+}
+
+module.exports = streamData;

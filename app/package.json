@@ -9,8 +9,7 @@
     "start-dev": "node app.js"
   },
   "dependencies": {
-    "koa": "^2.3.0",
-    "koa-router": "^7.2.1",
+    "cottage": "^2.1.1",
     "koa-static-server": "^1.3.2",
     "mongoose": "^4.11.8",
     "react": "^15.6.1",

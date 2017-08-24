@@ -1,7 +1,7 @@
 {
   "name": "audio-stream",
   "version": "0.0.1",
-  "description": "audio-core component for wifi-guitar. If there are node version mismatch, issue this in line-in package: npm rebuild --runtime=electron --target=${your electron version} --disturl=https://atom.io/download/atom-shell --build-from-source",
+  "description": "audio-core component for wifi-guitar. If there are node version mismatch, issue this in line-in package: npm rebuild --runtime=node --target=${your node version} --disturl=https://atom.io/download/atom-shell --build-from-source",
   "main": "index.js",
   "author": "Wojciech Bator",
   "license": "ISC",
