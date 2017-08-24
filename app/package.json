@@ -1,19 +1,18 @@
 {
-  "name": "koa-hello-world",
-  "description": "Koa 'hello world' app",
-  "version": "0.0.0",
-  "author": "Chris Veness",
-  "license": "MIT",
+  "name": "wifi-guitar-browser",
+  "description": "Koa app version",
+  "version": "0.0.1",
+  "author": "Wojciech Bator",
+  "license": "ISC",
   "main": "main.js",
   "scripts": {
     "start-dev": "node app.js"
   },
   "dependencies": {
     "cottage": "^2.1.1",
-    "koa-static-server": "^1.3.2",
     "mongoose": "^4.11.8",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "next",
+    "react-dom": "next",
     "react-router-dom": "^4.2.0"
   }
 }

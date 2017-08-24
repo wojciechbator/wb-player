@@ -9,7 +9,6 @@ const output = new Speaker({
 });
 
 const streamData = () => {
-    console.log("Streaming data!!!!!!");
     input.pipe(output);
 }
 

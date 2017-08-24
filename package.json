@@ -3,7 +3,7 @@
   "description": "app for recording music on esktop",
   "version": "0.0.1",
   "author": "Wojciech Bator",
-  "license": "PWr",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/wojciechbator/wifi-guitar"
@@ -14,11 +14,15 @@
     "postinstall": "install-app-deps"
   },
   "build": {
-    "appId": "koa-app.id",
-    "category": "public.app-category.developer-tools"
+    "appId": "wifi-guitar.id",
+    "category": "public.recording-app.standalone-app"
   },
   "dependencies": {
-    "electron": "^1.7.5",
+    "electron": "1.7.6",
     "electron-builder": "^19.24.1"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13",
+    "electron-rebuild": "^1.6.0"
   }
 }
