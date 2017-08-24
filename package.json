@@ -1,23 +1,24 @@
 {
   "name": "wifi-guitar",
+  "description": "app for recording music on esktop",
   "version": "0.0.1",
-  "description": "Bachelor's Thesis. This application enables recording sounds that comes from line-in jack interface",
-  "main": "index.js",
-  "scripts": {
-    "start": "electron .",
-    "debug": "DEBUG=* electron ."
-  },
   "author": "Wojciech Bator",
-  "license": "ISC",
-  "dependencies": {
-    "electron": "^1.6.11",
-    "koa": "^2.3.0",
-    "koa-body": "^2.3.0",
-    "koa-router": "^7.2.1",
-    "mongoose": "^4.11.7",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-router-dom": "^4.1.2"
+  "license": "PWr",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wojciechbator/wifi-guitar"
   },
-  "devDependencies": {}
+  "scripts": {
+    "start": "electron app/main.js",
+    "build": "build",
+    "postinstall": "install-app-deps"
+  },
+  "build": {
+    "appId": "koa-app.id",
+    "category": "public.app-category.developer-tools"
+  },
+  "dependencies": {
+    "electron": "^1.7.5",
+    "electron-builder": "^19.24.1"
+  }
 }
