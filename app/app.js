@@ -1,29 +1,15 @@
-const cottage = require('cottage');
-const webpack = require('webpack');
-const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
+const Cottage = require('cottage');
+const Webpack = require('webpack');
+const middleware = require('koa-webpack');
 const { createReadStream } = require('fs');
 const path = require('path');
-const webpackConfig = require('./webpack.config');
+const config = require('./webpack.config');
+console.log("AAAAA");
+const app = new Cottage();
+const compiler = Webpack(config);
 
-const app = cottage();
-const compiler = webpack(webpackConfig);
-
-app.use(devMiddleware(compiler, {
-    noInfo: false,
-    quiet: false,
-    lazy: true,
-    watchOptions: {
-        aggregateTimeout: 300,
-        poll: true
-    },
-    publicPath: path.resolve(__dirname, 'dist'),
-    headers: { 'X-Custom-Header': 'yes' },
-    stats: {
-        colors: true
-    }
-}));
-app.use(hotMiddleware(compiler, {
-
+app.use(middleware({
+    compiler
 }));
 
 app.get('/', async (req, res) => {

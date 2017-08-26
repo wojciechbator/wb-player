@@ -5,8 +5,9 @@ export default class AudioStream {
             window.mozAudioContext ||
             window.oAudioContext ||
             window.msAudioContext);
-        if (contextClass)
+        if (contextClass) {
             const context = new contextClass();
+        }
         else
             throw new Error('Web Audio API is not available, please use supported browser');
 
