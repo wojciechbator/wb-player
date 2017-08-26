@@ -1,4 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import StudioPage from './studio';
+import AudioStream from './audio';
 
-ReactDOM.render(<div>Hello React!</div>, document.getElementById('root'));
+export default class App extends Component {
+    constructor(props) {
+        super(props);
+        const stream = new AudioStream();
+    }
+    render() {
+        return (
+            <StudioPage />
+        );
+    }
+}
+ReactDOM.render(<App />, document.getElementById('root'));
