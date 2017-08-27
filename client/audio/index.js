@@ -1,23 +1,17 @@
+let context = null;
+
 export default class AudioStream {
     constructor() {
-        play();
+        context = window.AudioContext || window.webkitAudioContext;
+        this.getLiveInput();
     }
 
     getLiveInput() {
-        navigator.webkitGetUserMedia({ audio: true }, onStream, onStreamError);
+        navigator.webkitGetUserMedia({ audio: true }, this.onStream, this.onStreamError);
     };
 
-    play() {
-        const contextClass = window.AudioContext;
-        const context = new contextClass();
-        const source = context.createBufferSource();
-        const gain = context.createGain();
-        source.connect(gain);
-        gain.connect(context.destination);
-        source.play(0);
-    }
-
     onStream(stream) {
+        console.log(context);
         const input = context.createMediaStreamSource(stream);
         const filter = context.createBiquadFilter();
         filter.frequency.value = 50.0;
