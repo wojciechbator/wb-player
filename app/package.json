@@ -6,9 +6,12 @@
   "license": "ISC",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "electron": "electron main.js"
   },
   "dependencies": {
+    "electron": "^1.7.5",
+    "electron-builder": "^19.24.1",
     "koa": "^2.3.0",
     "koa-router": "^7.2.1",
     "mongoose": "^4.11.8",
