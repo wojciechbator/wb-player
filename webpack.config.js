@@ -7,7 +7,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-    context: path.resolve('src'),
+    context: path.resolve('client'),
     entry: './index.js',
     output: {
         path: __dirname,

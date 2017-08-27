@@ -18,7 +18,7 @@ if (shouldQuit) app.quit();
     
 const createWindow = () => {
     console.log('createWindow');
-    app.server = require('./app.js');                     // instantiate Koa app
+    app.server = require('./server.js');                     // instantiate Koa app
     win = new BrowserWindow({ width: 1920, height: 1080 }); // create browser window
     win.loadURL('http://localhost:3000');                 // load koa-app home page
     win.on('closed', () => { win = null; });              // dereference window object

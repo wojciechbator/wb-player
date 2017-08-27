@@ -6,8 +6,8 @@
   "license": "ISC",
   "main": "main.js",
   "scripts": {
-    "web": "nodemon app.js",
-    "desktop": "electron main.js"
+    "web": "nodemon server/server.js",
+    "desktop": "electron server/main.js"
   },
   "dependencies": {
     "electron": "^1.7.5",
