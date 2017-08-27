@@ -1,0 +1,10 @@
+//Parts needed for documentation
+
+What is sound?
+
+In terms of physics, sound is a longitudinal wave (sometimes called a pressure wave) that travels through air or another medium. The source of the sound causes molecules in the air to vibrate and collide with one another. This causes regions of high and low pressure, which come together and fall apart in bands. Mathematically, sound can be represented as a function, which ranges over pressure values across the domain of time. High values corresponding to areas with dense particles (high pressure), and low values corresponding to areas with sparse particles (low pressure).
+
+What is digital sound?
+
+We can translate analog signal to something that computer understands by time-sampling the analog signal at some frequency, and encoding the signal at each sample as a number. The rate at which we sample the analog signal is called the sample rate. A common sample rate in many sound applications is 44.1 kHz. This means that there are 44,100 numbers recorded for each second of sound. The numbers
+themselves must fall within some range. There is generally a certain number of bits allocated to each value, which is called the bit depth. For most recorded digital audio, including CDs, the bit depth is 16, which is generally enough for most listeners. Audiophiles prefer 24-bit depth, higher depth sounds the same for all people.
