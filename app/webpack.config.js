@@ -10,9 +10,9 @@ module.exports = {
     context: path.resolve('src'),
     entry: './index.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: __dirname,
         filename: 'bundle.js',
-        publicPath: '/static/'
+        // publicPath: '/static/'
     },
     devtool: '#eval_source_map',
     module: {

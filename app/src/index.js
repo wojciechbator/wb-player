@@ -6,11 +6,14 @@ import AudioStream from './audio';
 export default class App extends Component {
     constructor(props) {
         super(props);
-        const stream = new AudioStream();
+        const audio = new AudioStream();
     }
     render() {
         return (
-            <StudioPage />
+            <div>
+                Welcome, react!
+                <StudioPage />
+            </div>
         );
     }
 }
