@@ -7,12 +7,14 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-    entry: path.resolve(__dirname + "/src/index.js"),
+    context: path.resolve('src'),
+    entry: './index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: path.resolve(__dirname, 'dist'),
-        filename: 'index_bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/static/'
     },
+    devtool: '#eval_source_map',
     module: {
         loaders: [{
             test: /\.js$/,
