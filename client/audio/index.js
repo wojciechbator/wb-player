@@ -1,8 +1,19 @@
-let context = null;
+let context;
+window.addEventListener('load', init, false);
+
+const init = () => {
+    try {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        context = new AudioContext();
+    }
+    catch (e) {
+        alert('Web Audio API is not supported in this browser');
+    }
+}
 
 export default class AudioStream {
     constructor() {
-        context = window.AudioContext || window.webkitAudioContext;
+        init();
         this.getLiveInput();
     }
 
@@ -11,12 +22,10 @@ export default class AudioStream {
     };
 
     onStream(stream) {
-        console.log(context);
         const input = context.createMediaStreamSource(stream);
-        const filter = context.createBiquadFilter();
+        let filter = context.createBiquadFilter();
         filter.frequency.value = 50.0;
-        filter.type = filter.NOTCH;
-        filter.Q = 10.0;
+        filter.Q.value = 10.0;
         const analyser = context.createAnalyser();
         input.connect(filter);
         filter.connect(analyser);
