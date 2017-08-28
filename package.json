@@ -6,7 +6,7 @@
   "license": "ISC",
   "main": "main.js",
   "scripts": {
-    "web": "nodemon server/server.js",
+    "web": "nodemon server/server.js --ignore client",
     "desktop": "electron server/main.js"
   },
   "dependencies": {
@@ -24,7 +24,9 @@
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
     "html-webpack-plugin": "^2.30.1",
+    "koa-webpack-middleware": "^1.0.7",
     "nodemon": "^1.11.0",
     "webpack": "^3.5.5",
     "webpack-koa2-middleware": "^2.1.0"

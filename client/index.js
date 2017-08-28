@@ -6,6 +6,9 @@ import AudioStream from './audio';
 export default class App extends Component {
     constructor(props) {
         super(props);
+        if (module.hot) {
+            module.hot.accept()
+        }
         const audio = new AudioStream();
     }
     render() {

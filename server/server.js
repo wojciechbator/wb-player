@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const router = require('koa-router')();
 const Webpack = require('webpack');
-const middleware = require('webpack-koa2-middleware');
+const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
 const { createReadStream } = require('fs');
 const path = require('path');
 const config = require('../webpack.config');
@@ -13,8 +13,15 @@ router.get('/', async (req, res) => {
     res.body = await createReadStream(path.resolve(__dirname, '..', 'client', 'index.html'));
 });
 
-app.use(middleware(compiler));
+app.use(devMiddleware(compiler, {
+    headers: { 'X-Custom-Header': 'yes' },
+    stats: {
+        colors: true
+    }
+}));
+app.use(hotMiddleware(compiler, {}));
+
 app.use(router.routes())
-.use(router.allowedMethods());
+    .use(router.allowedMethods());
 
 app.listen(3000);                      // note: don't use "if (!module.parent)"!
