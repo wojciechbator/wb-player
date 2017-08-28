@@ -18,20 +18,20 @@ export default class AudioStream {
     }
 
     getLiveInput() {
-        navigator.webkitGetUserMedia({ audio: true }, this.onStream, this.onStreamError);
+        if (navigator.mediaDevices) {
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(stream => {
+                const input = context.createMediaStreamSource(stream);
+                let filter = context.createBiquadFilter();
+                filter.frequency.value = 50.0;
+                filter.Q.value = 10.0;
+                const analyser = context.createAnalyser();
+                input.connect(filter);
+                filter.connect(analyser);
+                analyser.connect(context.destination);
+            }).catch(error => { throw new Error(error) });
+        }
+        else {
+            throw new Error('getUserMedia is not supported in this browser');
+        }
     };
-
-    onStream(stream) {
-        const input = context.createMediaStreamSource(stream);
-        let filter = context.createBiquadFilter();
-        filter.frequency.value = 50.0;
-        filter.Q.value = 10.0;
-        const analyser = context.createAnalyser();
-        input.connect(filter);
-        filter.connect(analyser);
-    }
-
-    onStreamError(error) {
-        throw new Error(error);
-    }
 }
