@@ -45,11 +45,17 @@ export default class AcquireAudio extends Component {
                     this.clear();
                 }
             }
-            
+
         return (
             <div>
                 <audio id='player' controls></audio>
             </div>
         )
     }
+}
+
+AcquireAudio.defaultProps = {
+    audioBitsPerSecond: 128000,
+    mimeType: 'audio/webm;codecs=opus',
+    record: false
 }

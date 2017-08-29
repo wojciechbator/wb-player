@@ -2,7 +2,7 @@ import Context from './Context';
 
 let audioSource;
 
-export default Player = {
+const Player = {
     create(audioElement) {
         const context = Context.getContext();
         const analyser = Context.getAnalyser();
@@ -16,3 +16,5 @@ export default Player = {
         analyser.connect(context.destination);
     }
 }
+
+export default Player;

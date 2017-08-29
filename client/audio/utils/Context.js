@@ -1,7 +1,7 @@
 const context = new (window.AudioContext || window.webkitAudioContext)();
 const analyser = context.createAnalyser();
 
-export default Context = {
+const Context = {
 
     getContext() {
         return context;
@@ -16,4 +16,6 @@ export default Context = {
 
         });
     }
-} 
+}
+
+export default Context;
