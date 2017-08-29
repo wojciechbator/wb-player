@@ -48,7 +48,7 @@ export default class AcquireAudio extends Component {
 
         return (
             <div>
-                <audio id='player' controls></audio>
+                <div>Audio Element</div>
             </div>
         )
     }
