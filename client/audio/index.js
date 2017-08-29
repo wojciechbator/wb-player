@@ -1,37 +1,55 @@
-let context;
-window.addEventListener('load', init, false);
+import React, { Component } from 'react';
+import Context from './utils/Context';
+import Player from './utils/Player';
+import Recorder from './utils/Recorder';
 
-const init = () => {
-    try {
-        window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        context = new AudioContext();
-    }
-    catch (e) {
-        alert('Web Audio API is not supported in this browser');
-    }
-}
-
-export default class AudioStream {
-    constructor() {
-        init();
-        this.getLiveInput();
-    }
-
-    getLiveInput() {
-        if (navigator.mediaDevices) {
-            navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(stream => {
-                const input = context.createMediaStreamSource(stream);
-                let filter = context.createBiquadFilter();
-                filter.frequency.value = 50.0;
-                filter.Q.value = 10.0;
-                const analyser = context.createAnalyser();
-                input.connect(filter);
-                filter.connect(analyser);
-                analyser.connect(context.destination);
-            }).catch(error => { throw new Error(error) });
+export default class AcquireAudio extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            analyser: null,
+            recorder: null
         }
-        else {
-            throw new Error('getUserMedia is not supported in this browser');
+    }
+
+    componentDidMount() {
+        const { onStop, onStart, audioElement, audioBitsPerSecond, mimeType } = this.props;
+        const options = {
+            audioBitsPerSecond, mimeType
         }
-    };
+
+        if (audioElement) {
+            const analyser = Context.getAnalyser();
+            Player.create(audioElement);
+            this.setState({
+                analyser
+            });
+        } else {
+            const analyser = Context.getAnalyser();
+            this.setState({
+                analyser, recorder: new Recorder(onStart, onStop, options)
+            });
+        }
+    }
+
+    render() {
+        const { record, onStop } = this.props;
+        const { analyser, recorder } = this.state;
+
+        record ?
+            recorder ?
+                recorder.startRecording() : ''
+            : {
+                if(recorder) {
+                    recorder.stopRecording(onStop);
+                    this.clear();
+                }
+            }
+            
+        return (
+            <div>
+                <audio id='player' controls></audio>
+            </div>
+        )
+    }
 }
