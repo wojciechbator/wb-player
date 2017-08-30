@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import StudioPage from './studio';
-import AcquireAudio from './audio';
+import Audio from './audio';
 
 export default class App extends Component {
     constructor(props) {
@@ -47,12 +47,7 @@ export default class App extends Component {
         return (
             <div>
                 <StudioPage />
-                <AcquireAudio record={this.state.record} audioBitsPerSecond={128000} onStop={this.onStop} onStart={this.onStart} />
-                <audio ref='audioSource' controls src={this.state.blobObject}></audio>
-                <br />
-                <br />
-                <button disabled={this.state.isRecording} onClick={this.startRecording}>Nagrywaj</button>
-                <button disabled={!this.state.isRecording} onClick={this.stopRecording}>Koniec</button>
+                <Audio />
             </div>
         );
     }
