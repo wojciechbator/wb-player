@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Dial from '../common/dial';
 
 let BUFF_SIZE_RENDERER = 16384,
     audioInput = null,
@@ -6,13 +7,13 @@ let BUFF_SIZE_RENDERER = 16384,
     gainNode = null,
     scriptProcessorNode = null,
     scriptProcessorAnalysisNode = null,
-    analyserNode = null
+    analyserNode = null;
 
 export default class Audio extends Component {
     constructor(props) {
         super(props);
         const state = {
-            currentVolume: 0
+            currentVolume: 0.5
         }
         this.captureAudio();
     }
@@ -24,7 +25,6 @@ export default class Audio extends Component {
                 navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
         if (navigator.getUserMedia) {
-
             navigator.getUserMedia({ audio: true },
                 (stream) => {
                     this.startInput(audioContext, stream);
@@ -33,7 +33,6 @@ export default class Audio extends Component {
                     alert('Error capturing audio.');
                 }
             );
-
         } else { alert('getUserMedia not supported in this browser.'); }
     }
 
@@ -109,7 +108,8 @@ export default class Audio extends Component {
         return (
             <div>
                 <p>Volume</p>
-                <input id="volume" type="range" min="0" max="1" step="0.1" defaultValue="0.5" />
+                <input id="volume" type="range" min="0" max="1" step="0.01" defaultValue="0.5" />
+                <Dial knobsAmount={8}/>
             </div>
         );
     }

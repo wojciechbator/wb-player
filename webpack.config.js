@@ -32,6 +32,10 @@ module.exports = {
                     }
                 }
             }
+        },
+        {
+            test: /\.css$/,
+            loader: "style-loader!css-loader" // translates CSS into CommonJS
         }]
     },
     plugins: [
