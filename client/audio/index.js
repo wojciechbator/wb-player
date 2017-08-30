@@ -109,7 +109,7 @@ export default class Audio extends Component {
             <div>
                 <p>Volume</p>
                 <input id="volume" type="range" min="0" max="1" step="0.01" defaultValue="0.5" />
-                <Dial knobsAmount={8}/>
+                <Dial angles={[27, 54, 81, 108, 135, 162, 189, 216, 243]} />
             </div>
         );
     }
