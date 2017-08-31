@@ -8,7 +8,7 @@ const Dial = (props) => {
             <span className='min'>Min</span>
             <span className='max'>Max</span>
             <div className='ticks'>
-                {props.angles.map((angle, i) => { return <div key={i} className='tick' style={{ transform: `rotate(${angle})` }}></div> })}
+                {props.angles.map((angle, i) => { return <div key={i} className='tick' style={{ transform: `rotate(${angle}deg)` }}>|</div> })}
             </div>
         </div>
     );

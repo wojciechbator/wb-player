@@ -13,7 +13,8 @@ export default class Audio extends Component {
     constructor(props) {
         super(props);
         const state = {
-            currentVolume: 0.5
+            currentVolume: 0.5,
+            knobAngles: [-135, -108, -81, -54, -27, 0, 27, 54, 81, 108, 135]
         }
         this.captureAudio();
     }
@@ -84,19 +85,16 @@ export default class Audio extends Component {
     }
 
     showSomeData(givenTypedArray, numRowToDisplay, label) {
-
         const sizeBuffer = givenTypedArray.length;
         let index = 0;
         // console.log("__________ " + label);
         if (label === "time") {
             for (; index < numRowToDisplay && index < sizeBuffer; index += 1) {
-
                 let currValueTime = (givenTypedArray[index] / 128) - 1.0;
                 // console.log(currValueTime);
             }
         } else if (label === "frequency") {
             for (; index < numRowToDisplay && index < sizeBuffer; index += 1) {
-
                 // console.log(givenTypedArray[index]);
             }
         } else {
@@ -109,7 +107,7 @@ export default class Audio extends Component {
             <div>
                 <p>Volume</p>
                 <input id="volume" type="range" min="0" max="1" step="0.01" defaultValue="0.5" />
-                <Dial angles={[27, 54, 81, 108, 135, 162, 189, 216, 243]} />
+                <Dial angles={this.state.knobAngles} />
             </div>
         );
     }
