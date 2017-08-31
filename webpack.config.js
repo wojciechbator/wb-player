@@ -34,8 +34,8 @@ module.exports = {
             }
         },
         {
-            test: /\.css$/,
-            loader: "style-loader!css-loader" // translates CSS into CommonJS
+            test: /\.scss$/,
+            loader: "style-loader!css-loader!sass-loader"
         }]
     },
     plugins: [

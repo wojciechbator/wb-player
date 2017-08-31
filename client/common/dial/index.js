@@ -1,16 +1,14 @@
 import React from 'react';
-import './dial.css';
+import './dial.scss';
 
 const Dial = (props) => {
     return (
-        <div className='knob-surround'>
-            <div className='knob'></div>
-            <span className='min'>Min</span>
-            <span className='max'>Max</span>
-            <div className='ticks'>
-                {props.angles.map((angle, i) => { return <div key={i} className='tick' style={{ transform: `rotate(${angle}deg)` }}>|</div> })}
-            </div>
-        </div>
+        <ul className='circle-container'>
+            {props.angles.map((angle, i) => {
+                <li><div className='circle-element'>{i}</div></li>
+            })
+            }
+        </ul>
     );
 }
 export default Dial;

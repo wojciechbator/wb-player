@@ -13,8 +13,7 @@ export default class Audio extends Component {
     constructor(props) {
         super(props);
         const state = {
-            currentVolume: 0.5,
-            knobAngles: [-135, -108, -81, -54, -27, 0, 27, 54, 81, 108, 135]
+            currentVolume: 0.5
         }
         this.captureAudio();
     }
@@ -103,11 +102,13 @@ export default class Audio extends Component {
     }
 
     render() {
+
+        let knobAngles = [-55, -34, -13, 8, 29, 50, 71, 92, 113, 134, 155];
         return (
             <div>
                 <p>Volume</p>
                 <input id="volume" type="range" min="0" max="1" step="0.01" defaultValue="0.5" />
-                <Dial angles={this.state.knobAngles} />
+                <Dial angles={knobAngles} />
             </div>
         );
     }
