@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dial from '../common/dial';
+import AudioKnob from '../common/audioKnob';
 
 let BUFF_SIZE_RENDERER = 16384,
     audioInput = null,
@@ -102,13 +102,11 @@ export default class Audio extends Component {
     }
 
     render() {
-
-        let knobAngles = [-55, -34, -13, 8, 29, 50, 71, 92, 113, 134, 155];
         return (
             <div>
                 <p>Volume</p>
                 <input id="volume" type="range" min="0" max="1" step="0.01" defaultValue="0.5" />
-                <Dial angles={knobAngles} />
+                <AudioKnob />
             </div>
         );
     }

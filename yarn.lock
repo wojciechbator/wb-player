@@ -4072,7 +4072,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.4, prop-types@^15.5.6:
+prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.9:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -4163,6 +4163,12 @@ rc@^1.0.1, rc@^1.1.2, rc@^1.1.6, rc@^1.1.7, rc@^1.2.1:
 react-deep-force-update@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.1.1.tgz#bcd31478027b64b3339f108921ab520b4313dc2c"
+
+react-dial@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-dial/-/react-dial-1.0.3.tgz#4900495501ba590949bcb208eb6afa4c8f339822"
+  dependencies:
+    prop-types "^15.5.9"
 
 react-dom@next:
   version "16.0.0-beta.5"
