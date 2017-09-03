@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AudioKnob from '../common/audioKnob';
 
 let BUFF_SIZE_RENDERER = 16384,
     audioInput = null,
@@ -106,7 +105,6 @@ export default class Audio extends Component {
             <div>
                 <p>Volume</p>
                 <input id="volume" type="range" min="0" max="1" step="0.01" defaultValue="0.5" />
-                <AudioKnob />
             </div>
         );
     }

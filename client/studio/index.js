@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import NodePanel from '../common/nodePanel';
 
 export default class StudioPage extends Component {
     render() {
         return (
             <div>
-                Here will be studio site
+                <NodePanel />
             </div>
         );
     }

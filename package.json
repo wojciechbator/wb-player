@@ -10,13 +10,14 @@
     "desktop": "electron server/main.js"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "electron": "^1.7.5",
     "electron-builder": "^19.24.1",
     "koa": "^2.3.0",
     "koa-router": "^7.2.1",
     "mongoose": "^4.11.8",
+    "primereact": "^1.0.0-rc.1",
     "react": "next",
-    "react-dial": "^1.0.3",
     "react-dom": "next",
     "react-router-dom": "^4.2.0"
   },
