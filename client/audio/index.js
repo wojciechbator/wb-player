@@ -33,6 +33,7 @@ export default class Audio extends Component {
                 }
             );
         } else { alert('getUserMedia not supported in this browser.'); }
+        console.log(audioContext);
     }
 
     startInput(audioContext, stream) {

@@ -24,6 +24,8 @@ const createWindow = () => {
     win.on('closed', () => { win = null; });              // dereference window object
 }
 
+app.commandLine.appendSwitch('--use-fake-ui-for-media-stream');
+
 app.on('ready', createWindow); // create window after Electron initialisation complete
 
 app.on('window-all-closed', () => {               // quit when all windows are closed
