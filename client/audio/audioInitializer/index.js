@@ -13,8 +13,6 @@ class AudioInitializer extends Component {
     }
 
     componentDidMount() {
-        console.log('STUDIO PAGE CDM!');
-        this.props.dispatch(initializeAudioContext(new AudioContext()));
         this.setState({ audioContext: this.props.audioContext });
     }    
 

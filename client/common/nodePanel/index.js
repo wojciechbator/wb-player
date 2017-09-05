@@ -18,7 +18,7 @@ export default class NodePanel extends Component {
     render() {
         return (
             <Fieldset legend={this.state.type}>
-            <Slider orientation='vertical' animate value={this.state.volume} onChange={this.onVolumeChange} />
+                <Slider orientation='vertical' animate value={this.state.volume} onChange={this.onVolumeChange} />
             </Fieldset>
         );
     }

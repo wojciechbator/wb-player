@@ -9,6 +9,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import StudioPage from './studio';
 import Audio from './audio';
 import { reducers } from './reducers';
+import { initializeAudioContext } from './audio/audioInitializer/actions';
 
 const store = createStore(reducers, compose(
     applyMiddleware(thunk),
@@ -23,6 +24,10 @@ export default class App extends Component {
         if (module.hot) {
             module.hot.accept();
         }
+    }
+
+    componentDidMount() {
+        store.dispatch(initializeAudioContext(new AudioContext()));
     }
     
     render() {
