@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import ReactDOM from 'react-dom';
+import { Router, browserHistory } from 'react-router';
+import { Route } from 'react-router-dom';
+import thunk from 'redux-thunk';
+import { syncHistoryWithStore, routerMiddleware, routerReducer } from 'react-router-redux';
+// import browserHistory from 'history/createBrowserHistory';
+
 import StudioPage from './studio';
 import Audio from './audio';
+
+const store = createStore(
+    combineReducers({
+        routing: routerReducer
+    }),
+    applyMiddleware(thunk, routerMiddleware)
+);
+const history = syncHistoryWithStore(browserHistory, store);
 
 export default class App extends Component {
     constructor(props) {
@@ -9,47 +25,18 @@ export default class App extends Component {
         if (module.hot) {
             module.hot.accept()
         }
-
-        this.state = {
-            record: false,
-            blobObject: null,
-            isRecording: false
-        }
-        this.startRecording = this.startRecording.bind(this);
-        this.stopRecording = this.stopRecording.bind(this);
     }
-
-    startRecording() {
-        this.setState({
-            record: true,
-            isRecording: true
-        })
-    }
-
-    stopRecording() {
-        this.setState({
-            record: false,
-            isRecording: false
-        })
-    }
-
-    onStart() {
-        console.log("onStart method invoke");
-    }
-
-    onStop(blobObject) {
-        this.setState({
-            blobURL: blobObject.blobURL
-        });
-    }
-
+    
     render() {
         return (
-            <div>
-                <StudioPage />
-                <Audio />
-            </div>
+            <StudioPage />
         );
     }
 }
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}>
+    <Router history={history}>
+        <Route path='/' component={App} />
+        <Route path='/audio' component={Audio} />
+    </Router>
+    </Provider>, 
+    document.getElementById('root'));
