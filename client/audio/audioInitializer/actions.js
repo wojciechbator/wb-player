@@ -1,8 +1,8 @@
-const AUDIO_CONTEXT_INIT = 'AUDIO_CONTEXT_INIT';
+import { AUDIO_CONTEXT_INIT } from './types';
 
-export const initializeAudioContext = () => {
+export const initializeAudioContext = (audioContext) => {
     return {
         type: AUDIO_CONTEXT_INIT,
-        audioContext: new AudioContext()
+        audioContext
     }
 }

@@ -1,4 +1,4 @@
-import { AUDIO_CONTEXT_INIT } from '../audio/audioInitializer/actions';
+import { AUDIO_CONTEXT_INIT } from '../audio/audioInitializer/types';
 
 const audioInitializer = (state = {}, action) => {
     switch (action.type) {

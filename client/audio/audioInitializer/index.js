@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class CaptureInput extends Component {
+import { initializeAudioContext } from './actions';
+
+class AudioInitializer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -9,7 +13,22 @@ export default class CaptureInput extends Component {
     }
 
     componentDidMount() {
-            
+        console.log('STUDIO PAGE CDM!');
+        this.props.dispatch(initializeAudioContext(new AudioContext()));
+        this.setState({ audioContext: this.props.audioContext });
+    }    
+
+    render() {
+        return (
+            <div>A</div>
+        );
     }
-    
 }
+
+const mapStateToProps = (store) => {
+    return {
+        audioContext: store.audioInitializer.audioContext
+    }
+}
+
+export default connect(mapStateToProps)(AudioInitializer);
