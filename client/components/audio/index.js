@@ -20,7 +20,6 @@ class Audio extends Component {
     }  
 
     captureAudio(audioContext) {
-        console.log(audioContext);
         if (!navigator.getUserMedia)
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
                 navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -118,7 +117,7 @@ Audio.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        audioContext: state.audioInitializer.audioContext
+        audioContext: state.audio.audioContext
     }
 }
 

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import audioInitializer from './audioInitializer';
+import audioReducer from './audioReducer';
 
 export const reducers = combineReducers({
-    audioInitializer,
+    audio: audioReducer,
     routing: routerReducer
 });
