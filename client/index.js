@@ -9,6 +9,9 @@ import Audio from './components/audio';
 import store from './redux/store';
 import audioInitializer from './utils/audioInitializer';
 
+import 'primereact/resources/themes/omega/theme.css';
+import 'primereact/resources/primereact.min.css';
+
 const history = syncHistoryWithStore(browserHistory, store);
 
 export default class App extends Component {

@@ -26,7 +26,7 @@ class GainNode extends Component {
     render() {
         return (
             <div>
-                <NodePanel type="gain" volume={this.state.volume} onVolumeChange={this.onVolumeChange} />
+                <NodePanel type='GAIN' volume={this.state.volume} onVolumeChange={this.onVolumeChange} />
             </div>
         )
     }
