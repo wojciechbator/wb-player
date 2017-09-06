@@ -1,4 +1,4 @@
-import { AUDIO_CONTEXT_INIT } from '../audio/audioInitializer/types';
+import { AUDIO_CONTEXT_INIT } from '../types';
 
 const initialState = {
     audioContext: null

@@ -7,9 +7,7 @@
   "main": "main.js",
   "scripts": {
     "web": "nodemon server/server.js --ignore client",
-    "desktop": "electron server/main.js",
-    "test": "jest",
-    "testw": "jest --watch"
+    "desktop": "electron server/main.js"
   },
   "dependencies": {
     "classnames": "^2.2.5",

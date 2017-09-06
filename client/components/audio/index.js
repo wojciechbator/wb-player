@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 let BUFF_SIZE_RENDERER = 16384,
     audioInput = null,
@@ -8,17 +10,17 @@ let BUFF_SIZE_RENDERER = 16384,
     scriptProcessorAnalysisNode = null,
     analyserNode = null;
 
-export default class Audio extends Component {
+class Audio extends Component {
     constructor(props) {
         super(props);
-        const state = {
+        this.state = {
             currentVolume: 0.5
         }
-        this.captureAudio();
-    }
+        this.captureAudio(this.props.audioContext);
+    }  
 
-    captureAudio() {
-        const audioContext = new AudioContext();
+    captureAudio(audioContext) {
+        console.log(audioContext);
         if (!navigator.getUserMedia)
             navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
                 navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -33,7 +35,6 @@ export default class Audio extends Component {
                 }
             );
         } else { alert('getUserMedia not supported in this browser.'); }
-        console.log(audioContext);
     }
 
     startInput(audioContext, stream) {
@@ -110,3 +111,15 @@ export default class Audio extends Component {
         );
     }
 }
+
+Audio.propTypes = {
+    audioContext: PropTypes.object
+}
+
+const mapStateToProps = (state) => {
+    return {
+        audioContext: state.audioInitializer.audioContext
+    }
+}
+
+export default connect(mapStateToProps)(Audio);

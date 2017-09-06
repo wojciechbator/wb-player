@@ -1,21 +1,14 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch, browserHistory } from 'react-router';
-import thunk from 'redux-thunk';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-import StudioPage from './studio';
-import Audio from './audio';
-import { reducers } from './reducers';
-import { initializeAudioContext } from './audio/audioInitializer/actions';
+import StudioPage from './components/studio';
+import Audio from './components/audio';
+import store from './redux/store';
+import audioInitializer from './utils/audioInitializer';
 
-const store = createStore(reducers, compose(
-    applyMiddleware(thunk),
-    // Only for web, electron doesn't work with this
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-));
 const history = syncHistoryWithStore(browserHistory, store);
 
 export default class App extends Component {
@@ -24,10 +17,7 @@ export default class App extends Component {
         if (module.hot) {
             module.hot.accept();
         }
-    }
-
-    componentDidMount() {
-        store.dispatch(initializeAudioContext(new AudioContext()));
+        audioInitializer(store);
     }
     
     render() {
