@@ -15,7 +15,7 @@ class GainNode extends Component {
     }
 
     componentDidMount() {
-        const gainNode = this.props.audio.audioContext.createGain();
+        const gainNode = this.props.audioContext.createGain();
         this.props.dispatch(storeGainNodeValues(gainNode));
     }
 
@@ -33,7 +33,10 @@ class GainNode extends Component {
 }
 
 const mapStateToProps = (store) => {
-    volume: store.audio.gainNode.volume
+    return {
+        volume: store.audio.gainNode.volume,
+        audioContext: store.audio.audioContext
+    }
 }
 
 export default connect(mapStateToProps)(GainNode);

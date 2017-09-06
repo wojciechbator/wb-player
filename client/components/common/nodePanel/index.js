@@ -7,3 +7,5 @@ const NodePanel = (props) => (
         <Slider orientation='vertical' animate value={props.volume} onChange={props.onVolumeChange} />
     </Fieldset>
 );
+
+export default NodePanel;
