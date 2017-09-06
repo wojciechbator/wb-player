@@ -1,7 +1,11 @@
 import { AUDIO_CONTEXT_INIT, GAIN_NODE_VALUES, FILTER_NODE_VALUES } from '../types/audioTypes';
 
 const initialState = {
-    audioContext: null
+    audioContext: null,
+    gainNode: {
+        volume: 0
+    },
+    filterNode: null
 }
 
 const audioReducer = (state = initialState, action) => {

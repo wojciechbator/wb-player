@@ -112,7 +112,7 @@ class Audio extends Component {
 }
 
 Audio.propTypes = {
-    audioContext: PropTypes.object
+    audioContext: PropTypes.object,
 }
 
 const mapStateToProps = (state) => {

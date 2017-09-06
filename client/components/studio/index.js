@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import NodePanel from '../common/nodePanel';
+import GainNode from '../audio/gain';
 
 export default class StudioPage extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class StudioPage extends Component {
         return (
             <div>
                 <Link to='/audio'>Audio</Link>
-                <NodePanel />
+                <GainNode />
             </div>
         );
     }
