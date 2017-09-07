@@ -7,7 +7,7 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import StudioPage from './components/studio';
 import Audio from './components/audio';
 import store from './redux/store';
-import audioInitializer from './utils/audioInitializer';
+import { audioInitializer } from './utils/audioInitializer';
 
 import 'primereact/resources/themes/omega/theme.css';
 import 'primereact/resources/primereact.min.css';

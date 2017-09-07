@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Slider } from 'primereact/components/slider/Slider';
 
-const NodePanel = (props) => (
+const Gain = (props) => (
     <Fieldset legend={props.type}>
-        <Slider orientation='vertical' animate value={props.volume} onChange={props.onVolumeChange} />
+        <h3>Volume: {props.volume}</h3>
+        <Slider orientation='vertical' animate={true} value={props.volume} onChange={props.onVolumeChange} />
     </Fieldset>
 );
 
-export default NodePanel;
+export default Gain;

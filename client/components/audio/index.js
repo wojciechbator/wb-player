@@ -41,32 +41,6 @@ class Audio extends Component {
         gainNode.connect(audioContext.destination);
         inputStream = audioContext.createMediaStreamSource(stream);
         inputStream.connect(gainNode);
-        scriptProcessorNode = audioContext.createScriptProcessor(BUFF_SIZE_RENDERER, 1, 1);
-        scriptProcessorNode.onaudioprocess = this.processInputBuffer;
-        inputStream.connect(scriptProcessorNode);
-        scriptProcessorAnalysisNode = audioContext.createScriptProcessor(2048, 1, 1);
-        scriptProcessorAnalysisNode.connect(gainNode);
-        analyserNode = audioContext.createAnalyser();
-        analyserNode.smoothingTimeConstant = 0;
-        analyserNode.fftSize = 2048;
-        inputStream.connect(analyserNode);
-        analyserNode.connect(scriptProcessorAnalysisNode);
-        const bufferLength = analyserNode.frequencyBinCount;
-        const arrayFreqDomain = new Uint8Array(bufferLength);
-        const arrayTimeDomain = new Uint8Array(bufferLength);
-
-
-        scriptProcessorAnalysisNode.onaudioprocess = () => {
-
-            analyserNode.getByteFrequencyData(arrayFreqDomain);
-            analyserNode.getByteTimeDomainData(arrayTimeDomain);
-
-            if (inputStream.playbackState == inputStream.PLAYING_STATE) {
-
-                this.showSomeData(arrayFreqDomain, 5, "frequency");
-                this.showSomeData(arrayTimeDomain, 5, "time");
-            }
-        };
         this.changeVolume();
     }
 
