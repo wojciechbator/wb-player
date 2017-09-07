@@ -29,6 +29,7 @@ export default class App extends Component {
         );
     }
 }
+
 ReactDOM.render(<Provider store={store}>
         <Router history={history}>
             <Route path='/' component={App} />

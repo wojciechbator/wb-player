@@ -6,6 +6,8 @@ import Gain from './presentation';
 import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
 
+let gainNode = null;
+
 class GainNode extends Component {
     constructor(props) { 
         super(props);
@@ -17,7 +19,8 @@ class GainNode extends Component {
     }
     
     componentDidMount() {
-        const gainNode = this.props.audioContext.createGain();
+        gainNode = this.props.audioContext.createGain();
+        gainNode.gain.value = this.state.volume / 100;
         this.props.gainValuesCreator(gainNode);
         this.props.addNodeCreator(gainNode);
         audioChain(this.props.currentChain[this.props.currentChain.indexOf(gainNode) - 1], gainNode, this.props.currentChain[this.props.currentChain.indexOf(gainNode) + 1], true, true, this.props.audioContext);
@@ -25,6 +28,8 @@ class GainNode extends Component {
     
     onVolumeChange(event) {
         this.setState({ volume: event.value });
+        gainNode.gain.value = this.state.volume / 100;
+        this.props.gainValuesCreator(gainNode);
     }
     
     render() {

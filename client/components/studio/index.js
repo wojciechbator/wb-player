@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 
 import GainNode from '../audio/gain';
 
@@ -11,7 +10,6 @@ export default class StudioPage extends Component {
     render() {
         return (
             <div>
-                <Link to='/audio'>Audio</Link>
                 <GainNode />
             </div>
         );
