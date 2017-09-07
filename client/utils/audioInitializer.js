@@ -1,12 +1,13 @@
+import store from '../redux/store';
 import { initializeAudioContext, storeInputStream } from '../redux/actions/audioActions';
 
-export const audioInitializer = (store) => {
+export const audioInitializer = () => {
     const audioContext = new AudioContext();
     store.dispatch(initializeAudioContext(audioContext));
-    captureAudio(store, audioContext);
+    captureAudio(audioContext);
 }
 
-export const captureAudio = (store, audioContext) => {
+export const captureAudio = (audioContext) => {
     if (!navigator.getUserMedia)
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
     navigator.mozGetUserMedia || navigator.msGetUserMedia;

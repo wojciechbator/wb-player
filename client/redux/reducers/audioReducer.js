@@ -29,11 +29,11 @@ const audioReducer = (state = initialState, action) => {
             });
         case ADD_NODE:
             return Object.assign({}, state, {
-                currentChain: action.currentChain.concat(action.node)
+                currentChain: state.currentChain.concat(action.node)
             });
         case REMOVE_NODE:
             return Object.assign({}, state, {
-                currentChain: action.currentChain.splice(action.currentChain.indexOf(action.node), 1)
+                currentChain: state.currentChain.splice(action.currentChain.indexOf(action.node), 1)
             });
         default:
             return state;

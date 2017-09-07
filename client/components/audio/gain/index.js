@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Gain from './presentation';
-import { storeGainNodeValues } from '../../../redux/actions/audioActions';
+import { storeGainNodeValues, addNodeToChain } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
 
 class GainNode extends Component {
@@ -22,9 +22,9 @@ class GainNode extends Component {
 
     setNodeInChain() {
         const gainNode = this.props.audioContext.createGain();
-        // Await inputStream somehow!
-        audioChain(this.props.inputStream, null, gainNode, null, true, true, this.props.audioContext);
         this.props.dispatch(storeGainNodeValues(gainNode));
+        this.props.dispatch(addNodeToChain(gainNode));
+        this.props.inputStream && audioChain(this.props.inputStream, this.props.currentChain[this.props.currentChain.indexOf(gainNode) - 1], gainNode, this.props.currentChain[this.props.currentChain.indexOf(gainNode) + 1], true, true, this.props.audioContext);
     }
     
     onVolumeChange(event) {
@@ -44,7 +44,8 @@ const mapStateToProps = (store) => {
     return {
         volume: store.audio.gainNode.volume,
         audioContext: store.audio.audioContext,
-        inputStream: store.audio.inputStream
+        inputStream: store.audio.inputStream,
+        currentChain: store.audio.currentChain
     }
 }
 
