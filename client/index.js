@@ -6,6 +6,8 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 import StudioPage from './components/studio';
 import Audio from './components/audio';
+import Header from './components/header';
+import Footer from './components/footer';
 import store from './redux/store';
 import { audioInitializer } from './utils/audioInitializer';
 
@@ -25,7 +27,11 @@ export default class App extends Component {
     
     render() {
         return (
-            <StudioPage />
+            <div>
+                <Header />
+                <StudioPage />
+                <Footer />
+            </div>
         );
     }
 }

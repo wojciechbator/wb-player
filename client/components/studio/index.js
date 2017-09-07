@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import GainNode from '../audio/gain';
+import PresetsContainer from '../presets';
+import './studio.css';
 
 export default class StudioPage extends Component {
     constructor(props) {
@@ -9,7 +11,8 @@ export default class StudioPage extends Component {
       
     render() {
         return (
-            <div>
+            <div className="studio-container">
+                <PresetsContainer />
                 <GainNode />
             </div>
         );
