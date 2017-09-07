@@ -11,20 +11,16 @@ class GainNode extends Component {
         this.state = {
             volume: 50
         }
-
+        
         this.onVolumeChange = this.onVolumeChange.bind(this);
         this.setNodeInChain = this.setNodeInChain.bind(this);
     }
     
     componentDidMount() {
-        this.setNodeInChain();
-    }
-
-    setNodeInChain() {
         const gainNode = this.props.audioContext.createGain();
         this.props.dispatch(storeGainNodeValues(gainNode));
         this.props.dispatch(addNodeToChain(gainNode));
-        this.props.inputStream && audioChain(this.props.inputStream, this.props.currentChain[this.props.currentChain.indexOf(gainNode) - 1], gainNode, this.props.currentChain[this.props.currentChain.indexOf(gainNode) + 1], true, true, this.props.audioContext);
+        audioChain(this.props.currentChain[this.props.currentChain.indexOf(gainNode) - 1], gainNode, this.props.currentChain[this.props.currentChain.indexOf(gainNode) + 1], true, true, this.props.audioContext);
     }
     
     onVolumeChange(event) {

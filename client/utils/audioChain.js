@@ -1,12 +1,9 @@
-const audioChain = (inputStream, previousNode, currentNode, nextNode, isFirst, isLast, audioContext) => {
-    if (isFirst) {
-        inputStream.connect(currentNode);
-    } else if (isLast) {
-        currentNode.connect(audioContext.destination);
-    } else {
-        previousNode.connect(currentNode);
-        currentNode.connect(nextNode);
-    }
+import { captureAudio } from './audioInitializer';
+
+async function audioChain(previousNode, currentNode, nextNode, isFirst, isLast, audioContext) {
+    const inputStream = await captureAudio(audioContext);
+    inputStream.connect(currentNode);
+    currentNode.connect(audioContext.destination);
 }
 
 export default audioChain;
