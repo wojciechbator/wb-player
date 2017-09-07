@@ -13,7 +13,6 @@ class GainNode extends Component {
         }
         
         this.onVolumeChange = this.onVolumeChange.bind(this);
-        this.setNodeInChain = this.setNodeInChain.bind(this);
     }
     
     componentDidMount() {
