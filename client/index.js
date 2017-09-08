@@ -12,6 +12,7 @@ import store from './redux/store';
 import { audioInitializer } from './utils/audioInitializer';
 
 import './main.css';
+import './assets/images/icon.png';
 import 'primereact/resources/themes/omega/theme.css';
 import 'primereact/resources/primereact.min.css';
 
