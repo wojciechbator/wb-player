@@ -17,7 +17,7 @@ class GainNode extends Component {
         
         this.onVolumeChange = this.onVolumeChange.bind(this);
     }
-    
+
     componentDidMount() {
         gainNode = this.props.audioContext.createGain();
         gainNode.gain.value = this.state.volume / 100;

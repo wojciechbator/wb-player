@@ -1,3 +1,11 @@
 .header {
     top: 0;
+    background-color: black;
+    color: #cacbc7;
+    padding: 10px 10px;
+}
+
+.logo {
+    -webkit-user-drag: none;    
+    user-select: none;
 }

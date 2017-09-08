@@ -11,6 +11,7 @@ import Footer from './components/footer';
 import store from './redux/store';
 import { audioInitializer } from './utils/audioInitializer';
 
+import './main.css';
 import 'primereact/resources/themes/omega/theme.css';
 import 'primereact/resources/primereact.min.css';
 
