@@ -1,4 +1,8 @@
 .footer {
     bottom: 0;
-    background-blend-mode: darken;
+    background-color: black;
+    color: #cacbc7;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
 }
