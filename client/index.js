@@ -13,7 +13,8 @@ import { audioInitializer } from './utils/audioInitializer';
 
 import './main.css';
 import './assets/images/icon.png';
-import 'primereact/resources/themes/omega/theme.css';
+import 'font-awesome/css/font-awesome.min.css';
+import 'primereact/resources/themes/trontastic/theme.css';
 import 'primereact/resources/primereact.min.css';
 
 const history = syncHistoryWithStore(browserHistory, store);

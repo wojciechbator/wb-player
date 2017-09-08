@@ -21,8 +21,7 @@ class PresetsContainer extends Component {
 
         return (
             <div className="ui-helper-clearfix">
-                <div style={{ display: 'inline-block', margin: '2px 0 2px 2px' }}>Obrazek</div>
-                <div style={{ fontSize: '14px', float: 'right', margin: '15px 5px 0 0' }}>{car.brand} - {car.year} - {car.color}</div>
+                <div>A - B - C</div>
             </div>
         );
     }
@@ -30,7 +29,7 @@ class PresetsContainer extends Component {
     render() {
         return (
             <div>
-                {/* <Presets presets={Presets} itemTemplate={this.presetsTemplate} /> */}
+                <Presets presets={presets} itemTemplate={this.presetsTemplate} />
             </div>
         )
     }
