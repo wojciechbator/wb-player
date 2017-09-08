@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import GainNode from '../audio/gain';
+import AudioChain from '../audio';
 import PresetsContainer from '../presets';
 import './studio.css';
 
@@ -13,7 +13,7 @@ export default class StudioPage extends Component {
         return (
             <div className="studio-container">
                 <PresetsContainer />
-                <GainNode />
+                <AudioChain />
             </div>
         );
     }

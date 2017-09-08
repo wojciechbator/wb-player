@@ -30,9 +30,11 @@ export default class App extends Component {
     
     render() {
         return (
-            <div>
+            <div className='main-wrapper'>
                 <Header />
-                <StudioPage />
+                <div className='body-wrapper'>
+                    <StudioPage />
+                </div>
                 <Footer />
             </div>
         );
@@ -40,9 +42,9 @@ export default class App extends Component {
 }
 
 ReactDOM.render(<Provider store={store}>
-        <Router history={history}>
-            <Route path='/' component={App} />
-            <Route path='/audio' component={Audio} />
-        </Router>
+    <Router history={history}>
+    <Route path='/' component={App} />
+    <Route path='/audio' component={Audio} />
+    </Router>
     </Provider>, 
     document.getElementById('root'));

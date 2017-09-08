@@ -12,25 +12,23 @@ class PresetsContainer extends Component {
         this.state = {
             presets: []
         }
-
+        
         this.presetsTemplate = this.presetsTemplate.bind(this);
     }
-
+    
     presetsTemplate(preset) {
         if (!preset) return;
-
+        
         return (
             <div className="ui-helper-clearfix">
                 <div>A - B - C</div>
             </div>
         );
     }
-
+    
     render() {
         return (
-            <div>
-                <Presets presets={presets} itemTemplate={this.presetsTemplate} />
-            </div>
+            <Presets presets={presets} itemTemplate={this.presetsTemplate} />
         )
     }
 }
@@ -39,7 +37,7 @@ const mapStateToProps = (store) => {
     return {
         
     }
-
+    
 }
 
 export default connect(mapStateToProps)(PresetsContainer);
