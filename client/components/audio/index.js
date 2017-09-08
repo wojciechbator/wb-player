@@ -10,6 +10,8 @@ export default class AudioChain extends Component {
         return (
             <div className='audio-chain'>
                 <GainNode />
+                <GainNode />
+                <GainNode />
             </div>
         );
     }
