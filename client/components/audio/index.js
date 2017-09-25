@@ -1,18 +1,44 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Observable } from 'rxjs/Rx';
 import GainNode from './gain';
-
+import audioChain from '../../utils/audioChain';
 import './audio.css';
 
-export default class AudioChain extends Component {
+class AudioChain extends Component {
+    componentDidMount() {
+        Observable.of(this.props.currentChain)
+        .subscribe(
+            next => console.log(next),
+            error => console.log(error),
+            complete => console.log(complete)
+        );
+    }
+
     render() {
         return (
             <div className='audio-chain'>
-                <GainNode />
-                <GainNode />
-                <GainNode />
+                <GainNode 
+                    currentChain={this.props.currentChain} 
+                    inputStream={this.props.inputStream}
+                    audioContext={this.props.audioContext} />
+                <GainNode 
+                    currentChain={this.props.currentChain} 
+                    inputStream={this.props.inputStream}
+                    audioContext={this.props.audioContext} />
             </div>
         );
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+        audioContext: store.audio.audioContext,
+        inputStream: store.audio.inputStream,
+        currentChain: store.audio.currentChain
+    }
+}
+
+export default connect(mapStateToProps)(AudioChain);

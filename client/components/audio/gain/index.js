@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Observable } from 'rxjs/Rx';
 import Gain from './presentation';
 import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
+import 'rxjs/add/operator/throttleTime';
 
 let gainNode = null;
 
@@ -29,7 +31,14 @@ class GainNode extends Component {
     onVolumeChange(event) {
         this.setState({ volume: event.value });
         gainNode.gain.value = this.state.volume / 100;
-        this.props.gainValuesCreator(gainNode);
+        Observable
+            .of(gainNode)
+            .throttleTime(300)
+            .subscribe(
+                next => this.props.gainValuesCreator(next),
+                error => console.log(error),
+                complete => console.log(complete)
+            );
     }
     
     render() {
@@ -43,10 +52,7 @@ class GainNode extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        volume: store.audio.gainNode.volume,
-        audioContext: store.audio.audioContext,
-        inputStream: store.audio.inputStream,
-        currentChain: store.audio.currentChain
+        volume: store.audio.gainNode.volume
     }
 }
 
