@@ -2,22 +2,20 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Subject, Observable } from 'rxjs';
+import { observeGainNodeChanges } from '../../../services/gain/GainNodeService';
 import Gain from './presentation';
 import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
-import 'rxjs/add/operator/debounceTime';
 
 class GainNode extends Component {
     constructor(props) { 
         super(props);
-        this.gainValueObserver = new Subject();
         this.state = {
             gainValue: this.props.audioContext.createGain()
         }
         
         this.onVolumeChange = this.onVolumeChange.bind(this);
-        this.onChange = this.onChange.bind(this);
+        this.observeChanges = this.observeChanges.bind(this);
     }
 
     componentDidMount() {
@@ -31,21 +29,19 @@ class GainNode extends Component {
                     true, 
                     this.props.audioContext);
     }
-    
+
     onVolumeChange(event) {
         this.setState({ gainValue: {gain: { value: event.value / 100 } } });
-        return Observable.of(this.state.gainValue.gain.value);
     }
 
-    onChange(event) {
-        let observer = this.onVolumeChange(event).debounceTime(300);
-        observer.subscribe(value => this.gainValueObserver.next(this.props.gainValuesCreator(value)));
+    observeChanges() {
+        observeGainNodeChanges(this.state.gainValue.gain.value, 500).subscribe(value => this.props.gainValuesCreator(value));
     }
     
     render() {
         return (
             <div>
-                <Gain type='GAIN' volume={Math.round(this.state.gainValue.gain.value * 100)} onVolumeChange={this.onChange} />
+                <Gain type='GAIN' volume={Math.round(this.state.gainValue.gain.value * 100)} onVolumeChange={this.onVolumeChange} />
             </div>
         )
     }
