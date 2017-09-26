@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Observable } from 'rxjs/Rx';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import GainNode from './gain';
 import audioChain from '../../utils/audioChain';
 import { observeAudioChain } from '../../services/audioChain/AudioChainService';
@@ -49,4 +52,4 @@ const mapStateToProps = (store) => {
     }
 }
 
-export default connect(mapStateToProps)(AudioChain);
+export default DragDropContext(HTML5Backend)(connect(mapStateToProps)(AudioChain));

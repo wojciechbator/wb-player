@@ -13,6 +13,7 @@ const cardSource = {
 function collect(connect, monitor) {
     return {
         connectDragSource: connect.dragSource(),
+        connectDragPreview: connect.dragPreview(),
         isDragging: monitor.isDragging()
     };
 }
@@ -36,4 +37,4 @@ class Card extends Component {
 
 Card.propTypes = propTypes;
 
-export default DragSource(Card, cardSource, collect)(Card);
+export default DragSource(Component, cardSource, collect)(Card);

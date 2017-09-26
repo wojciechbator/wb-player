@@ -20,6 +20,7 @@
     "prop-types": "^15.5.10",
     "react": "next",
     "react-dnd": "^2.4.0",
+    "react-dnd-html5-backend": "^2.5.1",
     "react-dom": "next",
     "react-redux": "^5.0.6",
     "react-redux-webaudio": "^1.0.1",

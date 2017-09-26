@@ -16,7 +16,7 @@ export default class DraggableList extends Component {
         return (
             <div className="draggable-list">
                 <DataList value={this.state.nodes} header="Audio nodes">
-                    {this.state.nodes.map((element, i) => <Card text={element} />)}
+                    {this.state.nodes.map((element, i) => <Card key={i} text={element} />)}
                 </DataList>
             </div>
         );
