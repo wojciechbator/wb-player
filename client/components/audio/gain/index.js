@@ -15,7 +15,6 @@ class GainNode extends Component {
         }
         
         this.onVolumeChange = this.onVolumeChange.bind(this);
-        this.observeChanges = this.observeChanges.bind(this);
     }
 
     componentDidMount() {
@@ -32,12 +31,9 @@ class GainNode extends Component {
 
     onVolumeChange(event) {
         this.setState({ gainValue: {gain: { value: event.value / 100 } } });
-    }
-
-    observeChanges() {
         observeGainNodeChanges(this.state.gainValue.gain.value, 500).subscribe(value => this.props.gainValuesCreator(value));
     }
-    
+
     render() {
         return (
             <div>

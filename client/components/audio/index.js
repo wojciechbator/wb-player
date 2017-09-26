@@ -5,16 +5,17 @@ import { connect } from 'react-redux';
 import { Observable } from 'rxjs/Rx';
 import GainNode from './gain';
 import audioChain from '../../utils/audioChain';
+import { observeAudioChain } from '../../services/audioChain/AudioChainService';
 import './audio.css';
 
 class AudioChain extends Component {
+    constructor(props) {
+        super(props);
+        this.observeChain = this.observeChain.bind(this);
+    }
+
     componentDidMount() {
-        Observable.of(this.props.currentChain)
-        .subscribe(
-            next => console.log(next),
-            error => console.log(error),
-            complete => console.log(complete)
-        );
+        this.observeChain();
     }
 
     render() {
@@ -29,6 +30,13 @@ class AudioChain extends Component {
                     inputStream={this.props.inputStream}
                     audioContext={this.props.audioContext} />
             </div>
+        );
+    }
+
+    observeChain() {
+        observeAudioChain(this.props.audioChain)
+        .subscribe(
+            next => console.log(next)
         );
     }
 }
