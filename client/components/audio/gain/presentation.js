@@ -5,7 +5,7 @@ import { Slider } from 'primereact/components/slider/Slider';
 import './gain.css';
 
 const Gain = (props) => (
-    <Fieldset legend={props.type}>
+    <Fieldset legend={props.type} toggleable={true}>
         <div className="wrapper">
             <h3>Volume: {props.volume}</h3>
             <Slider orientation='vertical' animate={true} value={props.volume} onChange={props.onVolumeChange} />

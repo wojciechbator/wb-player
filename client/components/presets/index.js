@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Presets from './presentation';
 
-const presets = ['a', 'b', 'c'];
+const presets = ['Hard rock', 'Ballad', 'Jazz'];
 
 class PresetsContainer extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class PresetsContainer extends Component {
         
         return (
             <div className="ui-helper-clearfix">
-                <div>A - B - C</div>
+                <div>{preset}</div>
             </div>
         );
     }
