@@ -1,12 +1,19 @@
 const Koa = require('koa');
 const router = require('koa-router')();
 const Webpack = require('webpack');
+const mongoose = require('mongoose');
 const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
 const { createReadStream } = require('fs');
 const path = require('path');
 const config = require('../webpack.config');
 const app = new Koa();
 const compiler = Webpack(config);
+const dbUrl = 'mongodb://localhost/wifi-guitar';
+
+mongoose.connect(dbUrl).then(
+    () => console.log(`Connected to database on url: ${dbUrl}`),
+    (error) => { throw new Error(error); }
+);
 
 const AudioWebsocket = require('./audio-websocket');
 
