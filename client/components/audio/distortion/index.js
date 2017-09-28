@@ -7,11 +7,11 @@ import GenericAudioNode from '../generic';
 import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
 
-class GainNode extends Component {
+class DistortionNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            gainValue: this.props.audioContext.createGain()
+            distortionValue: this.props.audioContext.createWaveSharper();
         }
         
         this.onVolumeChange = this.onVolumeChange.bind(this);
@@ -57,4 +57,4 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({gainValuesCreator, addNodeCreator}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(GainNode);
+export default connect(mapStateToProps, mapDispatchToProps)(DistortionNode);

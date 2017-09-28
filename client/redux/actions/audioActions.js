@@ -1,4 +1,4 @@
-import { AUDIO_CONTEXT_INIT, INPUT_STREAM_VALUE, GAIN_NODE_VALUES, FILTER_NODE_VALUES, ADD_NODE, REMOVE_NODE } from '../types/audioTypes';
+import { AUDIO_CONTEXT_INIT, INPUT_STREAM_VALUE, DISTORTION_VALUES, GAIN_NODE_VALUES, FILTER_NODE_VALUES, ADD_NODE, REMOVE_NODE } from '../types/audioTypes';
 
 export const initializeAudioContext = (audioContext) => {
     return {
@@ -18,6 +18,13 @@ export const storeGainNodeValues = (gainNode) => {
     return {
         type: GAIN_NODE_VALUES,
         gainNode
+    }
+}
+
+export const storeDistortionValues = (distortionNode) => {
+    return {
+        type: GAIN_NODE_VALUES,
+        distortionNode
     }
 }
 

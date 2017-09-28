@@ -10,6 +10,7 @@ const app = new Koa();
 const compiler = Webpack(config);
 const dbUrl = 'mongodb://localhost/wifi-guitar';
 
+mongoose.Promise = global.Promise;
 mongoose.connect(dbUrl).then(
     () => console.log(`Connected to database on url: ${dbUrl}`),
     (error) => { throw new Error(error); }

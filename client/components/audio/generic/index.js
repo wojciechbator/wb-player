@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Slider } from 'primereact/components/slider/Slider';
 
-import './gain.css';
+import './generic.css';
 
-const Gain = (props) => (
+const GenericAudioNode = (props) => (
     <Fieldset legend={props.type} toggleable={true}>
         <div className="wrapper">
             <h3>Volume: {props.volume}</h3>
@@ -13,4 +13,4 @@ const Gain = (props) => (
     </Fieldset>
 );
 
-export default Gain;
+export default GenericAudioNode;
