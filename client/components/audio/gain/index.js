@@ -18,7 +18,7 @@ class GainNode extends Component {
     }
 
     componentDidMount() {
-        this.setState({ gainValue: {gain: { value: 0.5 } } });
+        this.setState({ gainNode: {gain: { value: 0.5 } } });
         this.props.gainValuesCreator(this.state.gainNode.gain.value);
         this.props.addNodeCreator(this.state.gainNode.gain.value);
 
@@ -32,7 +32,7 @@ class GainNode extends Component {
     }
 
     onVolumeChange(event) {
-        this.setState({ gainValue: {gain: { value: event.value / 100 } } });
+        this.setState({ gainNode: {gain: { value: event.value / 100 } } });
         observeGainNodeChanges(this.state.gainNode.gain.value, 500).subscribe(value => this.props.gainValuesCreator(value));
     }
 
