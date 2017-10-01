@@ -47,7 +47,11 @@ class GainNode extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        gainNode: store.audio.gainNode
+        gainNode: {
+            gain: {
+                value: store.audio.gainNode.volume
+            }
+        }
     }
 }
 

@@ -1,4 +1,13 @@
-import { AUDIO_CONTEXT_INIT, INPUT_STREAM_VALUE, GAIN_NODE_VALUES, FILTER_NODE_VALUES, ADD_NODE, REMOVE_NODE } from '../types/audioTypes';
+import { 
+    AUDIO_CONTEXT_INIT, 
+    INPUT_STREAM_VALUE, 
+    GAIN_NODE_VALUES, 
+    FILTER_NODE_VALUES, 
+    ADD_NODE, 
+    REMOVE_NODE, 
+    ADD_NODE_TO_AVAILABLE_NODES, 
+    REMOVE_NODE_FROM_AVAILABLE_NODES 
+} from '../types/audioTypes';
 
 const initialState = {
     audioContext: null,
@@ -6,7 +15,8 @@ const initialState = {
         volume: 0
     },
     currentChain: [],
-    filterNode: null
+    filterNode: null,
+    availableNodes: []
 }
 
 const audioReducer = (state = initialState, action) => {
@@ -34,6 +44,14 @@ const audioReducer = (state = initialState, action) => {
         case REMOVE_NODE:
             return Object.assign({}, state, {
                 currentChain: state.currentChain.splice(action.currentChain.indexOf(action.node), 1)
+            });
+        case ADD_NODE_TO_AVAILABLE_NODES:
+            return Object.assign({}, state, {
+                availableNodes: state.availableNodes.concat(action.node)
+            });
+        case REMOVE_NODE_FROM_AVAILABLE_NODES:
+            return Object.assign({}, state, {
+                availableNodes: state.availableNodes.splice(action.availableNodesChain.indexOf(action.node), 1)
             });
         default:
             return state;

@@ -9,7 +9,7 @@ class DraggableList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nodes: ['a', 'b', 'c']
+            nodes: this.props.currentChain
         }
     }
 
@@ -17,12 +17,18 @@ class DraggableList extends Component {
         console.log(this.props);
         return (
             <div className="draggable-list">
-                <DataList value={this.state.nodes} header="Audio nodes">
-                    {this.state.nodes.map((element, i) => <Card key={i} text={element} />)}
+                <DataList value={this.props.currentChain} header="Audio nodes">
+                    {this.props.currentChain.map((element, i) => <Card key={i} text={element} />)}
                 </DataList>
             </div>
         );
     }
 }
 
-export default connect()(DraggableList);
+const mapStateToProps = (store) => {
+    return {
+        currentChain: store.audio.currentChain
+    }
+}
+
+export default connect(mapStateToProps)(DraggableList);
