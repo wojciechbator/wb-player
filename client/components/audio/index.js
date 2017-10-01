@@ -40,7 +40,6 @@ class AudioChain extends Component {
         let audioChainObserver = observeAudioChain(this.props.currentChain)
         .subscribe(
             next => {
-                console.log("AAAAAAAAAAAAAAAAAAAAAAAAAA");
                 console.log(next);
                 console.log(this.props.currentChain);
             }

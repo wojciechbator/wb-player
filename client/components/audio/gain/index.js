@@ -11,7 +11,7 @@ class GainNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            gainValue: this.props.audioContext.createGain()
+            gainNode: this.props.audioContext.createGain()
         }
         
         this.onVolumeChange = this.onVolumeChange.bind(this);
@@ -19,12 +19,12 @@ class GainNode extends Component {
 
     componentDidMount() {
         this.setState({ gainValue: {gain: { value: 0.5 } } });
-        this.props.gainValuesCreator(this.state.gainValue.gain.value);
-        this.props.addNodeCreator(this.state.gainValue.gain.value);
+        this.props.gainValuesCreator(this.state.gainNode.gain.value);
+        this.props.addNodeCreator(this.state.gainNode.gain.value);
 
-        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.gainValue.gain.value) - 1], 
-                    this.state.gainValue, 
-                    this.props.currentChain[this.props.currentChain.indexOf(this.state.gainValue.gain.value) + 1], 
+        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) - 1], 
+                    this.state.gainNode, 
+                    this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) + 1], 
                     true, 
                     true, 
                     this.props.audioContext);
@@ -33,13 +33,13 @@ class GainNode extends Component {
 
     onVolumeChange(event) {
         this.setState({ gainValue: {gain: { value: event.value / 100 } } });
-        observeGainNodeChanges(this.state.gainValue.gain.value, 500).subscribe(value => this.props.gainValuesCreator(value));
+        observeGainNodeChanges(this.state.gainNode.gain.value, 500).subscribe(value => this.props.gainValuesCreator(value));
     }
 
     render() {
         return (
             <div>
-                <GenericAudioNode type='GAIN' volume={Math.round(this.state.gainValue.gain.value * 100)} onVolumeChange={this.onVolumeChange} />
+                <GenericAudioNode type='GAIN' volume={Math.round(this.state.gainNode.gain.value * 100)} onVolumeChange={this.onVolumeChange} />
             </div>
         )
     }
@@ -47,11 +47,7 @@ class GainNode extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        gainValue: {
-            gain: {
-                value: store.audio.gainNode.volume
-            }
-        }
+        gainNode: store.audio.gainNode
     }
 }
 
