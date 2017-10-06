@@ -4,7 +4,7 @@
     color: #cacbc7;
     padding: 10px 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .logo {
@@ -12,7 +12,7 @@
     user-select: none;
 }
 
-.header-text-search {
+.header-text {
     display: flex;
     align-items: center;
     margin-left: 20px;

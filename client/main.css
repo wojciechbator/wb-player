@@ -12,7 +12,10 @@ body {
 }
 
 .body-wrapper {
-    flex:1;
+    flex: 1;
     display: flex;
-    box-sizing: border-box;
+    justify-content: center;
+    width: 100;
+    flex-direction: column;
+    background-color: #323232; 
 }
