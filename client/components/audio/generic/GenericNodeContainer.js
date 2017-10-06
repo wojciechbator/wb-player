@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GenericAudioNode from '.';
 
-export default class GainNode extends Component {
+export default class GenericNodeContainer extends Component {
     constructor(props) { 
         super(props);
         this.state = {
@@ -22,13 +22,13 @@ export default class GainNode extends Component {
     }
 
     onVolumeChange(event) {
-        this.setState({ soundValue: event.value / 100 });
+        this.setState({ soundValue: event.value });
     }
 
     render() {
         return (
             <div>
-                <GenericAudioNode type='GAIN' volume={Math.round(this.state.soundValue * 100)} onVolumeChange={this.onVolumeChange} />
+                <GenericAudioNode type={this.props.type} volume={this.state.soundValue} onVolumeChange={this.onVolumeChange} />
             </div>
         )
     }

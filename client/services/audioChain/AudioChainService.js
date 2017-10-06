@@ -6,4 +6,4 @@ export const observeAudioChain = (audioChain) => {
 
 export const pushAudioElement = (audioChain, element) => {
     audioChain.push(element);
-} 
+}

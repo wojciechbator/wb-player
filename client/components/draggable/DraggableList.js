@@ -14,7 +14,6 @@ class DraggableList extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className="draggable-list">
                 <DataList value={this.props.currentChain} header="Audio nodes">
