@@ -13,9 +13,6 @@ body {
 
 .body-wrapper {
     flex: 1;
-    display: flex;
-    justify-content: center;
     overflow-y: auto;
-    flex-direction: column;
     background-color: #323232; 
 }
