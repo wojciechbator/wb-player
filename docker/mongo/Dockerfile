@@ -1,16 +1,12 @@
-FROM alpine:3.5
+FROM alpine:edge
 
-MAINTAINER WB
+RUN \
+apk add --no-cache mongodb && \
+rm /usr/bin/mongoperf
 
-RUN apk add mongodb --update-cache --repository http://dl-4.alpinelinux.org/alpine/edge/testing --allow-untrusted && \
-	rm -rf /var/cache/apk/*
+VOLUME /data/db
+EXPOSE 27017 28017
 
-RUN mkdir -p /data/db
-
-#Mount volume for data
-VOLUME ["/data/db"]
-
-#Run mongo
-CMD ["mongod"]
-
-EXPOSE 27017
+COPY run.sh /root
+ENTRYPOINT [ "/root/run.sh" ]
+CMD [ "mongod" ]
