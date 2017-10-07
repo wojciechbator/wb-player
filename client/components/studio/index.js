@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 
 import AudioChain from '../audio';
-import Search from '../search/search';
+import Player from '../player';
 import AudioRecorder from '../recorder';
 import PresetsContainer from '../presets';
 import NodesList from '../nodesList';
@@ -18,7 +18,7 @@ export default class StudioPage extends Component {
     render() {
         return (
             <div>
-                <Search />
+                <Player />
                 <div className="studio-container">
                     <PresetsContainer />
                     <NodesList />

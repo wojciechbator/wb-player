@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {AutoComplete} from 'primereact/components/autocomplete/AutoComplete';
+import {Button} from 'primereact/components/button/Button';
 
 import './search.css';
 
@@ -26,7 +27,10 @@ export default class Search extends Component {
     
     render() {
         return (
-            <AutoComplete value={this.state.brand} suggestions={this.state.filteredBrands} completeMethod={this.filterBrands.bind(this)} />
+            <div>
+                <AutoComplete value={this.state.brand} suggestions={this.state.filteredBrands} completeMethod={this.filterBrands.bind(this)} />
+                <Button label="SEARCH" className="ui-button-primary" />
+            </div>
         );
     }
 }

@@ -3,7 +3,7 @@
     cursor: 'default';
 }
 
-.highlightedItem {
+.highlighted-item {
     color: 'white';
     background: '#F38B72';
     padding: '2px 6px';

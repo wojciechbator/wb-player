@@ -1,0 +1,18 @@
+.recorder-module {
+    display: flex;
+    min-height: 200px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.recorder-header {
+    color: #cacbc7;
+    padding: 20px;   
+    font-size: 20px;
+}
+
+.recorder-button {
+    height: 50px;
+    margin: 0px 10px;
+}
