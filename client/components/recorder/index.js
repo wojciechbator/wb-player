@@ -36,11 +36,11 @@ export default class AudioRecorder extends Component {
                 <Recorder />
                 <div className='recorder-header'>Recorder</div>
                 <div className='recorder-buttons'>
-                    <Button className='recorder-button' label='START' onClick={this.startRecording} />
-                    <Button className='recorder-button' label='PAUSE' onClick={recorderPause} />
-                    <Button className='recorder-button' label='STOP'  onClick={recorderStop} />
-                    <Button className='recorder-button' label='RESUME' onClick={recorderResume} />
-                    <Button className='recorder-button' label='SAVE' onClick={this.saveWavToDisk} />
+                    <Button className='recorder-button' label='&#9654;' onClick={this.startRecording} />
+                    <Button className='recorder-button' label='| |' onClick={recorderPause} />
+                    <Button className='recorder-button' label='&#9679;'  onClick={recorderStop} />
+                    <Button className='recorder-button' label='&#9655;' onClick={recorderResume} />
+                    <Button className='recorder-button' label='&#x1f4be;' onClick={this.saveWavToDisk} />
                 </div>
             </div>
         );

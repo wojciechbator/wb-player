@@ -1,11 +1,25 @@
-.item {
-    padding: '2px 6px';
-    cursor: 'default';
+.search-module {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 50%;
+    flex-direction: column;
 }
 
-.highlighted-item {
-    color: 'white';
-    background: '#F38B72';
-    padding: '2px 6px';
-    cursor: 'default';
+.search-header {
+    color: #cacbc7;
+    padding-top: 20px;
+    padding-bottom: 10px; 
+    font-size: 20px;
+}
+
+.search-button {
+    height: 50px;
+    margin: 0px 10px;
+}
+
+.search-input input {
+    margin-bottom: 10px;
+    height: 35px;
+    width: 400px !important;
 }
