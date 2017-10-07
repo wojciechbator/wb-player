@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {AutoComplete} from 'primereact/components/autocomplete/AutoComplete';
 import {Button} from 'primereact/components/button/Button';
+import { autocompleteValueCreator } from '../../redux/actions/autoCompleteActions';
 
 import './search.css';
 
-export default class Search extends Component {
+class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fileNames: []
+            fileNames: [],
+            autocompleteValue: null
         };
         this.fetchFileNames = this.fetchFileNames.bind(this);
         this.filterFileNames = this.filterFileNames.bind(this);
+    }
+
+    gatherAutocompleteData(event) {
+        autocompleteValueCreator(event.value);
     }
     
     componentDidMount() {
@@ -41,9 +48,17 @@ export default class Search extends Component {
     render() {
         return (
             <div>
-                <AutoComplete value={this.state.fileName} suggestions={this.state.filteredFileNames} completeMethod={this.filterFileNames} onChange={this.filterFileNames} />
-                <Button label="SEARCH" className="ui-button-primary" />
+                <AutoComplete value={this.state.fileName} suggestions={this.state.filteredFileNames} completeMethod={this.filterFileNames} onChange={this.gatherAutocompleteData} />
+                <Button label="SEARCH" />
             </div>
         );
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+        autocompleteValue: store.autocomplete.autocompleteValue
+    }
+}
+
+export default connect(mapStateToProps)(Search);

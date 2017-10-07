@@ -29,11 +29,15 @@ export default class Player extends Component {
         audioPlayer.src = file;
     }
 
+    loadAudioFromAutocomplete() {
+
+    }
+
     render() {
         return (
             <div className="player-module">
                 <Search />
-                <label for="audio_file" className="file-upload">
+                <label htmlFor="audio_file" className="file-upload">
                     UPLOAD AUDIO
                     <input id="audio_file" className="ui-button" type="file" onChange={this.loadAudio} accept="audio/*" />
                 </label>
