@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { observeGainNodeChanges } from '../../../services/gain/GainNodeService';
 import GenericAudioNode from '../generic';
 import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
@@ -33,7 +32,7 @@ class GainNode extends Component {
 
     onVolumeChange(event) {
         this.setState({ gainNode: {gain: { value: event.value / 100 } } });
-        observeGainNodeChanges(this.state.gainNode.gain.value, 500).subscribe(value => this.props.gainValuesCreator(value));
+        this.props.gainValuesCreator(value);
     }
 
     render() {

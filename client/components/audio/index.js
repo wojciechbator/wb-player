@@ -2,25 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Observable } from 'rxjs/Rx';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import GainNode from './gain';
 import audioChain from '../../utils/audioChain';
-import { observeAudioChain } from '../../services/audioChain/AudioChainService';
 import './audio.css';
 
 class AudioChain extends Component {
-    constructor(props) {
-        super(props);
-        this.observeChain = this.observeChain.bind(this);
-    }
-
-    componentDidMount() {
-        this.observeChain();
-    }
-
     render() {
         return (
             <div className='audio-chain'>
@@ -35,16 +22,6 @@ class AudioChain extends Component {
             </div>
         );
     }
-
-    observeChain() {
-        let audioChainObserver = observeAudioChain(this.props.currentChain)
-        .subscribe(
-            next => {
-                console.log(next);
-                console.log(this.props.currentChain);
-            }
-        );
-    }
 }
 
 const mapStateToProps = (store) => {
@@ -55,4 +32,4 @@ const mapStateToProps = (store) => {
     }
 }
 
-export default DragDropContext(HTML5Backend)(connect(mapStateToProps)(AudioChain));
+export default connect(mapStateToProps)(AudioChain);

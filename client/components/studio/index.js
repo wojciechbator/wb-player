@@ -3,8 +3,9 @@ import io from 'socket.io-client';
 
 import AudioChain from '../audio';
 import Search from '../search/search';
+import AudioRecorder from '../recorder';
 import PresetsContainer from '../presets';
-import DraggableList from '../draggable/DraggableList';
+import NodesList from '../nodesList';
 import './studio.css';
 
 export default class StudioPage extends Component {
@@ -20,10 +21,10 @@ export default class StudioPage extends Component {
                 <Search />
                 <div className="studio-container">
                     <PresetsContainer />
-                    <DraggableList />
+                    <NodesList />
                     <AudioChain />
                 </div>
-                <div>Here will be recoder</div>
+                <AudioRecorder />
             </div>
         );
     }

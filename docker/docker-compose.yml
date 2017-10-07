@@ -10,11 +10,11 @@ services:
     ports:
       - "27017:27017"
     networks:
-      chatNet:
+      wifi_guitar:
         ipv4_address: 10.0.1.2
 
 networks:
-  chatNet:
+  wifi_guitar:
     driver: bridge
     ipam:
       config:

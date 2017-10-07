@@ -19,7 +19,7 @@ const initialState = {
     availableNodes: []
 }
 
-const audioReducer = (state = initialState, action) => {
+export const audioReducer = (state = initialState, action) => {
     switch (action.type) {
         case AUDIO_CONTEXT_INIT:
             return Object.assign({}, state, {
@@ -57,5 +57,3 @@ const audioReducer = (state = initialState, action) => {
             return state;
     }
 }
-
-export default audioReducer;

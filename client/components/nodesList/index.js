@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DataList } from 'primereact/components/datalist/DataList';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
-import Card from './Card';
-import './draggable.css';
+import './nodesList.css';
 
-class DraggableList extends Component {
+class NodesList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,9 +14,9 @@ class DraggableList extends Component {
 
     render() {
         return (
-            <div className="draggable-list">
+            <div className="nodes-list">
                 <DataList value={this.props.currentChain} header="Audio nodes">
-                    {this.props.currentChain.map((element, i) => <Card key={i} text={element} />)}
+                    {this.props.currentChain.map((element, i) => <div key={i} text={element} />)}
                 </DataList>
             </div>
         );
@@ -30,4 +29,4 @@ const mapStateToProps = (store) => {
     }
 }
 
-export default connect(mapStateToProps)(DraggableList);
+export default connect(mapStateToProps)(NodesList);

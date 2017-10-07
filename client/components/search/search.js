@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
-import Autocomplete from 'react-autocomplete';
+import {AutoComplete} from 'primereact/components/autocomplete/AutoComplete';
+
 import './search.css';
 
 export default class Search extends Component {
-    handleRenderItem(item, isHighlighted) {
-        return (
-            <div style={isHighlighted ? 'highlightedItem' : 'item'}
-                key={item.id} id={item.id}>{item.title}</div>
-        );
+    constructor() {
+        super();
+        this.state = { };
     }
-
-
+    
+    componentDidMount() {
+        this.brands = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo'];
+    }
+    
+    onBrandValueChange(e) {
+        this.setState({ brand: e.value, filteredBrands: null });
+    }
+    
+    filterBrands(event) {
+        var results = this.brands.filter((brand) => {
+             return brand.toLowerCase().startsWith(event.query.toLowerCase());
+        });
+        this.setState({ filteredBrands: results });
+    }
+    
     render() {
         return (
-                <Autocomplete
-                    style='search-input'
-                    ref="autocomplete"
-                    inputProps={{ title: "Title" }}
-                    value={this.props.autocompleteValue}
-                    items={this.props.tracks}
-                    getItemValue={(item) => item.title}
-                    onSelect={this.props.handleSelect}
-                    onChange={this.props.handleChange}
-                    renderItem={this.handleRenderItem.bind(this)}
-                />
+            <AutoComplete value={this.state.brand} suggestions={this.state.filteredBrands} completeMethod={this.filterBrands.bind(this)} />
         );
     }
 }
