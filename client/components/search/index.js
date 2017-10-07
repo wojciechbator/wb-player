@@ -5,30 +5,43 @@ import {Button} from 'primereact/components/button/Button';
 import './search.css';
 
 export default class Search extends Component {
-    constructor() {
-        super();
-        this.state = { };
+    constructor(props) {
+        super(props);
+        this.state = {
+            fileNames: []
+        };
+        this.fetchFileNames = this.fetchFileNames.bind(this);
+        this.filterFileNames = this.filterFileNames.bind(this);
     }
     
     componentDidMount() {
-        this.brands = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo'];
+        this.fileNames = this.fetchFileNames();
+    }
+
+    fetchFileNames() {
+        fetch('/soundFiles').then(response => {
+            return response.text();
+        }).then(data => {
+            this.setState({ fileNames: JSON.parse(data) });
+        })
     }
     
     onBrandValueChange(e) {
-        this.setState({ brand: e.value, filteredBrands: null });
+        this.setState({ fileName: e.value, filteredFileNames: null });
     }
     
-    filterBrands(event) {
-        var results = this.brands.filter((brand) => {
-             return brand.toLowerCase().startsWith(event.query.toLowerCase());
+    filterFileNames(event) {
+        const results = this.state.fileNames.filter(fileName => {
+            if (event.query)
+                return fileName.toLowerCase().startsWith(event.query.toLowerCase());
         });
-        this.setState({ filteredBrands: results });
+        this.setState({ filteredFileNames: results });
     }
     
     render() {
         return (
             <div>
-                <AutoComplete value={this.state.brand} suggestions={this.state.filteredBrands} completeMethod={this.filterBrands.bind(this)} />
+                <AutoComplete value={this.state.fileName} suggestions={this.state.filteredFileNames} completeMethod={this.filterFileNames} onChange={this.filterFileNames} />
                 <Button label="SEARCH" className="ui-button-primary" />
             </div>
         );
