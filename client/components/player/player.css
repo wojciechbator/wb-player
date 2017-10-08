@@ -31,3 +31,12 @@ input[type="file"] {
     padding-bottom: 10px; 
     font-size: 20px;
 }
+
+.player-control-buttons {
+    text-align: center;
+}
+
+.control-button {
+    height: 50px;
+    margin: 0px 10px;
+}

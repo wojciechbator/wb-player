@@ -14,5 +14,7 @@ body {
 .body-wrapper {
     flex: 1;
     overflow-y: auto;
-    background-color: #323232; 
+    background-image: url('assets/images/background.png');
+    background-size: cover;
+    /* background-color: #323232;  */
 }

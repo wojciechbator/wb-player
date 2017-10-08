@@ -17,7 +17,7 @@ export default class StudioPage extends Component {
       
     render() {
         return (
-            <div>
+            <div className="studio-module">
                 <Player />
                 <div className="studio-container">
                     <PresetsContainer />

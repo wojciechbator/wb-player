@@ -35,18 +35,22 @@ export default class Player extends Component {
 
     render() {
         return (
-            <div className="player-module">
-                <Search />
-                <div className="upload-container">
-                    <div className="player-header">or upload file</div>
-                    <label htmlFor="audio_file" className="file-upload">
-                        UPLOAD AUDIO
-                        <input id="audio_file" className="ui-button" type="file" onChange={this.loadAudio} accept="audio/*" />
-                    </label>
-                    <Button label="PLAY" onClick={this.playAudio} />
-                    <Button label="STOP" onClick={this.pauseAudio} />
+            <div>
+                <div className="player-module">
+                    <Search />
+                    <div className="upload-container">
+                        <div className="player-header">or upload file</div>
+                        <label htmlFor="audio_file" className="file-upload">
+                            UPLOAD AUDIO
+                            <input id="audio_file" className="ui-button" type="file" onChange={this.loadAudio} accept="audio/*" />
+                        </label>
+                    </div>
+                    <audio id="audio_player" />
                 </div>
-                <audio id="audio_player" />
+                <div className="player-control-buttons">
+                    <Button className="control-button" label='&#9654; PLAY' onClick={this.playAudio} />
+                    <Button className="control-button" label='| | PAUSE' onClick={this.pauseAudio} />
+                </div>
             </div>
         );
     }
