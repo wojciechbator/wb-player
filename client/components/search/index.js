@@ -50,8 +50,6 @@ class Search extends Component {
             <div className="search-module">
                 <div className="search-header">Find Your favorite song in the directory...</div>
                 <AutoComplete className="search-input" value={this.state.fileName} suggestions={this.state.filteredFileNames} completeMethod={this.filterFileNames} onChange={this.gatherAutocompleteData} />
-                <Button className="search-button" label="&#x1F50E;" />
-
             </div>
         );
     }
