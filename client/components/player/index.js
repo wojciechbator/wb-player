@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Search from '../search';
+import {Growl} from 'primereact/components/growl/Growl';
 import {Button} from 'primereact/components/button/Button';
 
 import './player.css';
@@ -8,6 +9,12 @@ export default class Player extends Component {
     constructor(props) {
         super(props);
         this.source = null;
+        this.growlData = [{
+            severity: 'error',
+            summary: 'Problem with playing',
+            detail: 'Check if You loaded audio properly'
+        }]
+        this.playAudioFail = false;
         this.playbackAudioContext = null;
         this.playAudio = this.playAudio.bind(this);
         this.pauseAudio = this.pauseAudio.bind(this);
@@ -24,13 +31,12 @@ export default class Player extends Component {
                 this.decodeMp3FromBufferAndPlay(mp3BytesArray);
             });
         } else {
-            alert("OH NO, CAN'T PLAY!");
+            alert('Could not play, check if You loaded audio properly');
         }
     }
-    
+
     pauseAudio() {
-        const audioPlayer = document.getElementById('audio_player');
-        audioPlayer.pause();
+        this.source.stop(0);
     }
 
     loadAudio() {
@@ -72,6 +78,7 @@ export default class Player extends Component {
         return (
             <div>
                 <div className='player-module'>
+                    {/* {this.playAudioFail === true && <Growl value={this.growlData}></Growl>} */}
                     <Search />
                     <div className='upload-container'>
                         <div className='player-header'>or upload file</div>
