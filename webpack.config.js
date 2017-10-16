@@ -34,13 +34,6 @@ module.exports = {
                     }
                 }
             },
-	    {
-		test: /\.tsx?$/, 
-		loader: "ts-loader",
-		options: {
-          	    transpileOnly: true
-        	}
-	    },
             {
                 test: /\.scss$/,
                 loader: "style-loader!css-loader!sass-loader"

@@ -1,65 +1,33 @@
-import * as React from 'react';
-import WAVEInterface from './waveInterface.ts';
-import downloadBlob from './downloadBlob.ts';
+import React, { Component } from 'react';
+import WAVEInterface from './waveInterface';
+import downloadBlob from './downloadBlob';
 
-interface AudioRecorderChangeEvent {
-  duration: number,
-  audioData?: Blob,
-}
-interface AudioRecorderProps {
-  initialAudio?: Blob,
-  downloadable?: boolean,
-  loop?: boolean,
-  filename?: string,
-  className?: string,
-  style?: Object,
-
-  onAbort?: () => void,
-  onChange?: (AudioRecorderChangeEvent) => void,
-  onEnded?: () => void,
-  onPause?: () => void,
-  onPlay?: () => void,
-  onRecordStart?: () => void,
-
-  playLabel?: string,
-  playingLabel?: string,
-  recordLabel?: string,
-  recordingLabel?: string,
-  removeLabel?: string,
-  downloadLabel?: string,
+const defaultProps = {
+  loop: false,
+  downloadable: true,
+  className: '',
+  style: {},
+  filename: 'output.wav',
+  playLabel: '🔊 Play',
+  playingLabel: '❚❚ Playing',
+  recordLabel: '● Record',
+  recordingLabel: '● Recording',
+  removeLabel: '✖ Remove',
+  downloadLabel: '\ud83d\udcbe Save'
 };
 
-interface AudioRecorderState {
-  isRecording: boolean,
-  isPlaying: boolean,
-  audioData?: Blob
-};
-
-export default class AudioRecorder extends React.Component<AudioRecorderProps, AudioRecorderState> {
-  waveInterface = new WAVEInterface();
-
-  state: AudioRecorderState = {
-    isRecording: false,
-    isPlaying: false,
-    audioData: this.props.initialAudio
-  };
-
-  static defaultProps = {
-    loop: false,
-    downloadable: true,
-    className: '',
-    style: {},
-    filename: 'output.wav',
-    playLabel: '🔊 Play',
-    playingLabel: '❚❚ Playing',
-    recordLabel: '● Record',
-    recordingLabel: '● Recording',
-    removeLabel: '✖ Remove',
-    downloadLabel: '\ud83d\udcbe Save' // unicode floppy disk
-  };
+export default class AudioRecorder extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRecording: false,
+      isPlaying: false,
+      audioData: this.props.initialAudio
+    };
+    this.waveInterface = new WAVEInterface();
+  }
 
   componentWillReceiveProps(nextProps) {
-    // handle new initialAudio being passed in
     if (
       nextProps.initialAudio &&
       nextProps.initialAudio !== this.props.initialAudio &&
@@ -120,12 +88,12 @@ export default class AudioRecorder extends React.Component<AudioRecorderProps, A
     if (this.props.onAbort) this.props.onAbort();
   }
 
-  onAudioEnded = () => {
+  onAudioEnded() {
     this.setState({ isPlaying: false });
     if (this.props.onEnded) this.props.onEnded();
   };
 
-  onRemoveClick = () => {
+  onRemoveClick() {
     this.waveInterface.reset();
     if (this.state.audioData && this.props.onChange) this.props.onChange({ duration: 0, audioData: null });
     this.setState({
@@ -135,9 +103,11 @@ export default class AudioRecorder extends React.Component<AudioRecorderProps, A
     });
   };
 
-  onDownloadClick = () => downloadBlob(this.state.audioData, this.props.filename);
+  onDownloadClick() {
+    downloadBlob(this.state.audioData, this.props.filename);
+  }
 
-  onButtonClick = (event: React.SyntheticEvent<HTMLButtonElement>) => {
+  onButtonClick(event) {
     if (this.state.audioData) {
       if (this.state.isPlaying) {
         this.stopPlayback();

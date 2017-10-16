@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AudioRecorder from './AudioRecorder.tsx';
+import AudioRecorder from './AudioRecorder';
 // import { Recorder } from 'react-recorder-redux';
 // import { 
 //     recorderStart, 
@@ -35,13 +35,14 @@ export default class Recorder extends Component {
         return (
             <div className='recorder-module'>
                 <div className='recorder-header'>Recorder</div>
-                <div className='recorder-buttons'>
+                <AudioRecorder />
+                {/* <div className='recorder-buttons'>
                     <Button className='recorder-button' label='&#9654;' onClick={this.startRecording} />
                     <Button className='recorder-button' label='| |' />
                     <Button className='recorder-button' label='&#9679;' />
                     <Button className='recorder-button' label='&#9655;' />
                     <Button className='recorder-button' label='&#x1f4be;' onClick={this.saveWavToDisk} />
-                </div>
+                </div> */}
             </div>
         );
     }

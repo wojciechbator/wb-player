@@ -1,4 +1,4 @@
-import encodeWAV from './waveEncoder.ts';
+import encodeWAV from './waveEncoder';
 
 /*
 interface Navigator {
@@ -13,14 +13,16 @@ navigator.getUserMedia = navigator.getUserMedia ||
 */
 
 export default class WAVEInterface {
-  static audioContext = new AudioContext();
-  static bufferSize = 2048;
+  constructor() {
+    this.playbackNode;
+    this.recordingNodes = [];
+    this.recordingStream;
+    this.buffers;
+    this.encodingCache;
+    this.audioContext = new AudioContext();
+    this.bufferSize = 2048;
 
-  playbackNode: AudioBufferSourceNode;
-  recordingNodes: AudioNode[] = [];
-  recordingStream: MediaStream;
-  buffers: Float32Array[][]; // one buffer for each channel L,R
-  encodingCache?: Blob;
+  }
 
   get bufferLength() { return this.buffers[0].length * WAVEInterface.bufferSize; }
   get audioDuration() { return this.bufferLength / WAVEInterface.audioContext.sampleRate; }
@@ -31,9 +33,8 @@ export default class WAVEInterface {
   startRecording() {
     return new Promise((resolve, reject) => {
       navigator.getUserMedia({ audio: true }, (stream) => {
-        const { audioContext } = WAVEInterface;
-        const recGainNode = audioContext.createGain();
-        const recSourceNode = audioContext.createMediaStreamSource(stream);
+        const recGainNode = this.audioContext.createGain();
+        const recSourceNode = this.audioContext.createMediaStreamSource(stream);
         const recProcessingNode = audioContext.createScriptProcessor(WAVEInterface.bufferSize, 2, 2);
         if (this.encodingCache) this.encodingCache = null;
 
@@ -49,7 +50,7 @@ export default class WAVEInterface {
 
         recSourceNode.connect(recGainNode);
         recGainNode.connect(recProcessingNode);
-        recProcessingNode.connect(audioContext.destination);
+        recProcessingNode.connect(this.audioContext.destination);
 
         this.recordingStream = stream;
         this.recordingNodes.push(recSourceNode, recGainNode, recProcessingNode);
@@ -71,15 +72,15 @@ export default class WAVEInterface {
     }
   }
 
-  startPlayback(loop: boolean = false, onended: () => void) {
+  startPlayback(loop = false, onended) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsArrayBuffer(this.audioData);
       reader.onloadend = () => {
-        WAVEInterface.audioContext.decodeAudioData(reader.result, (buffer) => {
-          const source = WAVEInterface.audioContext.createBufferSource();
+        this.audioContext.decodeAudioData(reader.result, (buffer) => {
+          const source = this.audioContext.createBufferSource();
           source.buffer = buffer;
-          source.connect(WAVEInterface.audioContext.destination);
+          source.connect(this.audioContext.destination);
           source.loop = loop;
           source.start(0);
           source.onended = onended;
