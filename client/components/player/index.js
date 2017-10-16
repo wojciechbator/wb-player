@@ -24,7 +24,7 @@ export default class Player extends Component {
                 this.decodeMp3FromBufferAndPlay(mp3BytesArray);
             });
         } else {
-            alert("FUCK!");
+            alert("OH NO, CAN'T PLAY!");
         }
     }
     
