@@ -23,10 +23,10 @@ export const storeInputStream = (inputStream) => {
     }
 }
 
-export const storeGainNodeValues = (gainNode) => {
+export const storeGainNodeValues = (gainNodeVolume) => {
     return {
         type: GAIN_NODE_VALUES,
-        gainNode
+        gainNodeVolume
     }
 }
 
@@ -84,9 +84,9 @@ export const inputStreamCreator = (inputStream) => {
     }
 }
 
-export const gainValuesCreator = (gainNode) => {
+export const gainValuesCreator = (gainNodeVolume) => {
     return dispatch => {
-        dispatch(storeGainNodeValues(gainNode));
+        dispatch(storeGainNodeValues(gainNodeVolume));
     }
 }
 

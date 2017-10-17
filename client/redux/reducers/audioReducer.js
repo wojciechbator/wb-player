@@ -31,9 +31,11 @@ export const audioReducer = (state = initialState, action) => {
             });
         case GAIN_NODE_VALUES:
             return Object.assign({}, state, {
-                gainNode: action.gainNode
+                gainNode: {
+                    volume: action.gainNodeVolume
+                }
             });
-        case GAIN_NODE_VALUES:
+        case FILTER_NODE_VALUES:
             return Object.assign({}, state, {
                 filterNode: action.filterNode
             });
