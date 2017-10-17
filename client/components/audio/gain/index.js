@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import GenericAudioNode from '../generic';
 import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
+import { Fieldset } from 'primereact/components/fieldset/Fieldset';
+import { Slider } from 'primereact/components/slider/Slider';
+
+import './gain.css';
+
 
 class GainNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            gainNode: this.props.audioContext.createGain()
+            gainNode: this.props.audioContext.createGain(),
         }
         
         this.onVolumeChange = this.onVolumeChange.bind(this);
@@ -32,13 +36,18 @@ class GainNode extends Component {
 
     onVolumeChange(event) {
         this.setState({ gainNode: {gain: { value: event.value / 100 } } });
-        this.props.gainValuesCreator(value);
+        this.props.gainValuesCreator(event.value);
     }
 
     render() {
         return (
             <div>
-                <GenericAudioNode type='GAIN' volume={Math.round(this.state.gainNode.gain.value * 100)} onVolumeChange={this.onVolumeChange} />
+                <Fieldset legend="GAIN" toggleable={true}>
+                    <div className="wrapper">
+                        <h3>Gain: {Math.round(this.state.gainNode.gain.value * 100)}</h3>
+                        <Slider orientation='vertical' animate={true} value={Math.round(this.state.gainNode.gain.value * 100)} onChange={this.onVolumeChange} />
+                    </div>
+                </Fieldset>
             </div>
         )
     }

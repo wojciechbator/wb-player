@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import GainNode from './gain';
+import FilterNode from './filter';
 import audioChain from '../../utils/audioChain';
 import './audio.css';
 
@@ -15,7 +16,7 @@ class AudioChain extends Component {
                     currentChain={this.props.currentChain} 
                     inputStream={this.props.inputStream}
                     audioContext={this.props.audioContext} />
-                <GainNode 
+                <FilterNode 
                     currentChain={this.props.currentChain} 
                     inputStream={this.props.inputStream}
                     audioContext={this.props.audioContext} />
