@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Search from '../search';
-import {Growl} from 'primereact/components/growl/Growl';
 import {Button} from 'primereact/components/button/Button';
 
 import './player.css';
@@ -8,13 +7,12 @@ import './player.css';
 export default class Player extends Component {
     constructor(props) {
         super(props);
-        this.source = null;
-        this.growlData = [{
-            severity: 'error',
-            summary: 'Problem with playing',
-            detail: 'Check if You loaded audio properly'
-        }]
-        this.playAudioFail = false;
+        this.defaultData = {
+            source: null,
+            startedAt: null,
+            pausedAt: null,
+            paused: true
+        }
         this.playbackAudioContext = null;
         this.playAudio = this.playAudio.bind(this);
         this.pauseAudio = this.pauseAudio.bind(this);
@@ -36,7 +34,9 @@ export default class Player extends Component {
     }
 
     pauseAudio() {
-        this.source.stop(0);
+        this.defaultData.source.stop(0);
+        this.defaultData.pausedAt = Date.now() - this.defaultData.startedAt;
+        this.defaultData.paused = true;
     }
 
     loadAudio() {
@@ -62,15 +62,18 @@ export default class Player extends Component {
     decodeMp3FromBufferAndPlay(mp3AudioBufferArray) {
         this.playbackAudioContext = new (window.AudioContext || window.webkitAudioContext);
         this.playbackAudioContext.decodeAudioData(mp3AudioBufferArray, (decodedAudioBuffer) => {
-            if (this.source) {
-                this.source.disconnect(this.playbackAudioContext.destination);
-                this.source = null;
+            this.defaultData.source = this.playbackAudioContext.createBufferSource();
+            this.defaultData.source.buffer = decodedAudioBuffer;
+            this.defaultData.source.connect(this.playbackAudioContext.destination);
+            this.defaultData.paused = false;
+            if (this.defaultData.pausedAt) {
+                this.defaultData.startedAt = Date.now() - this.defaultData.pausedAt;
+                this.defaultData.source.start(0, this.defaultData.pausedAt / 1000);
             }
-
-            this.source = this.playbackAudioContext.createBufferSource();
-            this.source.buffer = decodedAudioBuffer;
-            this.source.connect(this.playbackAudioContext.destination);
-            this.source.start(0);
+            else {
+                this.defaultData.startedAt = Date.now();
+                this.defaultData.source.start(0);
+            }
         });
     } 
 
@@ -78,7 +81,6 @@ export default class Player extends Component {
         return (
             <div>
                 <div className='player-module'>
-                    {/* {this.playAudioFail === true && <Growl value={this.growlData}></Growl>} */}
                     <Search />
                     <div className='upload-container'>
                         <div className='player-header'>or upload file</div>
