@@ -2,49 +2,52 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Observable } from 'rxjs/Rx';
-import Gain from './presentation';
 import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
-import 'rxjs/add/operator/throttleTime';
+import { Fieldset } from 'primereact/components/fieldset/Fieldset';
+import { Slider } from 'primereact/components/slider/Slider';
 
-let gainNode = null;
+import './gain.css';
+
 
 class GainNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            volume: 50
+            gainNode: this.props.audioContext.createGain(),
         }
         
         this.onVolumeChange = this.onVolumeChange.bind(this);
     }
 
     componentDidMount() {
-        gainNode = this.props.audioContext.createGain();
-        gainNode.gain.value = this.state.volume / 100;
-        this.props.gainValuesCreator(gainNode);
-        this.props.addNodeCreator(gainNode);
-        audioChain(this.props.currentChain[this.props.currentChain.indexOf(gainNode) - 1], gainNode, this.props.currentChain[this.props.currentChain.indexOf(gainNode) + 1], true, true, this.props.audioContext);
-    }
+        this.setState({ gainNode: {gain: { value: 0.5 } } });
+        this.props.gainValuesCreator(this.state.gainNode.gain.value);
+        this.props.addNodeCreator(this.state.gainNode);
+
+        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) - 1], 
+                    this.state.gainNode, 
+                    this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) + 1], 
+                    true, 
+                    true, 
+                    this.props.audioContext);
     
+    }
+
     onVolumeChange(event) {
-        this.setState({ volume: event.value });
-        gainNode.gain.value = this.state.volume / 100;
-        Observable
-            .of(gainNode)
-            .throttleTime(300)
-            .subscribe(
-                next => this.props.gainValuesCreator(next),
-                error => console.log(error),
-                complete => console.log(complete)
-            );
+        this.setState({ gainNode: {gain: { value: event.value / 100 } } });
+        this.props.gainValuesCreator(event.value);
     }
-    
+
     render() {
         return (
             <div>
-                <Gain type='GAIN' volume={this.state.volume} onVolumeChange={this.onVolumeChange} />
+                <Fieldset legend="GAIN" toggleable={true}>
+                    <div className="wrapper">
+                        <h3>Gain: {Math.round(this.state.gainNode.gain.value * 100)}</h3>
+                        <Slider orientation='vertical' animate={true} value={Math.round(this.state.gainNode.gain.value * 100)} onChange={this.onVolumeChange} />
+                    </div>
+                </Fieldset>
             </div>
         )
     }
@@ -52,7 +55,11 @@ class GainNode extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        volume: store.audio.gainNode.volume
+        gainNode: {
+            gain: {
+                value: store.audio.gainNode.volume
+            }
+        }
     }
 }
 

@@ -2,21 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Observable } from 'rxjs/Rx';
+
 import GainNode from './gain';
+import FilterNode from './filter';
 import audioChain from '../../utils/audioChain';
 import './audio.css';
 
 class AudioChain extends Component {
-    componentDidMount() {
-        Observable.of(this.props.currentChain)
-        .subscribe(
-            next => console.log(next),
-            error => console.log(error),
-            complete => console.log(complete)
-        );
-    }
-
     render() {
         return (
             <div className='audio-chain'>
@@ -24,7 +16,7 @@ class AudioChain extends Component {
                     currentChain={this.props.currentChain} 
                     inputStream={this.props.inputStream}
                     audioContext={this.props.audioContext} />
-                <GainNode 
+                <FilterNode 
                     currentChain={this.props.currentChain} 
                     inputStream={this.props.inputStream}
                     audioContext={this.props.audioContext} />

@@ -1,0 +1,25 @@
+.search-module {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 50%;
+    flex-direction: column;
+}
+
+.search-header {
+    color: #cacbc7;
+    padding-top: 20px;
+    padding-bottom: 10px; 
+    font-size: 20px;
+}
+
+.search-button {
+    height: 50px;
+    margin: 0px 10px;
+}
+
+.search-input input {
+    margin-bottom: 10px;
+    height: 35px;
+    width: 400px !important;
+}

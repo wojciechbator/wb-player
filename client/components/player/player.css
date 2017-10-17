@@ -1,0 +1,43 @@
+.player-module {
+    min-height: 100px;
+    display: flex;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-upload { 
+    display: inline-block;
+    border: 0.25px solid grey;
+    border-radius: 8px;
+    padding: 10px 10px; 
+    color: greenyellow;
+    background: black;
+    cursor: pointer; 
+    text-align: center; 
+}
+
+.upload-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-basis: 50%;
+}
+
+.player-header {
+    color: #cacbc7;
+    padding-top: 20px;
+    padding-bottom: 10px; 
+    font-size: 20px;
+}
+
+.player-control-buttons {
+    text-align: center;
+}
+
+.control-button {
+    height: 50px;
+    margin: 0px 10px;
+}

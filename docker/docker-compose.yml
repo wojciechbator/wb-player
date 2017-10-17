@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  mongo:
+    container_name: mongo
+    build: 
+      context: ./mongo/
+    volumes:
+      - /data/db/:/data/db/
+    ports:
+      - "27017:27017"
+    networks:
+      wifi_guitar:
+        ipv4_address: 10.0.1.2
+
+networks:
+  wifi_guitar:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 10.0.1.0/24

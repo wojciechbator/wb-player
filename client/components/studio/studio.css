@@ -1,5 +1,8 @@
 .studio-container {
     display: flex;
-    width: 100%;
-    background-color: #323232;
+    min-height: 500px;
+}
+
+.studio-module {
+
 }

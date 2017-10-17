@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { Router, Route, Switch, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { RRWAEngine } from 'react-redux-webaudio';
 
 import StudioPage from './components/studio';
 import Audio from './components/audio';
@@ -42,9 +43,10 @@ export default class App extends Component {
 }
 
 ReactDOM.render(<Provider store={store}>
-    <Router history={history}>
-    <Route path='/' component={App} />
-    <Route path='/audio' component={Audio} />
-    </Router>
+        <Router history={history}>
+            <RRWAEngine />
+            <Route path='/' component={App} />
+            <Route path='/monitoring' component={Audio} />
+        </Router>
     </Provider>, 
     document.getElementById('root'));

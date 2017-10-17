@@ -1,0 +1,16 @@
+.wrapper {
+    text-align: center;
+}
+
+.wrapper > * {
+    margin: 0 auto;
+}
+
+.slider {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.filter-sliders {
+    display: flex;
+}

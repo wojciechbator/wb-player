@@ -1,4 +1,13 @@
-import { AUDIO_CONTEXT_INIT, INPUT_STREAM_VALUE, GAIN_NODE_VALUES, FILTER_NODE_VALUES, ADD_NODE, REMOVE_NODE } from '../types/audioTypes';
+import { AUDIO_CONTEXT_INIT, 
+    INPUT_STREAM_VALUE, 
+    DISTORTION_VALUES, 
+    GAIN_NODE_VALUES, 
+    FILTER_NODE_VALUES, 
+    ADD_NODE, 
+    REMOVE_NODE,
+    ADD_NODE_TO_AVAILABLE_NODES,
+    REMOVE_NODE_FROM_AVAILABLE_NODES 
+} from '../types/audioTypes';
 
 export const initializeAudioContext = (audioContext) => {
     return {
@@ -14,10 +23,17 @@ export const storeInputStream = (inputStream) => {
     }
 }
 
-export const storeGainNodeValues = (gainNode) => {
+export const storeGainNodeValues = (gainNodeVolume) => {
     return {
         type: GAIN_NODE_VALUES,
-        gainNode
+        gainNodeVolume
+    }
+}
+
+export const storeDistortionValues = (distortionNode) => {
+    return {
+        type: GAIN_NODE_VALUES,
+        distortionNode
     }
 }
 
@@ -42,6 +58,20 @@ export const removeNodeFromChain = (node) => {
     }
 }
 
+export const addNodeToAvailables = (node) => {
+    return {
+        type: ADD_NODE_TO_AVAILABLE_NODES,
+        node
+    }
+}
+
+export const removeNodeFromAvailables = (availableNodes) => {
+    return {
+        type: ADD_NODE_TO_AVAILABLE_NODES,
+        availableNodes
+    }
+}
+
 export const initContextCreator = (audioContext) => {
     return dispatch => {
         dispatch(initializeAudioContext(audioContext));
@@ -54,9 +84,9 @@ export const inputStreamCreator = (inputStream) => {
     }
 }
 
-export const gainValuesCreator = (gainNode) => {
+export const gainValuesCreator = (gainNodeVolume) => {
     return dispatch => {
-        dispatch(storeGainNodeValues(gainNode));
+        dispatch(storeGainNodeValues(gainNodeVolume));
     }
 }
 
@@ -72,8 +102,20 @@ export const addNodeCreator = (node) => {
     }
 }
 
-export const removeNodeCreator = (node) => {
+export const removeNodeCreator = (node, audioChain) => {
     return dispatch => {
-        dispatch(removeNodeFromChain(node));
+        dispatch(removeNodeFromChain(node, audioChain));
+    }
+}
+
+export const addNodeToAvailablesCreator = (node) => {
+    return dispatch => {
+        dispatch(addNodeToAvailables(node));
+    }
+}
+
+export const removeNodeFromAvailablesCreator = (availableNodes) => {
+    return dispatch => {
+        dispatch(removeNodeFromAvailables(availableNodes));
     }
 }
