@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import { connect } from 'react-redux';
 
 import AudioChain from '../audio';
 import Player from '../player';
@@ -8,11 +9,10 @@ import PresetsContainer from '../presets';
 import NodesList from '../nodesList';
 import './studio.css';
 
-export default class StudioPage extends Component {
+class StudioPage extends Component {
     constructor(props) {
         super(props);
         const socket = io();
-        console.log(socket);
     }
       
     render() {
@@ -29,3 +29,11 @@ export default class StudioPage extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps)(StudioPage);

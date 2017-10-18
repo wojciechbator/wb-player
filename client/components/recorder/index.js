@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {Button} from 'primereact/components/button/Button';
 import { connect } from 'react-redux';
-
-import { audioContextMerger } from '../../utils/audioContextMerger';
 import WAVEInterface from './waveInterface';
 import downloadBlob from './downloadBlob';
 import './recorder.css';
@@ -37,7 +35,6 @@ class Recorder extends Component {
     this.onAudioEnded = this.onAudioEnded.bind(this);
     this.onDownloadClick = this.onDownloadClick.bind(this);
     this.onRemoveClick = this.onRemoveClick.bind(this);
-    this.mergeAudio = this.mergeAudio.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -93,10 +90,6 @@ class Recorder extends Component {
         if (this.props.onPlay) this.props.onPlay();
       });
     }
-  }
-
-  mergeAudio() {
-    this.setState({ audioData: audioContextMerger(this.props.audioContext, this.props.playerContext)});
   }
 
   stopPlayback() {

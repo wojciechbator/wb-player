@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from 'primereact/components/button/Button';
 import Search from '../search';
-import { addPlayerCreator } from '../../redux/actions/playerActions';
+import { addPlayerCreator, mergedAudioCreator } from '../../redux/actions/playerActions';
+import { audioContextMerger } from '../../utils/audioContextMerger';
 
 import './player.css';
 
@@ -24,6 +25,7 @@ class Player extends Component {
         this.loadAudio = this.loadAudio.bind(this);
         this.loadAudioUsingFileAPI = this.loadAudioUsingFileAPI.bind(this);
         this.decodeMp3FromBufferAndPlay = this.decodeMp3FromBufferAndPlay.bind(this);
+        this.mergeAudio = this.mergeAudio.bind(this);
     }
 
     componentDidMount() {
@@ -46,6 +48,10 @@ class Player extends Component {
         this.defaultData.source.stop(0);
         this.defaultData.pausedAt = Date.now() - this.defaultData.startedAt;
         this.defaultData.paused = true;
+    }
+
+    mergeAudio(playerAudio) {
+        this.props.mergedAudioCreator(audioContextMerger(this.props.audioContext, playerAudio));
     }
 
     loadAudio() {
@@ -73,6 +79,7 @@ class Player extends Component {
             this.defaultData.source = this.state.playbackAudioContext.createBufferSource();
             this.defaultData.source.buffer = decodedAudioBuffer;
             this.defaultData.source.connect(this.state.playbackAudioContext.destination);
+            this.mergeAudio(this.state.playbackAudioContext);
             this.defaultData.paused = false;
             if (this.defaultData.pausedAt) {
                 this.defaultData.startedAt = Date.now() - this.defaultData.pausedAt;
@@ -110,11 +117,12 @@ class Player extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        playbackAudioContext: store.player.playerContext
+        playbackAudioContext: store.player.playerContext,
+        audioContext: store.audio.audioContext
     } 
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ addPlayerCreator }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ addPlayerCreator, mergedAudioCreator }, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);
