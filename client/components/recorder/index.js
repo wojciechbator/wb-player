@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import {Button} from 'primereact/components/button/Button';
+import { connect } from 'react-redux';
+
+import { audioContextMerger } from '../../utils/audioContextMerger';
 import WAVEInterface from './waveInterface';
 import downloadBlob from './downloadBlob';
-import {Button} from 'primereact/components/button/Button';
 import './recorder.css';
 
 const defaultProps = {
@@ -18,13 +21,13 @@ const defaultProps = {
   downloadLabel: '\ud83d\udcbe Save'
 };
 
-export default class Recorder extends Component {
+class Recorder extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isRecording: false,
       isPlaying: false,
-      audioData: this.props.initialAudio
+      audioData: null
     };
     this.waveInterface = new WAVEInterface();
     this.startRecording = this.startRecording.bind(this);
@@ -34,6 +37,7 @@ export default class Recorder extends Component {
     this.onAudioEnded = this.onAudioEnded.bind(this);
     this.onDownloadClick = this.onDownloadClick.bind(this);
     this.onRemoveClick = this.onRemoveClick.bind(this);
+    this.mergeAudio = this.mergeAudio.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -89,6 +93,10 @@ export default class Recorder extends Component {
         if (this.props.onPlay) this.props.onPlay();
       });
     }
+  }
+
+  mergeAudio() {
+    this.setState({ audioData: audioContextMerger(this.props.audioContext, this.props.playerContext)});
   }
 
   stopPlayback() {
@@ -157,3 +165,12 @@ export default class Recorder extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    audioContext: state.audio.audioContext,
+    playerContext: state.player.playerContext
+  }
+}
+
+export default connect(mapStateToProps)(Recorder);

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import { Router, Route, Switch, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { RRWAEngine } from 'react-redux-webaudio';
 
 import StudioPage from './components/studio';
-import Audio from './components/audio';
+import Diagnostics from './components/diagnostics';
 import Header from './components/header';
 import Footer from './components/footer';
 import store from './redux/store';
@@ -45,8 +45,9 @@ export default class App extends Component {
 ReactDOM.render(<Provider store={store}>
         <Router history={history}>
             <RRWAEngine />
-            <Route path='/' component={App} />
-            <Route path='/monitoring' component={Audio} />
+            <Route path='/' component={App}>
+                <Route path='/diagnostics' component={Diagnostics} />
+            </Route>
         </Router>
     </Provider>, 
     document.getElementById('root'));

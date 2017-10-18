@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Button} from 'primereact/components/button/Button';
+import { Button } from 'primereact/components/button/Button';
 import Search from '../search';
 import { addPlayerCreator } from '../../redux/actions/playerActions';
 

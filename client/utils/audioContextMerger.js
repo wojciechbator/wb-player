@@ -1,4 +1,4 @@
-const audioContextMerger = (backgroundContext, playingContext) => {
+export const audioContextMerger = (backgroundContext, playingContext) => {
     const outputContext = new AudioContext();
     const merger = outputContext.createChannelMerger(2);
     backgroundContext.connect(merger, 0, 1);
