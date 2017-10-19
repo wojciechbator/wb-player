@@ -102,9 +102,9 @@ export const addNodeCreator = (node) => {
     }
 }
 
-export const removeNodeCreator = (node, audioChain) => {
+export const removeNodeCreator = (node) => {
     return dispatch => {
-        dispatch(removeNodeFromChain(node, audioChain));
+        dispatch(removeNodeFromChain(node));
     }
 }
 

@@ -1,17 +1,5 @@
 import encodeWAV from './waveEncoder';
 
-/*
-interface Navigator {
-  webkitGetUserMedia?: typeof navigator.getUserMedia,
-  mozGetUserMedia?: typeof navigator.getUserMedia,
-  msGetUserMedia?: typeof navigator.getUserMedia,
-};
-navigator.getUserMedia = navigator.getUserMedia ||
-                         navigator.webkitGetUserMedia ||
-                         navigator.mozGetUserMedia ||
-                         navigator.msGetUserMedia;
-*/
-
 export default class WAVEInterface {
   constructor() {
     this.playbackNode;
@@ -24,10 +12,10 @@ export default class WAVEInterface {
 
   }
 
-  get bufferLength() { return this.buffers[0].length * WAVEInterface.bufferSize; }
-  get audioDuration() { return this.bufferLength / WAVEInterface.audioContext.sampleRate; }
+  get bufferLength() { return this.buffers[0].length * this.bufferSize; }
+  get audioDuration() { return this.bufferLength / this.audioContext.sampleRate; }
   get audioData() {
-    return this.encodingCache || encodeWAV(this.buffers, this.bufferLength, WAVEInterface.audioContext.sampleRate);
+    return this.encodingCache || encodeWAV(this.buffers, this.bufferLength, this.audioContext.sampleRate);
   }
 
   startRecording() {
@@ -35,11 +23,10 @@ export default class WAVEInterface {
       navigator.getUserMedia({ audio: true }, (stream) => {
         const recGainNode = this.audioContext.createGain();
         const recSourceNode = this.audioContext.createMediaStreamSource(stream);
-        const recProcessingNode = audioContext.createScriptProcessor(WAVEInterface.bufferSize, 2, 2);
+        const recProcessingNode = this.audioContext.createScriptProcessor(this.bufferSize, 2, 2);
         if (this.encodingCache) this.encodingCache = null;
 
         recProcessingNode.onaudioprocess = (event) => {
-          console.log('audio process', this);
           if (this.encodingCache) this.encodingCache = null;
           // save left and right buffers
           for (let i = 0; i < 2; i++) {

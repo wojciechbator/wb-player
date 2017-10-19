@@ -45,7 +45,7 @@ export const audioReducer = (state = initialState, action) => {
             });
         case REMOVE_NODE:
             return Object.assign({}, state, {
-                currentChain: state.currentChain.splice(action.currentChain.indexOf(action.node), 1)
+                currentChain: state.currentChain.splice(state.currentChain.indexOf(action.node), 1)
             });
         case ADD_NODE_TO_AVAILABLE_NODES:
             return Object.assign({}, state, {
