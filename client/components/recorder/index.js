@@ -11,12 +11,10 @@ const defaultProps = {
   className: '',
   style: {},
   filename: 'output.wav',
-  playLabel: '🔊 Play',
   playingLabel: '❚❚ Playing',
   recordLabel: '● Record',
   recordingLabel: '● Recording',
   removeLabel: '✖ Remove',
-  downloadLabel: '\ud83d\udcbe Save'
 };
 
 class Recorder extends Component {
@@ -114,7 +112,7 @@ class Recorder extends Component {
   };
 
   onDownloadClick() {
-    downloadBlob(this.state.audioData, this.props.filename);
+    downloadBlob(this.state.audioData, defaultProps.filename);
   }
 
   onButtonClick(event) {
@@ -147,11 +145,11 @@ class Recorder extends Component {
             }
             {
               !this.state.isPlaying && this.state.audioData ? 
-                <Button className='recorder-button' label={defaultProps.playLabel} onClick={this.startPlayback} />
+                <Button className='recorder-button' label='&#9654; Play' onClick={this.startPlayback} />
                 :
                 <Button className='recorder-button' label={defaultProps.playingLabel} onClick={this.stopPlayback} />
             }
-            <Button className='recorder-button' label='&#x1f4be;' onClick={this.onDownloadClick} />
+            <Button className='recorder-button' label='&#xe172; Save' onClick={this.onDownloadClick} />
             <Button className='recorder-button' label={defaultProps.removeLabel} onClick={this.onRemoveClick} />
           </div>
         </div>
