@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Button} from 'primereact/components/button/Button';
+import { Button } from 'primereact/components/button/Button';
 import Search from '../search';
-import { addPlayerCreator } from '../../redux/actions/playerActions';
+import { addOutputAudioCreator, removeOutputAudioCreator, mergedAudioCreator } from '../../redux/actions/outputActions';
+import { audioContextMerger } from '../../utils/audioContextMerger';
 
 import './player.css';
 
@@ -26,10 +27,6 @@ class Player extends Component {
         this.decodeMp3FromBufferAndPlay = this.decodeMp3FromBufferAndPlay.bind(this);
     }
 
-    componentDidMount() {
-        this.props.addPlayerCreator(this.state.playbackAudioContext);
-    }
-
     playAudio(event) {
         event.stopPropagation();
         const fileInput = document.getElementById('audio_file');
@@ -46,6 +43,7 @@ class Player extends Component {
         this.defaultData.source.stop(0);
         this.defaultData.pausedAt = Date.now() - this.defaultData.startedAt;
         this.defaultData.paused = true;
+        this.props.removeOutputAudioCreator(this.defaultData.source);
     }
 
     loadAudio() {
@@ -73,6 +71,11 @@ class Player extends Component {
             this.defaultData.source = this.state.playbackAudioContext.createBufferSource();
             this.defaultData.source.buffer = decodedAudioBuffer;
             this.defaultData.source.connect(this.state.playbackAudioContext.destination);
+            this.props.addOutputAudioCreator(this.props.currentChain[this.props.currentChain.length - 1]);
+            this.props.addOutputAudioCreator(this.defaultData.source);
+            // this.props.mergedAudioCreator(audioContextMerger(this.props.currentChain[this.props.currentChain.length - 1]), this.defaultData.source);
+            // this.props.mergedAudio.connect(this.props.outputContext.destination);
+
             this.defaultData.paused = false;
             if (this.defaultData.pausedAt) {
                 this.defaultData.startedAt = Date.now() - this.defaultData.pausedAt;
@@ -110,11 +113,13 @@ class Player extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        playbackAudioContext: store.player.playerContext
+        outputContext: store.output.outputContext,
+        currentChain: store.audio.currentChain,
+        mergedAudio: store.output.mergedAudio
     } 
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ addPlayerCreator }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ addOutputAudioCreator, removeOutputAudioCreator, mergedAudioCreator }, dispatch);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);
