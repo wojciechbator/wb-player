@@ -149,7 +149,7 @@ class Recorder extends Component {
                 :
                 <Button className='recorder-button' label={defaultProps.playingLabel} onClick={this.stopPlayback} />
             }
-            <Button className='recorder-button' label='&#xe172; Save' onClick={this.onDownloadClick} />
+            <Button className='recorder-button' label='&#128190; Save' onClick={this.onDownloadClick} />
             <Button className='recorder-button' label={defaultProps.removeLabel} onClick={this.onRemoveClick} />
           </div>
         </div>
@@ -160,7 +160,7 @@ class Recorder extends Component {
 const mapStateToProps = (state) => {
   return {
     audioContext: state.audio.audioContext,
-    playerContext: state.player.playerContext
+    outputContext: state.output.outputContext
   }
 }
 
