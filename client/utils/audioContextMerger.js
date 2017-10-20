@@ -5,5 +5,4 @@ export const audioContextMerger = (backgroundPlayer, mainPlayer) => {
     mainPlayer.connect(merger, 1, 0);
     const destination = outputContext.createMediaStreamDestination();
     merger.connect(destination);
-    return outputContext;
 }

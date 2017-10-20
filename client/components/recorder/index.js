@@ -17,13 +17,13 @@ const defaultProps = {
   removeLabel: '✖ Remove',
 };
 
-class Recorder extends Component {
+export default class Recorder extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isRecording: false,
       isPlaying: false,
-      audioData: null
+      audioData: this.props.outputContext
     };
     this.waveInterface = new WAVEInterface();
     this.startRecording = this.startRecording.bind(this);
@@ -156,12 +156,3 @@ class Recorder extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    audioContext: state.audio.audioContext,
-    outputContext: state.output.outputContext
-  }
-}
-
-export default connect(mapStateToProps)(Recorder);

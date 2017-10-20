@@ -17,6 +17,9 @@ class Player extends Component {
             pausedAt: null,
             paused: true
         }
+        this.state = {
+            playbackAudioContext: new (window.AudioContext || window.webkitAudioContext)
+        }
         this.playAudio = this.playAudio.bind(this);
         this.pauseAudio = this.pauseAudio.bind(this);
         this.loadAudio = this.loadAudio.bind(this);
@@ -64,13 +67,14 @@ class Player extends Component {
     }
 
     decodeMp3FromBufferAndPlay(mp3AudioBufferArray) {
-        this.props.playbackAudioContext.decodeAudioData(mp3AudioBufferArray, (decodedAudioBuffer) => {
-            this.defaultData.source = this.props.playbackAudioContext.createBufferSource();
+        this.state.playbackAudioContext.decodeAudioData(mp3AudioBufferArray, (decodedAudioBuffer) => {
+            this.defaultData.source = this.state.playbackAudioContext.createBufferSource();
             this.defaultData.source.buffer = decodedAudioBuffer;
-            this.defaultData.source.connect(this.props.playbackAudioContext.destination);
+            this.defaultData.source.connect(this.state.playbackAudioContext.destination);
             this.props.addOutputAudioCreator(this.props.currentChain[this.props.currentChain.length - 1]);
             this.props.addOutputAudioCreator(this.defaultData.source);
             this.props.mergedAudioCreator(audioContextMerger(this.props.currentChain[this.props.currentChain.length - 1]), this.defaultData.source);
+            this.props.mergedAudio.connect(this.props.outputContext.destination);
 
             this.defaultData.paused = false;
             if (this.defaultData.pausedAt) {
@@ -109,8 +113,9 @@ class Player extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        playbackAudioContext: store.output.outputContext,
-        currentChain: store.audio.currentChain
+        outputContext: store.output.outputContext,
+        currentChain: store.audio.currentChain,
+        mergedAudio: store.output.mergedAudio
     } 
 }
 
