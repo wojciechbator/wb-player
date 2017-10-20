@@ -73,8 +73,8 @@ class Player extends Component {
             this.defaultData.source.connect(this.state.playbackAudioContext.destination);
             this.props.addOutputAudioCreator(this.props.currentChain[this.props.currentChain.length - 1]);
             this.props.addOutputAudioCreator(this.defaultData.source);
-            this.props.mergedAudioCreator(audioContextMerger(this.props.currentChain[this.props.currentChain.length - 1]), this.defaultData.source);
-            this.props.mergedAudio.connect(this.props.outputContext.destination);
+            // this.props.mergedAudioCreator(audioContextMerger(this.props.currentChain[this.props.currentChain.length - 1]), this.defaultData.source);
+            // this.props.mergedAudio.connect(this.props.outputContext.destination);
 
             this.defaultData.paused = false;
             if (this.defaultData.pausedAt) {
