@@ -5,11 +5,35 @@
     <title>WiFi Guitar</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        .splash-wrapper {
+            position: absolute; 
+            height: 100%;
+            width: 100%;
+            background-color: #232323;
+        }
+
+        .splash-image {
+            position: relative; 
+            top: 50%; 
+            left: 50%; 
+            height: 300px; 
+            width: 800px;
+            margin-top: -150px; 
+            margin-left: -400px;
+        }
+    </style>
 </head>
 
 <body>
     <div id="root">
-        React hasn't been loaded into HTML
+        <div class="splash-wrapper">
+            <img class="splash-image" src="assets/images/splash.png" />
+        </div>
     </div>
 </body>
 
