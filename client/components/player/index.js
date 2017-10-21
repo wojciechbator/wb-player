@@ -41,7 +41,7 @@ class Player extends Component {
 
     pauseAudio() {
         this.defaultData.source.stop(0);
-        this.defaultData.pausedAt = Date.now() - this.defaultData.startedAt;
+        this.defaultData.pausedAt = this.state.playbackAudioContext.currentTime - this.defaultData.startedAt;
         this.defaultData.paused = true;
         this.props.removeOutputAudioCreator(this.defaultData.source);
     }
@@ -78,11 +78,11 @@ class Player extends Component {
 
             this.defaultData.paused = false;
             if (this.defaultData.pausedAt) {
-                this.defaultData.startedAt = Date.now() - this.defaultData.pausedAt;
+                this.defaultData.startedAt = this.state.playbackAudioContext.currentTime - this.defaultData.pausedAt;
                 this.defaultData.source.start(0, this.defaultData.pausedAt / 1000);
             }
             else {
-                this.defaultData.startedAt = Date.now();
+                this.defaultData.startedAt = this.state.playbackAudioContext.currentTime;
                 this.defaultData.source.start(0);
             }
         });
