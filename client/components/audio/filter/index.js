@@ -12,52 +12,22 @@ import './filter.css';
 class FilterNode extends Component {
     constructor(props) { 
         super(props);
-        this.state = {
-            filterNode: {
-                lowpass: 50,
-                bandpass: 50,
-                highpass: 50
-            }
-        }
-        
-        this.onBassChange = this.onBassChange.bind(this);
-        this.onMiddleChange = this.onMiddleChange.bind(this);
-        this.onTrebleChange = this.onTrebleChange.bind(this);
+
+        this.onValueChange = this.onValueChange.bind(this);
     }
 
-    componentDidMount() {
-        this.setState({ filterNode: this.props.audioContext.createBiquadFilter() });
-        const node = this.props.audioContext.createBiquadFilter();
-        audioChain(this.props.currentChain,this.props.audioContext);
-    }
-
-    onBassChange(event) {
+    onValueChange(event) {
         this.setState({ filterNode: {lowpass: { value: event.value } } });
-    }
-
-    onMiddleChange(event) {
-        this.setState({ filterNode: {bandpass: { value: event.value } } });
-    }
-    
-    onTrebleChange(event) {
-        this.setState({ filterNode: {highpass: { value: event.value } } });
     }
 
     render() {
         return (
             <div>
                 <div>
-                    <Fieldset legend="FILTER" toggleable={true}>
+                    <Fieldset legend={this.props.type} toggleable={true}>
                         <div className="wrapper">
-                            <h3>Filters</h3>
-                            <div className="filter-sliders">
-                                <label>Bass</label>
-                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.filterNode.lowpass} onChange={this.onBassChange} />
-                                <label>Middle</label>
-                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.filterNode.bandpass} onChange={this.onMiddleChange} />
-                                <label>Treble</label>
-                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.filterNode.highpass} onChange={this.onTrebleChange} />
-                            </div>
+                            <h3>{this.props.type}: {this.props.value}</h3>
+                            <Slider className="slider" orientation='vertical' animate={true} value={this.props.value} onChange={this.onValueChange} />
                         </div>
                     </Fieldset>
                 </div>
