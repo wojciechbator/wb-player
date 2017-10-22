@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { DataList } from 'primereact/components/datalist/DataList';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
+import { addNodeCreator } from '../../redux/actions/audioActions';
 import './nodesList.css';
 
 class NodesList extends Component {
@@ -12,7 +14,8 @@ class NodesList extends Component {
     }
 
     addAudioToChain(node) {
-        console.log("TRYING TO ADD, NO LOGIC YET!");
+        console.log(node);
+        // this.props.addNodeCreator(node);
     }
 
     nodeTemplate(node) {
@@ -36,8 +39,11 @@ class NodesList extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        availableNodes: store.audio.availableNodes
+        availableNodes: store.audio.availableNodes,
+        currentChain: store.audio.currentChain
     }
 }
+
+const mapDispatchToProps = dispatch => bindActionCreators({ addNodeCreator }, dispatch);
 
 export default connect(mapStateToProps)(NodesList);

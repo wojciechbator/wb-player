@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
+import { gainValuesCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Slider } from 'primereact/components/slider/Slider';
@@ -23,7 +23,6 @@ class GainNode extends Component {
     componentDidMount() {
         this.setState({ gainNode: {gain: { value: 0.5 } } });
         this.props.gainValuesCreator(this.state.gainNode.gain.value);
-        this.props.addNodeCreator(this.state.gainNode);
 
         audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) - 1], 
                     this.state.gainNode, 
@@ -63,6 +62,6 @@ const mapStateToProps = (store) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({gainValuesCreator, addNodeCreator}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({gainValuesCreator}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GainNode);
