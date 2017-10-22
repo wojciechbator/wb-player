@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addNodeToAvailablesCreator } from '../redux/actions/audioActions';
+import { addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator } from '../redux/actions/audioActions';
 
 class AudioNodes extends Component {
     constructor(props) {
@@ -17,7 +17,9 @@ class AudioNodes extends Component {
         this.createDelay = this.createDelay.bind(this);
         this.createAnalyser = this.createAnalyser.bind(this);
         this.addNodesToAvailables = this.addNodesToAvailables.bind(this);
+        this.prepareAudioChain = this.prepareAudioChain.bind(this);
         this.addNodesToAvailables();
+        this.prepareAudioChain();
     }
 
     createGain() {
@@ -116,10 +118,15 @@ class AudioNodes extends Component {
         this.props.addNodeToAvailablesCreator(treble);
         const distortion = this.createWaveShaper();
         this.props.addNodeToAvailablesCreator(distortion);
-        const reverb = this.createConvolver(gain);
-        this.props.addNodeToAvailablesCreator(reverb);
+        // const reverb = this.createConvolver(gain);
+        // this.props.addNodeToAvailablesCreator(reverb);
         const delay = this.createDelay();
         this.props.addNodeToAvailablesCreator(delay);
+    }
+
+    prepareAudioChain() {
+        this.props.addMasterCreator(this.createGain());
+        this.props.addCompressorCreator(this.createDynamicsCompressor())
     }
 
     render() {
@@ -133,6 +140,6 @@ const mapStateToProps = (store) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ addNodeToAvailablesCreator }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator }, dispatch);
 
 export default connect(null, mapDispatchToProps)(AudioNodes);

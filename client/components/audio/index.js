@@ -5,21 +5,35 @@ import { connect } from 'react-redux';
 
 import GainNode from './gain';
 import FilterNode from './filter';
+import { removeNodeCreator } from '../../redux/actions/audioActions';
 import audioChain from '../../utils/audioChain';
 import './audio.css';
 
 class AudioChain extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    removeNode(node) {
+        this.props.removeNodeCreator(node);
+    }
+    
     render() {
         return (
             <div className='audio-chain'>
-                <GainNode 
+                {this.props.currentChain.map((element, i) => <GainNode 
+                    key={i}
                     currentChain={this.props.currentChain} 
                     inputStream={this.props.inputStream}
-                    audioContext={this.props.audioContext} />
+                    audioContext={this.props.audioContext}
+                    removeNode={() => this.removeNode(element)} />
+                    )
+                }
                 <FilterNode 
                     currentChain={this.props.currentChain} 
                     inputStream={this.props.inputStream}
-                    audioContext={this.props.audioContext} />
+                    audioContext={this.props.audioContext}
+                    removeNode={this.removeNode} />
             </div>
         );
     }
@@ -33,4 +47,6 @@ const mapStateToProps = (store) => {
     }
 }
 
-export default connect(mapStateToProps)(AudioChain);
+const mapDispatchToProps = (dispatch) => bindActionCreators({removeNodeCreator}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AudioChain);

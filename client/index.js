@@ -6,7 +6,6 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { RRWAEngine } from 'react-redux-webaudio';
 
 import StudioPage from './components/studio';
-import AudioNodes from './utils/AudioNodes';
 import Diagnostics from './components/diagnostics';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -29,13 +28,12 @@ export default class App extends Component {
         }
         audioInitializer();
     }
-    
+
     render() {
         return (
             <div className='main-wrapper'>
                 <Header />
                 <div className='body-wrapper'>
-                    <AudioNodes audioContext={store.audioContext || new AudioContext()} />
                     <StudioPage />
                 </div>
                 <Footer />

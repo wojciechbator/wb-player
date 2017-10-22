@@ -7,6 +7,8 @@ import Player from '../player';
 import Recorder from '../recorder';
 import PresetsContainer from '../presets';
 import NodesList from '../nodesList';
+import AudioNodes from '../../utils/AudioNodes';
+
 import './studio.css';
 
 class StudioPage extends Component {
@@ -18,13 +20,14 @@ class StudioPage extends Component {
     render() {
         return (
             <div className="studio-module">
+                <AudioNodes audioContext={this.props.audioContext} />
                 <Player />
                 <div className="studio-container">
                     <PresetsContainer />
                     <NodesList />
                     <AudioChain />
                 </div>
-                <Recorder initialAudio={this.props.outputContext || this.props.audioContext} />
+                <Recorder initialAudio={this.props.audioContext} />
             </div>
         );
     }
@@ -33,7 +36,6 @@ class StudioPage extends Component {
 const mapStateToProps = (state) => {
     return {
         audioContext: state.audio.audioContext,
-        outputContext: state.output.outputContext
     }
 }
 

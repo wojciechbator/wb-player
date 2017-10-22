@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { gainValuesCreator, addNodeCreator } from '../../../redux/actions/audioActions';
+import { gainValuesCreator, removeNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
+import { Button } from 'primereact/components/button/Button';
 import { Slider } from 'primereact/components/slider/Slider';
 
 import './gain.css';
@@ -23,14 +24,8 @@ class GainNode extends Component {
     componentDidMount() {
         this.setState({ gainNode: {gain: { value: 0.5 } } });
         this.props.gainValuesCreator(this.state.gainNode.gain.value);
-        this.props.addNodeCreator(this.state.gainNode);
 
-        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) - 1], 
-                    this.state.gainNode, 
-                    this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) + 1], 
-                    true, 
-                    true, 
-                    this.props.audioContext);
+        audioChain(this.props.currentChain, this.props.audioContext);
     
     }
 
@@ -47,6 +42,7 @@ class GainNode extends Component {
                         <h3>Gain: {Math.round(this.state.gainNode.gain.value * 100)}</h3>
                         <Slider orientation='vertical' animate={true} value={Math.round(this.state.gainNode.gain.value * 100)} onChange={this.onVolumeChange} />
                     </div>
+                    <Button label="REMOVE" onClick={this.props.removeNode}/>
                 </Fieldset>
             </div>
         )
@@ -63,6 +59,6 @@ const mapStateToProps = (store) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({gainValuesCreator, addNodeCreator}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({gainValuesCreator}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GainNode);

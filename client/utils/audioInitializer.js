@@ -2,7 +2,7 @@ import store from '../redux/store';
 import { initializeAudioContext, storeInputStream } from '../redux/actions/audioActions';
 
 export const audioInitializer = () => {
-    const audioContext = new AudioContext();
+    const audioContext = new (window.AudioContext || window.webkitAudioContext);
     store.dispatch(initializeAudioContext(audioContext));
     captureAudio(audioContext);
 }

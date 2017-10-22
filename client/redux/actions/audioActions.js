@@ -6,7 +6,9 @@ import { AUDIO_CONTEXT_INIT,
     ADD_NODE, 
     REMOVE_NODE,
     ADD_NODE_TO_AVAILABLE_NODES,
-    REMOVE_NODE_FROM_AVAILABLE_NODES 
+    REMOVE_NODE_FROM_AVAILABLE_NODES,
+    ADD_COMPRESSOR,
+    ADD_MASTER
 } from '../types/audioTypes';
 
 export const initializeAudioContext = (audioContext) => {
@@ -58,6 +60,20 @@ export const removeNodeFromChain = (node) => {
     }
 }
 
+export const addCompressor = (compressor) => {
+    return {
+        type: ADD_COMPRESSOR,
+        compressor
+    }
+}
+
+export const addMaster = (master) => {
+    return {
+        type: ADD_MASTER,
+        master
+    }
+}
+
 export const addNodeToAvailables = (node) => {
     return {
         type: ADD_NODE_TO_AVAILABLE_NODES,
@@ -105,6 +121,18 @@ export const addNodeCreator = (node) => {
 export const removeNodeCreator = (node) => {
     return dispatch => {
         dispatch(removeNodeFromChain(node));
+    }
+}
+
+export const addCompressorCreator = (compressor) => {
+    return dispatch => {
+        dispatch(addCompressor(compressor));
+    }
+}
+
+export const addMasterCreator = (master) => {
+    return dispatch => {
+        dispatch(addMaster(master));
     }
 }
 
