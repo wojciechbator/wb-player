@@ -14,7 +14,7 @@ class StudioPage extends Component {
         super(props);
         const socket = io();
     }
-      
+
     render() {
         return (
             <div className="studio-module">

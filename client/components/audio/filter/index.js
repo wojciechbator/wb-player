@@ -28,9 +28,6 @@ class FilterNode extends Component {
     componentDidMount() {
         this.setState({ filterNode: this.props.audioContext.createBiquadFilter() });
         const node = this.props.audioContext.createBiquadFilter();
-        console.log(node);
-        // this.props.addNodeCreator(this.state.filterNode);
-
         audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.filterNode) - 1], 
                     this.state.filterNode, 
                     this.props.currentChain[this.props.currentChain.indexOf(this.state.filterNode) + 1], 
@@ -42,17 +39,14 @@ class FilterNode extends Component {
 
     onBassChange(event) {
         this.setState({ filterNode: {lowpass: { value: event.value } } });
-        // this.props.gainValuesCreator(value);
     }
 
     onMiddleChange(event) {
         this.setState({ filterNode: {bandpass: { value: event.value } } });
-        // this.props.gainValuesCreator(value);
-    }    
+    }
     
     onTrebleChange(event) {
         this.setState({ filterNode: {highpass: { value: event.value } } });
-        // this.props.gainValuesCreator(value);
     }
 
     render() {

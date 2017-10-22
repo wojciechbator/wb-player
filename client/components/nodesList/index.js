@@ -16,11 +16,11 @@ class NodesList extends Component {
 
     render() {
         let names = [];
-        this.props.currentChain.map(element => names.push(element.constructor.name));
+        this.props.availableNodes.map(element => element.type ? names.push(element.type) : names.push(element.constructor.name));
         return (
             <div className="nodes-list">
                 <DataList value={names} header="Audio nodes">
-                    {this.props.currentChain.map((element, i) => <div key={i} text={element.constructor.name} />)}
+                    {this.props.availableNodes.map((element, i) => <div key={i} text={element.constructor.name} />)}
                 </DataList>
             </div>
         );
@@ -29,7 +29,7 @@ class NodesList extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        currentChain: store.audio.currentChain
+        availableNodes: store.audio.availableNodes
     }
 }
 
