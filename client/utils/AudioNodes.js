@@ -98,7 +98,7 @@ class AudioNodes extends Component {
     }
 
     createDelay() {
-        let delay = this.props.audioContext.createDelay(1.0);
+        let delay = this.props.audioContext.createDelay(5.0);
         return delay;
     }
 
