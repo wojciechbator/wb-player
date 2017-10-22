@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { gainValuesCreator } from '../../../redux/actions/audioActions';
+import { gainValuesCreator, removeNodeCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
+import { Button } from 'primereact/components/button/Button';
 import { Slider } from 'primereact/components/slider/Slider';
 
 import './gain.css';
@@ -46,6 +47,7 @@ class GainNode extends Component {
                         <h3>Gain: {Math.round(this.state.gainNode.gain.value * 100)}</h3>
                         <Slider orientation='vertical' animate={true} value={Math.round(this.state.gainNode.gain.value * 100)} onChange={this.onVolumeChange} />
                     </div>
+                    <Button label="REMOVE" onClick={this.props.removeNode}/>
                 </Fieldset>
             </div>
         )

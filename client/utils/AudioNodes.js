@@ -116,8 +116,8 @@ class AudioNodes extends Component {
         this.props.addNodeToAvailablesCreator(treble);
         const distortion = this.createWaveShaper();
         this.props.addNodeToAvailablesCreator(distortion);
-        const reverb = this.createConvolver(gain);
-        this.props.addNodeToAvailablesCreator(reverb);
+        // const reverb = this.createConvolver(gain);
+        // this.props.addNodeToAvailablesCreator(reverb);
         const delay = this.createDelay();
         this.props.addNodeToAvailablesCreator(delay);
     }

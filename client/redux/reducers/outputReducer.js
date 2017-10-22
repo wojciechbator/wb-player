@@ -13,7 +13,7 @@ export const outputReducer = (state = initialStore, action) => {
         case ADD_OUTPUT_NODE:
             return Object.assign({}, state, { audioChain: state.audioChain.concat(action.audoNode) });
         case REMOVE_OUTPUT_NODE:
-            return Object.assign({}, state, { audioChain: state.audioChain.splice(state.audioChain.indexOf(action.audoNode) - 1, 1)});
+            return Object.assign({}, state, { audioChain: state.audioChain.filter((element, index) => index != state.currentChain.indexOf(action.node))});
         default:
             return state;
     }
