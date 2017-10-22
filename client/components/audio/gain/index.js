@@ -25,12 +25,7 @@ class GainNode extends Component {
         this.setState({ gainNode: {gain: { value: 0.5 } } });
         this.props.gainValuesCreator(this.state.gainNode.gain.value);
 
-        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) - 1], 
-                    this.state.gainNode, 
-                    this.props.currentChain[this.props.currentChain.indexOf(this.state.gainNode.gain.value) + 1], 
-                    true, 
-                    true, 
-                    this.props.audioContext);
+        audioChain(this.props.currentChain, this.props.audioContext);
     
     }
 

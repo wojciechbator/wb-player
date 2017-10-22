@@ -24,8 +24,6 @@ class NodesList extends Component {
     }
 
     render() {
-        let names = [];
-        this.props.availableNodes.map(element => element.type ? names.push(element.type) : names.push(element.constructor.name));
         return (
             <div className="nodes-list">
                 <OrderList value={this.props.availableNodes} dragdrop={true} itemTemplate={this.nodeTemplate} responsive={true} header='Available nodes' />     

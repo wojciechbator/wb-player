@@ -28,13 +28,7 @@ class FilterNode extends Component {
     componentDidMount() {
         this.setState({ filterNode: this.props.audioContext.createBiquadFilter() });
         const node = this.props.audioContext.createBiquadFilter();
-        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.filterNode) - 1], 
-                    this.state.filterNode, 
-                    this.props.currentChain[this.props.currentChain.indexOf(this.state.filterNode) + 1], 
-                    true, 
-                    true, 
-                    this.props.audioContext);
-    
+        audioChain(this.props.currentChain,this.props.audioContext);
     }
 
     onBassChange(event) {

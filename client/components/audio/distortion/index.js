@@ -23,13 +23,7 @@ class DistortionNode extends Component {
         this.props.gainValuesCreator(this.state.gainValue.gain.value);
         this.props.addNodeCreator(this.state.gainValue.gain.value);
 
-        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.gainValue.gain.value) - 1], 
-                    this.state.gainValue, 
-                    this.props.currentChain[this.props.currentChain.indexOf(this.state.gainValue.gain.value) + 1], 
-                    true, 
-                    true, 
-                    this.props.audioContext);
-    
+        audioChain(this.props.currentChain, this.props.audioContext);
     }
 
     onVolumeChange(event) {

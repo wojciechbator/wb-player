@@ -6,8 +6,11 @@ import {
     ADD_NODE, 
     REMOVE_NODE, 
     ADD_NODE_TO_AVAILABLE_NODES, 
-    REMOVE_NODE_FROM_AVAILABLE_NODES 
+    REMOVE_NODE_FROM_AVAILABLE_NODES,
+    ADD_COMPRESSOR,
+    ADD_MASTER
 } from '../types/audioTypes';
+import { prependArray } from '../../utils/prependArray';
 
 const initialState = {
     audioContext: null,
@@ -41,11 +44,19 @@ export const audioReducer = (state = initialState, action) => {
             });
         case ADD_NODE:
             return Object.assign({}, state, {
-                currentChain: state.currentChain.concat(action.node)
+                currentChain: prependArray(action.node, state.currentChain)
             });
         case REMOVE_NODE:
             return Object.assign({}, state, {
-                currentChain: state.currentChain.splice(state.currentChain.indexOf(action.node) + 1, 1)
+                currentChain: state.currentChain.filter((element, index) => index != state.currentChain.indexOf(action.node))
+            });
+        case ADD_COMPRESSOR:
+            return Object.assign({}, state, {
+                currentChain: state.currentChain.concat(action.compressor)
+            });
+        case ADD_MASTER:
+            return Object.assign({}, state, {
+                currentChain: state.currentChain.concat(action.master)
             });
         case ADD_NODE_TO_AVAILABLE_NODES:
             return Object.assign({}, state, {
@@ -53,7 +64,7 @@ export const audioReducer = (state = initialState, action) => {
             });
         case REMOVE_NODE_FROM_AVAILABLE_NODES:
             return Object.assign({}, state, {
-                availableNodes: state.availableNodes.splice(state.availableNodes.indexOf(action.node) + 1, 1)
+                availableNodes: state.availableNodes.filter((element, index) => index != state.availableNodes.indexOf(action.node))
             });
         default:
             return state;

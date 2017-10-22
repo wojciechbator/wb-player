@@ -21,12 +21,8 @@ class AudioChain extends Component {
     render() {
         return (
             <div className='audio-chain'>
-                <GainNode 
-                    currentChain={this.props.currentChain} 
-                    inputStream={this.props.inputStream}
-                    audioContext={this.props.audioContext}
-                    removeNode={this.removeNode} />
                 {this.props.currentChain.map((element, i) => <GainNode 
+                    key={i}
                     currentChain={this.props.currentChain} 
                     inputStream={this.props.inputStream}
                     audioContext={this.props.audioContext}
