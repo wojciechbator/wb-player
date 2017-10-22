@@ -13,8 +13,11 @@ class FilterNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            filterNode: this.props.audioContext.createBiquadFilter(),
-            values: {bass: 50, middle: 50, treble: 50}
+            filterNode: {
+                lowpass: 50,
+                bandpass: 50,
+                highpass: 50
+            }
         }
         
         this.onBassChange = this.onBassChange.bind(this);
@@ -23,13 +26,11 @@ class FilterNode extends Component {
     }
 
     componentDidMount() {
-        this.setState({ filterNode: {gain: { value: 0.5 } } });
-        // this.props.gainValuesCreator(this.state.filterNode.gain.value);
-        // this.props.addNodeCreator(this.state.filterNode.gain.value);
-
-        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.filterNode.gain.value) - 1], 
+        this.setState({ filterNode: this.props.audioContext.createBiquadFilter() });
+        const node = this.props.audioContext.createBiquadFilter();
+        audioChain(this.props.currentChain[this.props.currentChain.indexOf(this.state.filterNode) - 1], 
                     this.state.filterNode, 
-                    this.props.currentChain[this.props.currentChain.indexOf(this.state.filterNode.gain.value) + 1], 
+                    this.props.currentChain[this.props.currentChain.indexOf(this.state.filterNode) + 1], 
                     true, 
                     true, 
                     this.props.audioContext);
@@ -37,18 +38,15 @@ class FilterNode extends Component {
     }
 
     onBassChange(event) {
-        this.setState({ filterNode: {gain: { value: event.value / 100 } } });
-        // this.props.gainValuesCreator(value);
+        this.setState({ filterNode: {lowpass: { value: event.value } } });
     }
 
     onMiddleChange(event) {
-        this.setState({ filterNode: {gain: { value: event.value / 100 } } });
-        // this.props.gainValuesCreator(value);
-    }    
+        this.setState({ filterNode: {bandpass: { value: event.value } } });
+    }
     
     onTrebleChange(event) {
-        this.setState({ filterNode: {gain: { value: event.value / 100 } } });
-        // this.props.gainValuesCreator(value);
+        this.setState({ filterNode: {highpass: { value: event.value } } });
     }
 
     render() {
@@ -60,11 +58,11 @@ class FilterNode extends Component {
                             <h3>Filters</h3>
                             <div className="filter-sliders">
                                 <label>Bass</label>
-                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.values.bass} onChange={this.onBassChange} />
+                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.filterNode.lowpass} onChange={this.onBassChange} />
                                 <label>Middle</label>
-                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.values.middle} onChange={this.onMiddleChange} />
+                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.filterNode.bandpass} onChange={this.onMiddleChange} />
                                 <label>Treble</label>
-                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.values.treble} onChange={this.onTrebleChange} />
+                                <Slider className="slider" orientation='vertical' animate={true} value={this.state.filterNode.highpass} onChange={this.onTrebleChange} />
                             </div>
                         </div>
                     </Fieldset>

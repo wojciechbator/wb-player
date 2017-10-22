@@ -1,0 +1,3 @@
+http://www.learnabout-electronics.org/Amplifiers/amplifiers42.php (2017-10-22)
+Web audio api book - http://chimera.labs.oreilly.com/books/1234000001552/index.html (2017-08-25)
+http://www.ti.com/lit/ug/tidu887/tidu887.pdf (2017-10-22)
