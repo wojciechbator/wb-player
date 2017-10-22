@@ -8,10 +8,18 @@ class NodesList extends Component {
     constructor(props) {
         super(props);
         this.addAudioToChain = this.addAudioToChain.bind(this);
+        this.nodeTemplate = this.nodeTemplate.bind(this);
     }
 
     addAudioToChain(node) {
-        //ADD TO END OF CHAIN, MAYBE PUSH / CONCAT?
+        console.log("TRYING TO ADD, NO LOGIC YET!");
+    }
+
+    nodeTemplate(node) {
+        if(!node) return;
+        return (
+            <div className="available-node" onClick={this.addAudioToChain}>{node}</div>
+        );
     }
 
     render() {
@@ -19,8 +27,7 @@ class NodesList extends Component {
         this.props.availableNodes.map(element => element.type ? names.push(element.type) : names.push(element.constructor.name));
         return (
             <div className="nodes-list">
-                <DataList value={names} header="Audio nodes">
-                    {this.props.availableNodes.map((element, i) => <div key={i} text={element.constructor.name} />)}
+                <DataList value={names} itemTemplate={this.nodeTemplate} header="Audio nodes">
                 </DataList>
             </div>
         );

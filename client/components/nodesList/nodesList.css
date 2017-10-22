@@ -4,3 +4,13 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.available-node {
+    margin: 1px;
+    padding: .125em;
+    cursor: pointer;
+}
+
+.available-node:hover, .available-node:active {
+    background: #4a4a4a;
+}
