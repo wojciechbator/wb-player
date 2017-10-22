@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Button } from 'primereact/components/button/Button';
 import Search from '../search';
-import { addOutputAudioCreator, removeOutputAudioCreator, mergedAudioCreator } from '../../redux/actions/outputActions';
-import { audioContextMerger } from '../../utils/audioContextMerger';
+import { addNodeCreator } from '../../redux/actions/audioActions';
 
 import './player.css';
 
@@ -18,7 +17,7 @@ class Player extends Component {
             paused: true
         }
         this.state = {
-            playbackAudioContext: new (window.AudioContext || window.webkitAudioContext)
+            audioContext: new (window.AudioContext || window.webkitAudioContext)
         }
         this.playAudio = this.playAudio.bind(this);
         this.pauseAudio = this.pauseAudio.bind(this);
@@ -41,9 +40,8 @@ class Player extends Component {
 
     pauseAudio() {
         this.defaultData.source.stop(0);
-        this.defaultData.pausedAt = this.state.playbackAudioContext.currentTime - this.defaultData.startedAt;
+        this.defaultData.pausedAt = this.props.audioContext.currentTime - this.defaultData.startedAt;
         this.defaultData.paused = true;
-        this.props.removeOutputAudioCreator(this.defaultData.source);
     }
 
     loadAudio() {
@@ -67,22 +65,18 @@ class Player extends Component {
     }
 
     decodeMp3FromBufferAndPlay(mp3AudioBufferArray) {
-        this.state.playbackAudioContext.decodeAudioData(mp3AudioBufferArray, (decodedAudioBuffer) => {
-            this.defaultData.source = this.state.playbackAudioContext.createBufferSource();
+        this.state.audioContext.decodeAudioData(mp3AudioBufferArray, (decodedAudioBuffer) => {
+            this.defaultData.source = this.state.audioContext.createBufferSource();
             this.defaultData.source.buffer = decodedAudioBuffer;
-            this.defaultData.source.connect(this.state.playbackAudioContext.destination);
-            this.props.addOutputAudioCreator(this.props.currentChain[this.props.currentChain.length - 1]);
-            this.props.addOutputAudioCreator(this.defaultData.source);
-            // this.props.mergedAudioCreator(audioContextMerger(this.props.currentChain[this.props.currentChain.length - 1]), this.defaultData.source);
-            // this.props.mergedAudio.connect(this.props.outputContext.destination);
-
+            this.defaultData.source.connect(this.state.audioContext.destination);
+            // this.props.addNodeCreator(this.defaultData.source);
             this.defaultData.paused = false;
             if (this.defaultData.pausedAt) {
-                this.defaultData.startedAt = this.state.playbackAudioContext.currentTime - this.defaultData.pausedAt;
+                this.defaultData.startedAt = this.props.audioContext.currentTime - this.defaultData.pausedAt;
                 this.defaultData.source.start(0, this.defaultData.pausedAt / 1000);
             }
             else {
-                this.defaultData.startedAt = this.state.playbackAudioContext.currentTime;
+                this.defaultData.startedAt = this.props.audioContext.currentTime;
                 this.defaultData.source.start(0);
             }
         });
@@ -113,13 +107,11 @@ class Player extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        outputContext: store.output.outputContext,
         currentChain: store.audio.currentChain,
-        mergedAudio: store.output.mergedAudio
+        audioContext: store.audio.audioContext
     } 
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ addOutputAudioCreator, removeOutputAudioCreator, mergedAudioCreator }, dispatch);
-
+const mapDispatchToProps = (dispatch) => bindActionCreators({ addNodeCreator }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player);

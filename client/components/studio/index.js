@@ -27,7 +27,7 @@ class StudioPage extends Component {
                     <NodesList />
                     <AudioChain />
                 </div>
-                <Recorder initialAudio={this.props.outputContext || this.props.audioContext} />
+                <Recorder initialAudio={this.props.audioContext} />
             </div>
         );
     }
@@ -36,7 +36,6 @@ class StudioPage extends Component {
 const mapStateToProps = (state) => {
     return {
         audioContext: state.audio.audioContext,
-        outputContext: state.output.outputContext
     }
 }
 
