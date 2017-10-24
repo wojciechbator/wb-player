@@ -67,7 +67,14 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY ../server/ /usr/src/app/
+COPY ../server /usr/src/app/
+COPY ../client /usr/src/app/
+COPY ../sound_files /usr/src/app/
+COPY .babelrc /usr/src/app/
+COPY package.json /usr/src/app/
+COPY tsconfig.json /usr/src/app/
+COPY webpack.config.js /usr/src/app/
+COPY yarn.lock /usr/src/app/
 
 CMD yarn install
 CMD yarn start
