@@ -1,8 +1,7 @@
 import { 
     AUDIO_CONTEXT_INIT, 
     INPUT_STREAM_VALUE, 
-    GAIN_NODE_VALUES, 
-    FILTER_NODE_VALUES, 
+    NODE_VALUE,
     ADD_NODE, 
     REMOVE_NODE, 
     ADD_NODE_TO_AVAILABLE_NODES, 
@@ -32,15 +31,11 @@ export const audioReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 inputStream: action.inputStream
             });
-        case GAIN_NODE_VALUES:
+        case NODE_VALUE:
             return Object.assign({}, state, {
                 gainNode: {
-                    volume: action.gainNodeVolume
+                    volume: action.nodeValue
                 }
-            });
-        case FILTER_NODE_VALUES:
-            return Object.assign({}, state, {
-                filterNode: action.filterNode
             });
         case ADD_NODE:
             return Object.assign({}, state, {

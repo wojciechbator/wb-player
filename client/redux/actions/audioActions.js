@@ -1,8 +1,6 @@
 import { AUDIO_CONTEXT_INIT, 
     INPUT_STREAM_VALUE, 
-    DISTORTION_VALUES, 
-    GAIN_NODE_VALUES, 
-    FILTER_NODE_VALUES, 
+    NODE_VALUE,
     ADD_NODE, 
     REMOVE_NODE,
     ADD_NODE_TO_AVAILABLE_NODES,
@@ -25,24 +23,11 @@ export const storeInputStream = (inputStream) => {
     }
 }
 
-export const storeGainNodeValues = (gainNodeVolume) => {
+export const storeNodeValue = (nodeType, nodeValue) => {
     return {
-        type: GAIN_NODE_VALUES,
-        gainNodeVolume
-    }
-}
-
-export const storeDistortionValues = (distortionNode) => {
-    return {
-        type: GAIN_NODE_VALUES,
-        distortionNode
-    }
-}
-
-export const storeFilterNodeValues = (filterNode) => {
-    return {
-        type: FILTER_NODE_VALUES,
-        filterNode
+        type: NODE_VALUE,
+        nodeType,
+        nodeValue
     }
 }
 
@@ -100,15 +85,9 @@ export const inputStreamCreator = (inputStream) => {
     }
 }
 
-export const gainValuesCreator = (gainNodeVolume) => {
+export const nodeValueCreator = (nodeType, nodeValue) => {
     return dispatch => {
-        dispatch(storeGainNodeValues(gainNodeVolume));
-    }
-}
-
-export const filterValuesCreator = (filterNode) => {
-    return dispatch => {
-        dispatch(storeFilterNodeValues(filterNode));
+        dispatch(storeNodeValue(nodeType, nodeValue));
     }
 }
 

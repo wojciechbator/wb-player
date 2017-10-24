@@ -29,11 +29,6 @@ class AudioChain extends Component {
                     removeNode={() => this.removeNode(element)} />
                     )
                 }
-                <FilterNode 
-                    currentChain={this.props.currentChain} 
-                    inputStream={this.props.inputStream}
-                    audioContext={this.props.audioContext}
-                    removeNode={this.removeNode} />
             </div>
         );
     }

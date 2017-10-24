@@ -17,7 +17,7 @@ const shouldQuit = app.makeSingleInstance(function(otherInstArgv, otherInstWorki
 if (shouldQuit) app.quit();
     
 const createWindow = () => {
-    app.server = require('./server.js');                     // instantiate Koa app
+    app.server = require('./server');                     // instantiate Koa app
     win = new BrowserWindow({ width: 1920, height: 1080 }); // create browser window
     win.setMenu(null);                                      // remove default menu
     win.loadURL('http://localhost:3000');                 // load koa-app home page

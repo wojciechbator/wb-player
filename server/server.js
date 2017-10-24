@@ -8,7 +8,7 @@ const path = require('path');
 const config = require('../webpack.config');
 const app = new Koa();
 const compiler = Webpack(config);
-const presetRouter = require('./preset');
+const presetsRouter = require('./presets/PresetsController');
 const filesSender = require('./soundFiles');
 const AudioWebsocket = require('./audioWebsocket');
 
@@ -33,12 +33,12 @@ app.use(devMiddleware(compiler, {
     }
 }));
 app.use(hotMiddleware(compiler, {}));
-app.use(presetRouter.routes());
+app.use(presetsRouter.routes());
 app.use(filesSender.routes());
 
 app.use(router.routes())
 .use(router.allowedMethods());
 
-const server = app.listen(3000);                      // note: don't use "if (!module.parent)"!
+const server = app.listen(3000);
 
 const webSocketServer = new AudioWebsocket(server);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { gainValuesCreator, removeNodeCreator } from '../../../redux/actions/audioActions';
+import { nodeValueCreator } from '../../../redux/actions/audioActions';
 import audioChain from '../../../utils/audioChain';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Button } from 'primereact/components/button/Button';
@@ -23,7 +23,7 @@ class GainNode extends Component {
 
     componentDidMount() {
         this.setState({ gainNode: {gain: { value: 0.5 } } });
-        this.props.gainValuesCreator(this.state.gainNode.gain.value);
+        this.props.nodeValueCreator("gain", this.state.gainNode.gain.value);
 
         audioChain(this.props.currentChain, this.props.audioContext);
     
@@ -31,7 +31,7 @@ class GainNode extends Component {
 
     onVolumeChange(event) {
         this.setState({ gainNode: {gain: { value: event.value / 100 } } });
-        this.props.gainValuesCreator(event.value);
+        this.props.nodeValueCreator(event.value);
     }
 
     render() {
@@ -59,6 +59,6 @@ const mapStateToProps = (store) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({gainValuesCreator}, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({nodeValueCreator}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(GainNode);

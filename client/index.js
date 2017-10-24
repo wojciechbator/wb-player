@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-import { RRWAEngine } from 'react-redux-webaudio';
 
 import StudioPage from './components/studio';
 import Diagnostics from './components/diagnostics';
@@ -44,7 +43,6 @@ export default class App extends Component {
 
 ReactDOM.render(<Provider store={store}>
         <Router history={history}>
-            <RRWAEngine />
             <Route path='/' component={App}>
                 <Route path='/diagnostics' component={Diagnostics} />
             </Route>
