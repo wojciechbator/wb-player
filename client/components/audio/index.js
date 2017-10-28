@@ -24,17 +24,11 @@ class Audio extends Component {
                 element.type ?
                 <FilterNode
                     key={i}
-                    currentChain={this.props.currentChain}
                     currentNode={element}
-                    inputStream={this.props.inputStream}
-                    audioContext={this.props.audioContext}
                     removeNode={() => this.removeNode(element)} /> :
                 <GainNode
                     key={i}
-                    currentChain={this.props.currentChain}
                     currentNode={element}
-                    inputStream={this.props.inputStream}
-                    audioContext={this.props.audioContext}
                     removeNode={() => this.removeNode(element)} />
                 })
                 }

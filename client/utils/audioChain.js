@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class AudioChain extends Component {
-    componentWillReceiveProps() {
-        this.props.inputStream.connect(this.props.currentChain[0]);
-        for (let i = 0; i < this.props.currentChain.length; i++) {
-            this.props.currentChain[i + 1] ? 
-            this.props.currentChain[i].connect(this.props.currentChain[i + 1]) : 
-            this.props.currentChain[i].connect(this.props.audioContext.destination);
+    componentWillReceiveProps(nextProps) {
+        nextProps.inputStream && nextProps.inputStream.connect(nextProps.currentChain[0]);
+        for (let i = 0; i < nextProps.currentChain.length; i++) {
+            nextProps.currentChain[i + 1] ? 
+            nextProps.currentChain[i].connect(nextProps.currentChain[i + 1]) : 
+            nextProps.currentChain[i].connect(nextProps.audioContext.destination);
         }
     }
 

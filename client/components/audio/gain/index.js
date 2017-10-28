@@ -16,7 +16,6 @@ class GainNode extends Component {
         this.state = {
             value: 0.5
         }
-        
         this.onValueChange = this.onValueChange.bind(this);
     }
 
@@ -26,7 +25,7 @@ class GainNode extends Component {
 
     onValueChange(event) {
         this.setState({ value: event.value / 100 });
-        this.props.nodeValueCreator(event.value);
+        this.props.nodeValueCreator(this.props.key, event.value);
     }
 
     render() {

@@ -43,11 +43,13 @@ export default class App extends Component {
 }
 
 ReactDOM.render(<Provider store={store}>
-        <Router history={history}>
+        <div>
             <AudioChain />
-            <Route path='/' component={App}>
-                <Route path='/diagnostics' component={Diagnostics} />
-            </Route>
-        </Router>
+            <Router history={history}>
+                <Route path='/' component={App}>
+                    <Route path='/diagnostics' component={Diagnostics} />
+                </Route>
+            </Router>
+        </div>
     </Provider>, 
     document.getElementById('root'));

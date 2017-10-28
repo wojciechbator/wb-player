@@ -50,4 +50,4 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({nodeValueCreator}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(GainNode);
+export default connect(mapStateToProps, mapDispatchToProps)(FilterNode);
