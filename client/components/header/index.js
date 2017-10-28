@@ -1,6 +1,6 @@
 import React from 'react';
 import './header.css';
-import logo from '../../assets/images/logo.svg';
+import logo from '../../assets/images/logo.png';
 
 const Header = (props) => (
     <div className='header'>
