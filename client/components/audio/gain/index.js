@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { nodeValueCreator } from '../../../redux/actions/audioActions';
-import audioChain from '../../../utils/audioChain';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Button } from 'primereact/components/button/Button';
 import { Slider } from 'primereact/components/slider/Slider';
@@ -22,8 +21,7 @@ class GainNode extends Component {
     }
 
     componentDidMount() {
-        this.props.nodeValueCreator(this.props.key, this.state.gainNode.gain.value); 
-        audioChain(this.props.currentChain, this.props.audioContext);        
+        this.props.nodeValueCreator(this.props.key, this.state.value);
     }
 
     onValueChange(event) {
@@ -48,11 +46,7 @@ class GainNode extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        gainNode: {
-            gain: {
-                value: store.audio.gainNode.volume
-            }
-        }
+        value: store.audio.currentChain[this.props.key].gain.value
     }
 }
 

@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import GainNode from './gain';
 import FilterNode from './filter';
 import { removeNodeCreator } from '../../redux/actions/audioActions';
-import audioChain from '../../utils/audioChain';
 import './audio.css';
 
-class AudioChain extends Component {
+class Audio extends Component {
     constructor(props) {
         super(props);
     }
@@ -54,4 +53,4 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({removeNodeCreator}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AudioChain);
+export default connect(mapStateToProps, mapDispatchToProps)(Audio);

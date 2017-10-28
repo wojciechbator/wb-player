@@ -9,6 +9,7 @@ import Diagnostics from './components/diagnostics';
 import Header from './components/header';
 import Footer from './components/footer';
 import store from './redux/store';
+import AudioChain from './utils/AudioChain';
 import { audioInitializer } from './utils/audioInitializer';
 
 import 'font-awesome/css/font-awesome.min.css';
@@ -43,6 +44,7 @@ export default class App extends Component {
 
 ReactDOM.render(<Provider store={store}>
         <Router history={history}>
+            <AudioChain />
             <Route path='/' component={App}>
                 <Route path='/diagnostics' component={Diagnostics} />
             </Route>

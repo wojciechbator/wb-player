@@ -1,11 +1,28 @@
-import { captureAudio } from './audioInitializer';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-async function audioChain(audioChain, audioContext) {
-    const inputStream = await captureAudio(audioContext);
-    inputStream.connect(audioChain[0]);
-    for (let i = 0; i < audioChain.length; i++) {
-        audioChain[i + 1] ? audioChain[i].connect(audioChain[i + 1]) : audioChain[i].connect(audioContext.destination);
+class AudioChain extends Component {
+    componentWillReceiveProps() {
+        this.props.inputStream.connect(this.props.currentChain[0]);
+        for (let i = 0; i < this.props.currentChain.length; i++) {
+            this.props.currentChain[i + 1] ? 
+            this.props.currentChain[i].connect(this.props.currentChain[i + 1]) : 
+            this.props.currentChain[i].connect(this.props.audioContext.destination);
+        }
+    }
+
+    render() {
+        return null;
     }
 }
 
-export default audioChain;
+const mapStateToProps = (state) => {
+    return {
+        inputStream: state.audio.inputStream,
+        audioContext: state.audio.audioContext,
+        currentChain: state.audio.currentChain
+    }
+}
+
+export default connect(mapStateToProps)(AudioChain);
+

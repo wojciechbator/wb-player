@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { nodeValueCreator } from '../../../redux/actions/audioActions';
-import audioChain from '../../../utils/audioChain';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Button } from 'primereact/components/button/Button';
 import { Slider } from 'primereact/components/slider/Slider';
@@ -21,7 +20,6 @@ class FilterNode extends Component {
 
     componentDidMount() {
         this.props.nodeValueCreator(this.props.key, this.state.value);
-        audioChain(this.props.currentChain, this.props.audioContext);
     }
 
     onValueChange(event) {

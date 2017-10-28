@@ -13,6 +13,7 @@ import { prependArray } from '../../utils/prependArray';
 
 const initialState = {
     audioContext: null,
+    inputStream: null,
     currentChain: [],
     availableNodes: []
 }

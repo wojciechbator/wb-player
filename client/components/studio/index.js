@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
 
-import AudioChain from '../audio';
+import Audio from '../audio';
 import Player from '../player';
 import Recorder from '../recorder';
 import PresetsContainer from '../presets';
@@ -25,7 +25,7 @@ class StudioPage extends Component {
                 <div className="studio-container">
                     <PresetsContainer />
                     <NodesList />
-                    <AudioChain />
+                    <Audio />
                 </div>
                 <Recorder initialAudio={this.props.audioContext} />
             </div>
