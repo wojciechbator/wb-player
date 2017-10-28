@@ -9,7 +9,6 @@ import { Slider } from 'primereact/components/slider/Slider';
 
 import './gain.css';
 
-
 class GainNode extends Component {
     constructor(props) { 
         super(props);
@@ -47,12 +46,12 @@ class GainNode extends Component {
     }
 }
 
-const mapStateToProps = (store, props) => {
-    return {
-        value: store.audio.currentChain[props.key].gain.value
-    }
-}
+// const mapStateToProps = (store, props) => {
+//     return {
+//         value: store.audio.currentChain[props.key].gain.value
+//     }
+// }
 
 const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(GainNode);
+export default connect(null, mapDispatchToProps)(GainNode);

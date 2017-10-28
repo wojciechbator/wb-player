@@ -8,10 +8,6 @@ import FilterNode from './filter';
 import './audio.css';
 
 class Audio extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className='audio-chain'>
@@ -19,12 +15,11 @@ class Audio extends Component {
                     element.type ?
                     <FilterNode
                         key={i}
-                        node={element} 
-                    /> :
+                        node={element} />
+                    :
                     <GainNode
                         key={i}
-                        node={element}
-                    />
+                        node={element} />
                     })
                 }
             </div>

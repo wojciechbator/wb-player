@@ -77,7 +77,7 @@ class AudioNodes extends Component {
 
     createDynamicsCompressor() {
         let compressor = this.props.audioContext.createDynamicsCompressor();
-        compressor.threshold.value = -50;
+        compressor.threshold.value = -10;
         compressor.knee.value = 40;
         compressor.ratio.value = 12;
         compressor.attack.value = 0;
