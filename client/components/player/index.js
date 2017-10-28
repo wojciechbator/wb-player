@@ -90,7 +90,7 @@ class Player extends Component {
                     <div className='upload-container'>
                         <div className='player-header'>or upload file</div>
                         <label htmlFor='audio_file' className='file-upload'>
-                            UPLOAD AUDIO
+                            UPLOAD FILE
                             <input id='audio_file' className='ui-button' type='file' onChange={this.loadAudio} accept='audio/*' />
                         </label>
                     </div>

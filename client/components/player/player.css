@@ -9,19 +9,24 @@ input[type="file"] {
 
 .file-upload { 
     display: inline-block;
-    border: 1px solid grey;
+    border: 1px solid #4a4a4a;
+    transition-duration: 0.5s;
     border-radius: 8px;
-    padding: 7px 10px; 
-    color: greenyellow;
-    background: black;
+    padding: 6px 10px; 
+    color: #b8ec79;
+    background: #0a0a0a;
     cursor: pointer; 
     text-align: center; 
+}
+
+.file-upload:hover {
+    background: #4a4a4a;
+    color: white;
 }
 
 .upload-container {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
     flex-basis: 50%;
 }
