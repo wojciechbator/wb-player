@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { nodeValueCreator } from '../../../redux/actions/audioActions';
+import { nodeValueCreator, removeNodeCreator } from '../../../redux/actions/audioActions';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Button } from 'primereact/components/button/Button';
 import { Slider } from 'primereact/components/slider/Slider';
@@ -27,15 +27,19 @@ class FilterNode extends Component {
         this.props.nodeValueCreator(this.props.key, event.value);
     }
 
+    removeNode(node) {
+        this.props.removeNodeCreator(node);
+    }
+    
     render() {
         return (
             <div>
-                <Fieldset legend={this.props.type} toggleable={true}>
+                <Fieldset legend={this.props.node.type} toggleable={true}>
                     <div className="wrapper">
-                        <h3>{this.props.type}: {this.state.value}</h3>
+                        <h3>{this.props.node.type}: {this.state.value}</h3>
                         <Slider orientation='vertical' animate={true} value={this.state.value} onChange={this.onValueChange} />
                     </div>
-                    <Button label="REMOVE" onClick={this.props.removeNode}/>
+                    <Button label="REMOVE" onClick={() => this.removeNode(this.props.node)}/>
                 </Fieldset>
             </div>
         )
@@ -48,6 +52,6 @@ const mapStateToProps = (store, props) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({nodeValueCreator}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterNode);

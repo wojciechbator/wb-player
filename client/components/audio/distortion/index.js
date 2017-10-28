@@ -7,7 +7,7 @@ class DistortionNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            distortionValue: 400
+            distortionValue: 100
         }
         
         this.onValueChange = this.onValueChange.bind(this);

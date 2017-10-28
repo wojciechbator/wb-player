@@ -5,33 +5,26 @@ import { connect } from 'react-redux';
 
 import GainNode from './gain';
 import FilterNode from './filter';
-import { removeNodeCreator } from '../../redux/actions/audioActions';
 import './audio.css';
 
 class Audio extends Component {
     constructor(props) {
         super(props);
-        this.removeNode = this.removeNode.bind(this);
     }
 
-    removeNode(node) {
-        this.props.removeNodeCreator(node);
-    }
-    
     render() {
-        console.log(this.props.currentChain);
         return (
             <div className='audio-chain'>
                 {this.props.currentChain.map((element, i) => {
                     element.type ?
                     <FilterNode
                         key={i}
-                        type={element.type}
-                        removeNode={this.removeNode} 
-                        /> :
+                        node={element} 
+                    /> :
                     <GainNode
                         key={i}
-                        removeNode={this.removeNode} />
+                        node={element}
+                    />
                     })
                 }
             </div>
@@ -41,12 +34,8 @@ class Audio extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        audioContext: store.audio.audioContext,
-        inputStream: store.audio.inputStream,
         currentChain: store.audio.currentChain
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({removeNodeCreator}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Audio);
+export default connect(mapStateToProps)(Audio);
