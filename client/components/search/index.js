@@ -48,7 +48,7 @@ class Search extends Component {
     render() {
         return (
             <div className="search-module">
-                <div className="search-header">Find Your favorite song in the directory...</div>
+                <div className="search-header">Find Your song...</div>
                 <AutoComplete className="search-input" value={this.state.fileName} suggestions={this.state.filteredFileNames} completeMethod={this.filterFileNames} onChange={this.gatherAutocompleteData} />
             </div>
         );
