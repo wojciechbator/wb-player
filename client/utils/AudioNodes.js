@@ -57,7 +57,7 @@ class AudioNodes extends Component {
 
     createWaveShaper() {
         let distortion = this.props.audioContext.createWaveShaper();
-        distortion.curve = this.makeDistortionCurve(400);
+        distortion.curve = this.makeDistortionCurve(100);
         distortion.oversample = '4x';
         return distortion;
     }

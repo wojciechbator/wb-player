@@ -11,6 +11,7 @@ import './audio.css';
 class Audio extends Component {
     constructor(props) {
         super(props);
+        this.removeNode = this.removeNode.bind(this);
     }
 
     removeNode(node) {
@@ -18,19 +19,20 @@ class Audio extends Component {
     }
     
     render() {
+        console.log(this.props.currentChain);
         return (
             <div className='audio-chain'>
                 {this.props.currentChain.map((element, i) => {
-                element.type ?
-                <FilterNode
-                    key={i}
-                    currentNode={element}
-                    removeNode={() => this.removeNode(element)} /> :
-                <GainNode
-                    key={i}
-                    currentNode={element}
-                    removeNode={() => this.removeNode(element)} />
-                })
+                    element.type ?
+                    <FilterNode
+                        key={i}
+                        type={element.type}
+                        removeNode={this.removeNode} 
+                        /> :
+                    <GainNode
+                        key={i}
+                        removeNode={this.removeNode} />
+                    })
                 }
             </div>
         );

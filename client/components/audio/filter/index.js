@@ -32,7 +32,7 @@ class FilterNode extends Component {
             <div>
                 <Fieldset legend={this.props.type} toggleable={true}>
                     <div className="wrapper">
-                        <h3>{this.props.currentNode.type}: {this.state.value}</h3>
+                        <h3>{this.props.type}: {this.state.value}</h3>
                         <Slider orientation='vertical' animate={true} value={this.state.value} onChange={this.onValueChange} />
                     </div>
                     <Button label="REMOVE" onClick={this.props.removeNode}/>
@@ -42,9 +42,9 @@ class FilterNode extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (store, props) => {
     return {
-        value: store.audio.currentChain[this.props.key].gain.value
+        value: store.audio.currentChain[props.key].gain.value
     }
 }
 

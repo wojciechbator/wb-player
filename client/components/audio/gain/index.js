@@ -43,9 +43,9 @@ class GainNode extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (store, props) => {
     return {
-        value: store.audio.currentChain[this.props.key].gain.value
+        value: store.audio.currentChain[props.key].gain.value
     }
 }
 
