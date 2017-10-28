@@ -13,11 +13,7 @@ import { prependArray } from '../../utils/prependArray';
 
 const initialState = {
     audioContext: null,
-    gainNode: {
-        volume: 0
-    },
     currentChain: [],
-    filterNode: null,
     availableNodes: []
 }
 
@@ -33,8 +29,12 @@ export const audioReducer = (state = initialState, action) => {
             });
         case NODE_VALUE:
             return Object.assign({}, state, {
-                gainNode: {
-                    volume: action.nodeValue
+                currentChain: {
+                    [action.nodeIndex]: {
+                        gain: {
+                            value: action.nodeValue
+                        }
+                    }
                 }
             });
         case ADD_NODE:

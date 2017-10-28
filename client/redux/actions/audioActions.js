@@ -23,10 +23,10 @@ export const storeInputStream = (inputStream) => {
     }
 }
 
-export const storeNodeValue = (nodeType, nodeValue) => {
+export const storeNodeValue = (nodeIndex, nodeValue) => {
     return {
         type: NODE_VALUE,
-        nodeType,
+        nodeIndex,
         nodeValue
     }
 }
@@ -85,9 +85,9 @@ export const inputStreamCreator = (inputStream) => {
     }
 }
 
-export const nodeValueCreator = (nodeType, nodeValue) => {
+export const nodeValueCreator = (nodeIndex, nodeValue) => {
     return dispatch => {
-        dispatch(storeNodeValue(nodeType, nodeValue));
+        dispatch(storeNodeValue(nodeIndex, nodeValue));
     }
 }
 

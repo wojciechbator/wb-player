@@ -11,11 +11,11 @@ import Footer from './components/footer';
 import store from './redux/store';
 import { audioInitializer } from './utils/audioInitializer';
 
-import './main.css';
-import './assets/images/icon.png';
 import 'font-awesome/css/font-awesome.min.css';
 import 'primereact/resources/themes/trontastic/theme.css';
 import 'primereact/resources/primereact.min.css';
+import './main.css';
+import './assets/images/icon.png';
 
 const history = syncHistoryWithStore(browserHistory, store);
 

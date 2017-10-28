@@ -15,32 +15,29 @@ class GainNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            gainNode: this.props.audioContext.createGain(),
+            value: 0.5
         }
         
-        this.onVolumeChange = this.onVolumeChange.bind(this);
+        this.onValueChange = this.onValueChange.bind(this);
     }
 
     componentDidMount() {
-        this.setState({ gainNode: {gain: { value: 0.5 } } });
-        this.props.nodeValueCreator("gain", this.state.gainNode.gain.value);
-
-        audioChain(this.props.currentChain, this.props.audioContext);
-    
+        this.props.nodeValueCreator(this.props.key, this.state.gainNode.gain.value); 
+        audioChain(this.props.currentChain, this.props.audioContext);        
     }
 
-    onVolumeChange(event) {
-        this.setState({ gainNode: {gain: { value: event.value / 100 } } });
+    onValueChange(event) {
+        this.setState({ value: event.value / 100 });
         this.props.nodeValueCreator(event.value);
     }
 
     render() {
         return (
             <div>
-                <Fieldset legend="GAIN" toggleable={true}>
+                <Fieldset legend="gain" toggleable={true}>
                     <div className="wrapper">
-                        <h3>Gain: {Math.round(this.state.gainNode.gain.value * 100)}</h3>
-                        <Slider orientation='vertical' animate={true} value={Math.round(this.state.gainNode.gain.value * 100)} onChange={this.onVolumeChange} />
+                        <h3>Gain: {Math.round(this.state.value * 100)}</h3>
+                        <Slider orientation='vertical' animate={true} value={Math.round(this.state.value * 100)} onChange={this.onValueChange} />
                     </div>
                     <Button label="REMOVE" onClick={this.props.removeNode}/>
                 </Fieldset>

@@ -21,13 +21,23 @@ class AudioChain extends Component {
     render() {
         return (
             <div className='audio-chain'>
-                {this.props.currentChain.map((element, i) => <GainNode 
+                {this.props.currentChain.map((element, i) => {
+                element.type ?
+                <FilterNode
                     key={i}
-                    currentChain={this.props.currentChain} 
+                    currentChain={this.props.currentChain}
+                    currentNode={element}
+                    inputStream={this.props.inputStream}
+                    audioContext={this.props.audioContext}
+                    removeNode={() => this.removeNode(element)} /> :
+                <GainNode
+                    key={i}
+                    currentChain={this.props.currentChain}
+                    currentNode={element}
                     inputStream={this.props.inputStream}
                     audioContext={this.props.audioContext}
                     removeNode={() => this.removeNode(element)} />
-                    )
+                })
                 }
             </div>
         );

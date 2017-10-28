@@ -118,8 +118,6 @@ class AudioNodes extends Component {
         this.props.addNodeToAvailablesCreator(treble);
         const distortion = this.createWaveShaper();
         this.props.addNodeToAvailablesCreator(distortion);
-        // const reverb = this.createConvolver(gain);
-        // this.props.addNodeToAvailablesCreator(reverb);
         const delay = this.createDelay();
         this.props.addNodeToAvailablesCreator(delay);
     }
@@ -142,4 +140,4 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator }, dispatch);
 
-export default connect(null, mapDispatchToProps)(AudioNodes);
+export default connect(mapStateToProps, mapDispatchToProps)(AudioNodes);
