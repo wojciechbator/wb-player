@@ -15,8 +15,7 @@ class Audio extends Component {
                     element.type ?
                     <FilterNode
                         key={i}
-                        node={element} />
-                    :
+                        node={element} /> :
                     <GainNode
                         key={i}
                         node={element} />

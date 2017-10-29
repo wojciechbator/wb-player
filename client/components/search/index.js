@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {AutoComplete} from 'primereact/components/autocomplete/AutoComplete';
-import {Button} from 'primereact/components/button/Button';
 import { autocompleteValueCreator } from '../../redux/actions/autoCompleteActions';
 
 import './search.css';

@@ -1,8 +1,8 @@
-.studio-container {
-    display: flex;
-    min-height: 500px;
+.save-button {
+    text-align: center;
 }
 
-.studio-module {
-
+.studio-container {
+    display: flex;
+    min-height: 300px;
 }

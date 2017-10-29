@@ -85,15 +85,15 @@ class AudioNodes extends Component {
         return compressor;
     }
 
-    createConvolver(master) {
+    createConvolver() {
         let convolver = this.props.audioContext.createConvolver();
         let convolverGain = this.props.audioContext.createGain();
-        // convolver.buffer = buffer;
+        let buffer = this.props.audioContext.createBuffer(2, this.props.audioContext.sampleRate / 2, this.props.audioContext.sampleRate);
+        convolver.buffer = buffer;
         convolver.loop = true;
         convolver.normalize = true;
         convolverGain.gain.value = 0;
         convolverGain.connect(convolver);
-        convolver.connect(master);
         return convolverGain;
     }
 
@@ -118,7 +118,9 @@ class AudioNodes extends Component {
         this.props.addNodeToAvailablesCreator(treble);
         const distortion = this.createWaveShaper();
         this.props.addNodeToAvailablesCreator(distortion);
-        const delay = this.createDelay();
+        const convolver = this.createConvolver()
+        this.props.addNodeToAvailablesCreator(convolver);
+        const delay = this.createDelay(100.0);
         this.props.addNodeToAvailablesCreator(delay);
     }
 
