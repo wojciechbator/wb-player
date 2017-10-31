@@ -39,7 +39,7 @@ class GainNode extends Component {
                         <h3>Gain: {Math.round(this.state.value * 100)}</h3>
                         <Slider orientation='vertical' animate={true} value={Math.round(this.state.value * 100)} onChange={this.onValueChange} />
                     </div>
-                    <Button label="REMOVE" onClick={() => this.removeNode(this.props.node)}/>
+                    <Button label="Remove" onClick={() => this.removeNode(this.props.node)}/>
                 </Fieldset>
             </div>
         )

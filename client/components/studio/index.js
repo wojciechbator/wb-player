@@ -61,13 +61,15 @@ class StudioPage extends Component {
             <div>
                 <AudioNodes audioContext={this.props.audioContext} />
                 <Player />
-                <div className="studio-container">
-                    <PresetsContainer />
-                    <NodesList />
-                    <Audio />
-                </div>
-                <div className="save-button">
-                    <Button label="Save preset" onClick={this.savePreset}/>
+                <div>
+                    <div className="studio-container">
+                        <PresetsContainer />
+                        <NodesList />
+                        <Audio />
+                    </div>
+                    <div className="save-button-wrapper">
+                        <Button className="save-button" label="Save preset" onClick={this.savePreset}/>
+                    </div>
                 </div>
                 <Recorder initialAudio={this.props.audioContext} />
             </div>

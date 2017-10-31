@@ -1,8 +1,13 @@
-.save-button {
+.save-button-wrapper {
     text-align: center;
+    margin-bottom: 10px;        
+}
+
+.save-button {
+    height: 50px;
 }
 
 .studio-container {
     display: flex;
-    min-height: 500px;
+    min-height: 50vh;
 }
