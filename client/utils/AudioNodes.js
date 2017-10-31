@@ -57,7 +57,7 @@ class AudioNodes extends Component {
 
     createWaveShaper() {
         let distortion = this.props.audioContext.createWaveShaper();
-        distortion.curve = this.makeDistortionCurve(400);
+        distortion.curve = this.makeDistortionCurve(100);
         distortion.oversample = '4x';
         return distortion;
     }
@@ -77,7 +77,7 @@ class AudioNodes extends Component {
 
     createDynamicsCompressor() {
         let compressor = this.props.audioContext.createDynamicsCompressor();
-        compressor.threshold.value = -50;
+        compressor.threshold.value = -10;
         compressor.knee.value = 40;
         compressor.ratio.value = 12;
         compressor.attack.value = 0;
@@ -85,15 +85,15 @@ class AudioNodes extends Component {
         return compressor;
     }
 
-    createConvolver(master) {
+    createConvolver() {
         let convolver = this.props.audioContext.createConvolver();
         let convolverGain = this.props.audioContext.createGain();
-        // convolver.buffer = buffer;
+        let buffer = this.props.audioContext.createBuffer(2, this.props.audioContext.sampleRate / 2, this.props.audioContext.sampleRate);
+        convolver.buffer = buffer;
         convolver.loop = true;
         convolver.normalize = true;
         convolverGain.gain.value = 0;
         convolverGain.connect(convolver);
-        convolver.connect(master);
         return convolverGain;
     }
 
@@ -118,15 +118,15 @@ class AudioNodes extends Component {
         this.props.addNodeToAvailablesCreator(treble);
         const distortion = this.createWaveShaper();
         this.props.addNodeToAvailablesCreator(distortion);
-        // const reverb = this.createConvolver(gain);
-        // this.props.addNodeToAvailablesCreator(reverb);
-        const delay = this.createDelay();
+        const convolver = this.createConvolver()
+        this.props.addNodeToAvailablesCreator(convolver);
+        const delay = this.createDelay(100.0);
         this.props.addNodeToAvailablesCreator(delay);
     }
 
     prepareAudioChain() {
         this.props.addMasterCreator(this.createGain());
-        this.props.addCompressorCreator(this.createDynamicsCompressor())
+        this.props.addCompressorCreator(this.createDynamicsCompressor());
     }
 
     render() {
@@ -142,4 +142,4 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator }, dispatch);
 
-export default connect(null, mapDispatchToProps)(AudioNodes);
+export default connect(mapStateToProps, mapDispatchToProps)(AudioNodes);

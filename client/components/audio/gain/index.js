@@ -2,63 +2,60 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { nodeValueCreator } from '../../../redux/actions/audioActions';
-import audioChain from '../../../utils/audioChain';
+import { nodeValueCreator, removeNodeCreator } from '../../../redux/actions/audioActions';
 import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Button } from 'primereact/components/button/Button';
 import { Slider } from 'primereact/components/slider/Slider';
 
 import './gain.css';
 
-
 class GainNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            gainNode: this.props.audioContext.createGain(),
+            value: 0.5
         }
-        
-        this.onVolumeChange = this.onVolumeChange.bind(this);
+        this.onValueChange = this.onValueChange.bind(this);
     }
 
     componentDidMount() {
-        this.setState({ gainNode: {gain: { value: 0.5 } } });
-        this.props.nodeValueCreator("gain", this.state.gainNode.gain.value);
+        // this.props.nodeValueCreator(this.props.index, this.state.value);
+    }
 
-        audioChain(this.props.currentChain, this.props.audioContext);
+    onValueChange(event) {
+        this.setState({ value: event.value / 100 });
+        // this.props.nodeValueCreator(this.props.index, event.value);
+    }
+
+    removeNode(node) {
+        // this.props.removeNodeCreator(node);
+    }
     
-    }
-
-    onVolumeChange(event) {
-        this.setState({ gainNode: {gain: { value: event.value / 100 } } });
-        this.props.nodeValueCreator(event.value);
-    }
-
     render() {
         return (
             <div>
-                <Fieldset legend="GAIN" toggleable={true}>
+                <Fieldset legend="gain" toggleable={true}>
                     <div className="wrapper">
-                        <h3>Gain: {Math.round(this.state.gainNode.gain.value * 100)}</h3>
-                        <Slider orientation='vertical' animate={true} value={Math.round(this.state.gainNode.gain.value * 100)} onChange={this.onVolumeChange} />
+                        <h3>Gain: {Math.round(this.state.value * 100)}</h3>
+                        <Slider orientation='vertical' animate={true} value={Math.round(this.state.value * 100)} onChange={this.onValueChange} />
                     </div>
-                    <Button label="REMOVE" onClick={this.props.removeNode}/>
+                    <Button label="Remove" onClick={() => this.removeNode(this.props.node)}/>
                 </Fieldset>
             </div>
         )
     }
 }
 
-const mapStateToProps = (store) => {
-    return {
-        gainNode: {
-            gain: {
-                value: store.audio.gainNode.volume
-            }
+const mapStateToProps = (store, props) => {
+    if (store.audio.currentChain[props.index].gain) {
+        return {
+            value: store.audio.currentChain[props.index].gain.value
         }
+    } else {
+        return {}
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({nodeValueCreator}, dispatch);
+// const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(GainNode);
+export default connect(mapStateToProps)(GainNode);

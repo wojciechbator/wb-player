@@ -5,43 +5,42 @@ import { connect } from 'react-redux';
 
 import GainNode from './gain';
 import FilterNode from './filter';
-import { removeNodeCreator } from '../../redux/actions/audioActions';
-import audioChain from '../../utils/audioChain';
 import './audio.css';
 
-class AudioChain extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    removeNode(node) {
-        this.props.removeNodeCreator(node);
-    }
-    
+class Audio extends Component {
     render() {
         return (
             <div className='audio-chain'>
-                {this.props.currentChain.map((element, i) => <GainNode 
-                    key={i}
-                    currentChain={this.props.currentChain} 
-                    inputStream={this.props.inputStream}
-                    audioContext={this.props.audioContext}
-                    removeNode={() => this.removeNode(element)} />
-                    )
+                {this.props.currentChain.map((element, i) => {
+                    console.log(element.type)
+                    if (element.type) {
+                        <FilterNode
+                            key={i}
+                            index={i}
+                            node={element} />
+                    } else {
+                        <GainNode
+                            key={i}
+                            index={i}
+                            node={element} />
+                    }})
                 }
             </div>
+        );
+    }
+    render() {
+        return (
+        <div className='audio-chain'>
+            {this.props.currentChain.map((element, i) => <GainNode key={i} index={i} node={element} />)}
+        </div>
         );
     }
 }
 
 const mapStateToProps = (store) => {
     return {
-        audioContext: store.audio.audioContext,
-        inputStream: store.audio.inputStream,
         currentChain: store.audio.currentChain
     }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({removeNodeCreator}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(AudioChain);
+export default connect(mapStateToProps)(Audio);

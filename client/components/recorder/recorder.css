@@ -1,6 +1,5 @@
 .recorder-module {
     display: flex;
-    min-height: 200px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -9,7 +8,7 @@
 .recorder-header {
     color: #cacbc7;
     background-color: #232323;
-    margin: 10px 0px;
+    margin-top: 20px;
     padding: 10px;   
     font-size: 20px;
 }
@@ -17,4 +16,13 @@
 .recorder-button {
     height: 50px;
     margin: 0px 10px;
+}
+
+.recorder-buttons {
+    margin: 10px 0;
+}
+
+.save-file-input {
+    margin-bottom: 10px;
+    height: 35px;
 }

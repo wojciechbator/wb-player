@@ -9,13 +9,14 @@ import Diagnostics from './components/diagnostics';
 import Header from './components/header';
 import Footer from './components/footer';
 import store from './redux/store';
+import AudioChain from './utils/AudioChain';
 import { audioInitializer } from './utils/audioInitializer';
 
-import './main.css';
-import './assets/images/icon.png';
 import 'font-awesome/css/font-awesome.min.css';
 import 'primereact/resources/themes/trontastic/theme.css';
 import 'primereact/resources/primereact.min.css';
+import './main.css';
+import './assets/images/icon.png';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -42,10 +43,14 @@ export default class App extends Component {
 }
 
 ReactDOM.render(<Provider store={store}>
-        <Router history={history}>
-            <Route path='/' component={App}>
-                <Route path='/diagnostics' component={Diagnostics} />
-            </Route>
-        </Router>
+        <div>
+            <AudioChain />
+            <Router history={history}>
+                <div>
+                    <Route path='/' component={App} />
+                    <Route path='/diagnostics' component={Diagnostics} />
+                </div>                
+            </Router>
+        </div>
     </Provider>, 
     document.getElementById('root'));
