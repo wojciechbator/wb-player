@@ -47,23 +47,23 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.DefinePlugin({ // <-- key to reducing React's size
-          'process.env': {
-            'NODE_ENV': JSON.stringify('production')
-          }
-        }),
+        // new webpack.DefinePlugin({ // <-- key to reducing React's size
+        //   'process.env': {
+        //     'NODE_ENV': JSON.stringify('production')
+        //   }
+        // }),
         HtmlWebpackPluginConfig,
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.optimize.AggressiveMergingPlugin(), 
-        new webpack.optimize.OccurrenceOrderPlugin(),
+        // new webpack.optimize.UglifyJsPlugin(),
+        // new webpack.optimize.AggressiveMergingPlugin(), 
+        // new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new CompressionPlugin({
-            asset: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /\.js$|\.css$|\.html$/,
-            threshold: 10240,
-            minRatio: 0.8
-          })
+        // new webpack.NoEmitOnErrorsPlugin(),
+        // new CompressionPlugin({
+        //     asset: "[path].gz[query]",
+        //     algorithm: "gzip",
+        //     test: /\.js$|\.css$|\.html$/,
+        //     threshold: 10240,
+        //     minRatio: 0.8
+        //   })
     ]
 }

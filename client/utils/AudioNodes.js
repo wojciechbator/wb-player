@@ -126,7 +126,7 @@ class AudioNodes extends Component {
 
     prepareAudioChain() {
         this.props.addMasterCreator(this.createGain());
-        this.props.addCompressorCreator(this.createDynamicsCompressor())
+        this.props.addCompressorCreator(this.createDynamicsCompressor());
     }
 
     render() {

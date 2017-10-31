@@ -12,16 +12,27 @@ class Audio extends Component {
         return (
             <div className='audio-chain'>
                 {this.props.currentChain.map((element, i) => {
-                    element.type ?
-                    <FilterNode
-                        key={i}
-                        node={element} /> :
-                    <GainNode
-                        key={i}
-                        node={element} />
-                    })
+                    console.log(element.type)
+                    if (element.type) {
+                        <FilterNode
+                            key={i}
+                            index={i}
+                            node={element} />
+                    } else {
+                        <GainNode
+                            key={i}
+                            index={i}
+                            node={element} />
+                    }})
                 }
             </div>
+        );
+    }
+    render() {
+        return (
+        <div className='audio-chain'>
+            {this.props.currentChain.map((element, i) => <GainNode key={i} index={i} node={element} />)}
+        </div>
         );
     }
 }

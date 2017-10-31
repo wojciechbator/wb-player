@@ -19,16 +19,16 @@ class FilterNode extends Component {
     }
 
     componentDidMount() {
-        this.props.nodeValueCreator(this.props.key, this.state.value);
+        // this.props.nodeValueCreator(this.props.index, this.state.value);
     }
 
     onValueChange(event) {
         this.setState({ value: event.value });
-        this.props.nodeValueCreator(this.props.key, event.value);
+        // this.props.nodeValueCreator(this.props.index, event.value);
     }
 
     removeNode(node) {
-        this.props.removeNodeCreator(node);
+        // this.props.removeNodeCreator(node);
     }
     
     render() {
@@ -48,10 +48,10 @@ class FilterNode extends Component {
 
 const mapStateToProps = (store, props) => {
     return {
-        value: store.audio.currentChain[props.key].gain.value
+        value: store.audio.currentChain[props.index].gain.value
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
+// const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterNode);
+export default connect(mapStateToProps)(FilterNode);

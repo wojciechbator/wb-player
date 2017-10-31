@@ -16,11 +16,44 @@ class StudioPage extends Component {
     constructor(props) {
         super(props);
         const socket = io();
+        this.state = {
+            savedPresetProperly: null,
+            updatedPresetProperly: null
+        }
         this.savePreset = this.savePreset.bind(this);
+        this.updatePreset = this.updatePreset.bind(this);
     }
 
     savePreset() {
-        console.log("SAVE PRESET MOCK");
+        const presetObject = {
+            currentChain: this.props.currentChain,
+            values: []
+        }
+        fetch('/api/presets', {
+            method: 'POST',
+            body: presetObject,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => this.setState({ savedPresetProperly: true }))
+        .catch(error => this.setState({ savedPresetProperly: false }));
+    }
+
+    updatePreset(presetId) {
+        const updatedPreset = {
+            currentChain: this.props.currentChain,
+            values: []
+        }
+        fetch(`/api/presets/${presetId}`, {
+            method: 'PUT',
+            body: updatedPreset,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => this.setState({ updatedPresetProperly: true }))
+        .catch(error => this.setState({ updatedPresetProperly: false }));
     }
 
     render() {

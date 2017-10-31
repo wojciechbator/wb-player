@@ -46,9 +46,10 @@ ReactDOM.render(<Provider store={store}>
         <div>
             <AudioChain />
             <Router history={history}>
-                <Route path='/' component={App}>
-                    <Route path='diagnostics' component={Diagnostics} />
-                </Route>
+                <div>
+                    <Route path='/' component={App} />
+                    <Route path='/diagnostics' component={Diagnostics} />
+                </div>                
             </Router>
         </div>
     </Provider>, 
