@@ -22,7 +22,10 @@
     margin: 10px 0;
 }
 
-.save-file-input {
+.save-file-wrapper {
     margin-bottom: 10px;
+}
+
+.save-file-input {
     height: 35px;
 }

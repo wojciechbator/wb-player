@@ -160,7 +160,7 @@ export default class Recorder extends Component {
           <Button className='recorder-button' label={defaultProps.removeLabel} onClick={this.onRemoveClick} />
           <Button className='recorder-button' label='&#128190; Save' onClick={this.onDownloadClick} />
         </div>
-        <div>
+        <div className="save-file-wrapper" >
           <InputText className="save-file-input" onChange={this.onFileNameTyping} placeholder="name your record..." />
         </div>
       </div>
