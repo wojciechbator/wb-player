@@ -1,4 +1,5 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, SAVE_TOKEN } from '../types/authenticationTypes';
+import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REDIRECT_TO_LOGIN } from '../types/authenticationTypes';
+import { push } from 'react-router-redux';
 
 export const loginFailed = () => {
     return {
@@ -7,10 +8,11 @@ export const loginFailed = () => {
     }
 }
 
-export const loginSuccess = (loggedUser) => {
+export const loginSuccess = (token, loggedUser) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('loggedUser', loggedUser);
     return {
         type: LOGIN_SUCCESS,
-        loggedUser,
         isAuthenticated: true
     }
 }
@@ -22,10 +24,9 @@ export const logout = () => {
     }
 }
 
-export const saveToken = (jwtToken) => {
+export const loginRedirect = () => {
     return {
-        type: SAVE_TOKEN,
-        jwtToken
+        type: REDIRECT_TO_LOGIN
     }
 }
 
@@ -38,17 +39,20 @@ export const loginFailedCreator = () => {
 export const loginSuccessCreator = (loggedUser) => {
     return dispatch => {
         dispatch(loginSuccess(loggedUser));
+        dispatch(push('/'));
     }
 }
 
 export const logoutCreator = () => {
     return dispatch => {
         dispatch(logout());
+        dispatch(push('/login'));
     }
 }
 
-export const saveTokenCreator = (jwtToken) => {
+export const loginRedirectCreator = () => {
     return dispatch => {
-        dispatch(saveToken(jwtToken));
+        dispatch(loginRedirect());
+        dispatch(push('/login'));
     }
 }

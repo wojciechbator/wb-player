@@ -32,32 +32,31 @@ export default class App extends Component {
         audioInitializer(store);
     }
 
+    componentWillMount() {
+        // !localStorage.getItem('token') && this.props.loginRedirectCreator();
+    }
+
     render() {
         return (
             <div>
-               {this.props.children}
+                {this.props.children}
             </div>
         );
     }
 }
 
-if (window) {
-    ReactDOM.render(<Provider store={store}>
-            <div>
-                <AudioChain />
-                <Router history={history}>
-                    <Route path='/' component={App}>
-                        <IndexRoute component={MainPage} />
-                        <Route path='/diagnostics' component={Diagnostics} />
-                        <Route path='/login' component={LoginPage} />
-                        <Route path='/register' component={RegisterPage} />
-                    </Route>
-                </Router>
-            </div>
-        </Provider>, 
-        document.getElementById('root'));
-    } 
-    else {
-       ReactDOM.render(<SplashScreen />, document.getElementById('root'));
-    }
+ReactDOM.render(<Provider store={store}>
+    <div>
+        <AudioChain />
+        <Router history={history}>
+            <Route path='/' component={App}>
+                <IndexRoute component={MainPage} />
+                <Route path='/diagnostics' component={Diagnostics} />
+                <Route path='/login' component={LoginPage} />
+                <Route path='/register' component={RegisterPage} />
+            </Route>
+        </Router>
+    </div>
+</Provider>,
+    document.getElementById('root'));
 

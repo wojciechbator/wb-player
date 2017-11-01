@@ -5,15 +5,23 @@ const PresetSchema = require('./schemas/Preset');
 const presetsRouter = new Router();
 
 presetsRouter.get('/api/presets', async (ctx, next) => {
-    const allPresets = await PresetSchema.find();
-    ctx.body = allPresets;
-    ctx.status = 200;    
+    try {
+        const allPresets = await PresetSchema.find();
+        ctx.body = allPresets;
+        ctx.status = 200;
+    } catch (error) {
+        throw new Error(error);
+    }    
 });
 
 presetsRouter.get('/api/presets/:id', async (ctx, next) => {
-    const preset = await PresetSchema.find({ _id: ctx.params.id });
-    ctx.body = preset;
-    ctx.status = 200;
+    try {
+        const preset = await PresetSchema.find({ _id: ctx.params.id });
+        ctx.body = preset;
+        ctx.status = 200;
+    } catch (error) {
+        throw new Error(error);
+    }    
 });
 
 presetsRouter.post('/api/presets', koaBody, async (ctx, next) => {
