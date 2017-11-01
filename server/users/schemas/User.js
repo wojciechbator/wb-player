@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
 class User extends mongoose.Schema {
     constructor() {
@@ -24,10 +23,6 @@ class User extends mongoose.Schema {
                 default: Date.now
             }
         });
-    }
-
-    comparePassword(password) {
-        return bcrypt.compareSync(password, this.hashedPassword);
     }
 }
 

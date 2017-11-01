@@ -14,11 +14,11 @@ const authenticationRouter = require('./authentication/AuthenticationController'
 const filesSender = require('./soundFiles');
 const AudioWebsocket = require('./audioWebsocket');
 
-const dbUrl = 'mongodb://localhost/wifi-guitar';
+const appConfig = require('./config.json');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(dbUrl).then(
-    () => console.log(`Connected to database on url: ${dbUrl}`),
+mongoose.connect(appConfig.mongoUrl).then(
+    () => console.log(`Connected to database on url: ${appConfig.mongoUrl}`),
     (error) => { throw new Error(error); }
 );
 
