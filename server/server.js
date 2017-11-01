@@ -9,14 +9,16 @@ const config = require('../webpack.config');
 const app = new Koa();
 const compiler = Webpack(config);
 const presetsRouter = require('./presets/PresetsController');
+const usersRouter = require('./users/UsersController');
+const authenticationRouter = require('./authentication/AuthenticationController');
 const filesSender = require('./soundFiles');
 const AudioWebsocket = require('./audioWebsocket');
 
-const dbUrl = 'mongodb://localhost/wifi-guitar';
+const appConfig = require('./config.json');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(dbUrl).then(
-    () => console.log(`Connected to database on url: ${dbUrl}`),
+mongoose.connect(appConfig.mongoUrl).then(
+    () => console.log(`Connected to database on url: ${appConfig.mongoUrl}`),
     (error) => { throw new Error(error); }
 );
 
@@ -33,7 +35,9 @@ app.use(devMiddleware(compiler, {
     }
 }));
 app.use(hotMiddleware(compiler, {}));
+app.use(usersRouter.routes());
 app.use(presetsRouter.routes());
+app.use(authenticationRouter.routes());
 app.use(filesSender.routes());
 
 app.use(router.routes())
