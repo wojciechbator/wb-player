@@ -4,8 +4,11 @@ import thunk from 'redux-thunk';
 import { reducers } from './reducers';
 import storeLogger from '../utils/storeLogger';
 
-const store = createStore(reducers, compose(
-    applyMiddleware(thunk, storeLogger),
-));
 
-export default store;
+const configureStore = (initialState, reduxRouting) => {
+    return createStore(reducers, initialState, compose(
+        applyMiddleware(thunk, reduxRouting, storeLogger),
+    ));
+} 
+
+export default configureStore;

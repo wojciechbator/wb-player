@@ -9,9 +9,7 @@ const initialState = {
 export const autocompleteReducer = (state = initialState, action) => {
     switch (action.type) {
         case AUTOCOMPLETE_VALUE:
-            return Object.assign({}, state, {
-                autocompleteValue: action.autocompleteValue
-            });
+            return { ...state, autocompleteValue: action.autocompleteValue };
         default:
             return state;
     }
