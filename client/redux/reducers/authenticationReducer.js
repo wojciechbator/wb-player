@@ -1,9 +1,7 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, SAVE_TOKEN } from '../types/authenticationTypes';
+import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REDIRECT_TO_LOGIN } from '../types/authenticationTypes';
 
 const initialState = {
-    loggedUser: null,
-    isAuthenticated: false,
-    jwtToken: ''
+    isAuthenticated: false
 }
 
 export const authenticationReducer = (state = initialState, action) => {
@@ -11,11 +9,11 @@ export const authenticationReducer = (state = initialState, action) => {
         case LOGIN_FAILURE:
             return { ...state, isAuthenticated: action.isAuthenticated };
         case LOGIN_SUCCESS:
-            return { ...state, loggedUser: action.loggedUser, isAuthenticated: action.isAuthenticated };
+            return { ...state, isAuthenticated: action.isAuthenticated };
         case LOGOUT:
             return { ...state, isAuthenticated: action.isAuthenticated };
-        case SAVE_TOKEN:
-            return { ...state, jwtToken: action.jwtToken };
+        case REDIRECT_TO_LOGIN:
+            return { ...state };
         default:
             return state;
     }

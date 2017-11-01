@@ -22,7 +22,6 @@ mongoose.connect(appConfig.mongoUrl).then(
     (error) => { throw new Error(error); }
 );
 
-
 router.get('/', async (req, res) => {
     res.type = 'html';
     res.body = await createReadStream(path.resolve(__dirname, '..', 'client', 'index.html'));
