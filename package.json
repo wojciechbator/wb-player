@@ -10,9 +10,11 @@
     "desktop": "electron server/main.js"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "classnames": "^2.2.5",
     "electron": "1.8.1",
     "electron-builder": "^19.24.1",
+    "jsonwebtoken": "^8.1.0",
     "koa": "^2.3.0",
     "koa-body": "^2.5.0",
     "koa-router": "^7.2.1",

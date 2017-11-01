@@ -9,6 +9,8 @@ const config = require('../webpack.config');
 const app = new Koa();
 const compiler = Webpack(config);
 const presetsRouter = require('./presets/PresetsController');
+const usersRouter = require('./users/UsersController');
+const authenticationRouter = require('./authentication/AuthenticationController');
 const filesSender = require('./soundFiles');
 const AudioWebsocket = require('./audioWebsocket');
 
@@ -33,7 +35,9 @@ app.use(devMiddleware(compiler, {
     }
 }));
 app.use(hotMiddleware(compiler, {}));
+app.use(usersRouter.routes());
 app.use(presetsRouter.routes());
+app.use(authenticationRouter.routes());
 app.use(filesSender.routes());
 
 app.use(router.routes())
