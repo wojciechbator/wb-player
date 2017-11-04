@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import {Button} from 'primereact/components/button/Button';
 import { connect } from 'react-redux';
+import { Button } from 'primereact/components/button/Button';
+import { InputText } from 'primereact/components/inputtext/InputText';
+
 import WAVEInterface from './waveInterface';
 import downloadBlob from './downloadBlob';
 import './recorder.css';
@@ -11,7 +13,7 @@ const defaultProps = {
   className: '',
   style: {},
   filename: 'output.wav',
-  playingLabel: '❚❚ Playing',
+  playingLabel: '| | Playing',
   recordLabel: '● Record',
   recordingLabel: '● Recording',
   removeLabel: '✖ Remove',
@@ -23,7 +25,8 @@ export default class Recorder extends Component {
     this.state = {
       isRecording: false,
       isPlaying: false,
-      audioData: this.props.outputContext
+      audioData: this.props.outputContext,
+      fileName: null
     };
     this.waveInterface = new WAVEInterface();
     this.startRecording = this.startRecording.bind(this);
@@ -33,6 +36,7 @@ export default class Recorder extends Component {
     this.onAudioEnded = this.onAudioEnded.bind(this);
     this.onDownloadClick = this.onDownloadClick.bind(this);
     this.onRemoveClick = this.onRemoveClick.bind(this);
+    this.onFileNameTyping = this.onFileNameTyping.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -112,7 +116,7 @@ export default class Recorder extends Component {
   };
 
   onDownloadClick() {
-    downloadBlob(this.state.audioData, defaultProps.filename);
+    downloadBlob(this.state.audioData, this.state.fileName || defaultProps.filename);
   }
 
   onButtonClick(event) {
@@ -132,27 +136,34 @@ export default class Recorder extends Component {
     }
   };
 
+  onFileNameTyping(event) {
+    this.setState({ fileName: event.target.value })
+  }
+
   render() {
     return (
       <div className='recorder-module'>
         <div className='recorder-header'>Recorder</div>
-          <div className='recorder-buttons'>
-            {
-              !this.state.isRecording ? 
-                <Button className='recorder-button' label={defaultProps.recordLabel} onClick={this.startRecording} />
-                :
-                <Button className='recorder-button' label={defaultProps.recordingLabel} onClick={this.stopRecording} />
-            }
-            {
-              !this.state.isPlaying && this.state.audioData ? 
-                <Button className='recorder-button' label='&#9654; Play' onClick={this.startPlayback} />
-                :
-                <Button className='recorder-button' label={defaultProps.playingLabel} onClick={this.stopPlayback} />
-            }
-            <Button className='recorder-button' label='&#128190; Save' onClick={this.onDownloadClick} />
-            <Button className='recorder-button' label={defaultProps.removeLabel} onClick={this.onRemoveClick} />
-          </div>
+        <div className='recorder-buttons'>
+          {
+            !this.state.isRecording ? 
+              <Button className='recorder-button' label={defaultProps.recordLabel} onClick={this.startRecording} />
+              :
+              <Button className='recorder-button' label={defaultProps.recordingLabel} onClick={this.stopRecording} />
+          }
+          {
+            !this.state.isPlaying && this.state.audioData ?
+              <Button className='recorder-button' label='&#9654; Play' onClick={this.startPlayback} />
+              :
+              <Button className='recorder-button' label={defaultProps.playingLabel} onClick={this.stopPlayback} />
+          }
+          <Button className='recorder-button' label={defaultProps.removeLabel} onClick={this.onRemoveClick} />
+          <Button className='recorder-button' label='&#128190; Save' onClick={this.onDownloadClick} />
         </div>
+        <div className="save-file-wrapper" >
+          <InputText className="save-file-input" onChange={this.onFileNameTyping} placeholder="name your record..." />
+        </div>
+      </div>
     );
   }
 }

@@ -1,0 +1,4 @@
+{
+    "mongoUrl": "mongodb://localhost/wifi-guitar",
+    "jwtSecret": "WIFI_GUITAR_IS_DA_BEST"
+}
