@@ -11,7 +11,7 @@
   "scripts": {
     "web": "nodemon server/server.js --ignore client",
     "desktop": "electron server/main.js",
-    "prod": "NODE_ENV=prod MONGO=$npm_package_config_mongo electron server/main.js"
+    "prod": "NODE_ENV=prod MONGO=$npm_package_config_mongo node server/server.js --ignore client"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
