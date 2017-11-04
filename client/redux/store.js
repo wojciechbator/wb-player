@@ -5,9 +5,9 @@ import { reducers } from './reducers';
 import storeLogger from '../utils/storeLogger';
 
 
-const configureStore = (initialState, reduxRouting) => {
+const configureStore = (initialState, routing) => {
     return createStore(reducers, initialState, compose(
-        applyMiddleware(thunk, reduxRouting, storeLogger),
+        applyMiddleware(thunk, routing, storeLogger),
     ));
 } 
 

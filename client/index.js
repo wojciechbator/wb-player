@@ -4,14 +4,15 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
+import App from './App';
 import MainPage from './components/mainPage';
 import Diagnostics from './components/diagnostics';
 import LoginPage from './components/login';
 import RegisterPage from './components/register';
+import SplashScreen from './components/splash';
 import configureStore from './redux/store';
 import AudioChain from './utils/AudioChain';
 import { audioInitializer } from './utils/audioInitializer';
-import SplashScreen from './components/splash';
 
 import 'font-awesome/css/font-awesome.min.css';
 import 'primereact/resources/themes/trontastic/theme.css';
@@ -19,31 +20,10 @@ import 'primereact/resources/primereact.min.css';
 import './main.css';
 import './assets/images/icon.png';
 
-const reduxRouting = routerMiddleware(browserHistory);
-const store = configureStore(window.__INITIAL_STATE_, reduxRouting);
+const routing = routerMiddleware(browserHistory);
+const store = configureStore(window.__INITIAL_STATE_, routing);
 const history = syncHistoryWithStore(browserHistory, store);
-
-export default class App extends Component {
-    constructor(props) {
-        super(props);
-        if (module.hot) {
-            module.hot.accept();
-        }
-        audioInitializer(store);
-    }
-
-    componentWillMount() {
-        // !localStorage.getItem('token') && this.props.loginRedirectCreator();
-    }
-
-    render() {
-        return (
-            <div>
-                {this.props.children}
-            </div>
-        );
-    }
-}
+audioInitializer(store);
 
 ReactDOM.render(<Provider store={store}>
     <div>
