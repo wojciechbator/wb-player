@@ -7,7 +7,8 @@
   "main": "main.js",
   "scripts": {
     "web": "nodemon server/server.js --ignore client",
-    "desktop": "electron server/main.js"
+    "desktop": "electron server/main.js",
+    "prod": "node server/server.js --ignore client"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
