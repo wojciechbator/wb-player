@@ -1,13 +1,13 @@
-const { app, BrowserWindow } = require('electron'); // www.npmjs.com/package/electron
-const spawn = require('child_process').spawn;       // nodejs.org/api/child_process.html
-const path = require('path');                       // nodejs.org/api/path.html
+const { app, BrowserWindow } = require('electron');
+const spawn = require('child_process').spawn;
+const path = require('path');
+const config = require('./config.json');
 
-let win = null; // keep global reference to window object to avoid automatic closing on JS GC
+let win = null;
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'production'; // default to production environment
+process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 const shouldQuit = app.makeSingleInstance(function(otherInstArgv, otherInstWorkingDir) {
-    // someone tried to run a second instance, we should focus our window
     if (win != null) {
         if (win.isMinimized()) win.restore();
         win.focus();
@@ -17,22 +17,22 @@ const shouldQuit = app.makeSingleInstance(function(otherInstArgv, otherInstWorki
 if (shouldQuit) app.quit();
     
 const createWindow = () => {
-    app.server = require('./server');                     // instantiate Koa app
-    win = new BrowserWindow({ width: 1920, height: 1080 }); // create browser window
-    win.setMenu(null);                                      // remove default menu
-    win.loadURL('http://localhost:3000');                 // load koa-app home page
-    win.on('closed', () => { win = null; });              // dereference window object
+    app.server = require('./server');
+    win = new BrowserWindow({ width: 1920, height: 1080 });
+    win.setMenu(null);
+    win.loadURL(config.localURL);
+    win.on('closed', () => { win = null; });
 }
 
-app.commandLine.appendSwitch('--use-fake-ui-for-media-stream');
+app.commandLine.appendSwitch(config.fakeMediaFlag, config.enableInsecureOriginsFlag);
 
-app.on('ready', createWindow); // create window after Electron initialisation complete
+app.on('ready', createWindow);
 
-app.on('window-all-closed', () => {               // quit when all windows are closed
-    if (process.platform != 'darwin') app.quit(); // (except leave MacOS app active until Cmd+Q)
+app.on('window-all-closed', () => {
+    if (process.platform != 'darwin') app.quit();
 });
 
-app.on('activate', () => { // re-recreate window when dock icon is clicked and no other windows open
+app.on('activate', () => {
     if (win == null) createWindow();                     
 });
 

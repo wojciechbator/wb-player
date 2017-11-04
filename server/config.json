@@ -1,4 +1,7 @@
 {
     "mongoUrl": "mongodb://localhost/wifi-guitar",
-    "jwtSecret": "WIFI_GUITAR_IS_DA_BEST"
+    "jwtSecret": "WIFI_GUITAR_IS_DA_BEST",
+    "localURL": "http://localhost:3000",
+    "fakeMediaFlag": "--use-fake-ui-for-media-stream", 
+    "enableInsecureOriginsFlag": "--unsafely-treat-insecure-origin-as-secure=\"http://10.0.1.3:3000\""
 }
