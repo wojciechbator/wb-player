@@ -15,10 +15,11 @@ const filesSender = require('./soundFiles');
 const AudioWebsocket = require('./audioWebsocket');
 
 const appConfig = require('./config.json');
+const mongoUrl = process.env.MONGO || appConfig.mongoUrl;
 
 mongoose.Promise = global.Promise;
-mongoose.connect(appConfig.mongoUrl).then(
-    () => console.log(`Connected to database on url: ${appConfig.mongoUrl}`),
+mongoose.connect(mongoUrl).then(
+    () => console.log(`Connected to database on url: ${mongoUrl}`),
     (error) => { throw new Error(error); }
 );
 
