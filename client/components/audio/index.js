@@ -12,7 +12,6 @@ class Audio extends Component {
         return (
             <div className='audio-chain'>
                 {this.props.currentChain.map((element, i) => {
-                    console.log(element.type)
                     if (element.type) {
                         <FilterNode
                             key={i}

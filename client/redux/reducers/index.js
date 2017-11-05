@@ -4,6 +4,13 @@ import { audioReducer as audio } from './audioReducer';
 import { authenticationReducer as authentication } from './authenticationReducer';
 import { autocompleteReducer as autocomplete } from './autoCompleteReducer';
 
-export const reducers = combineReducers({
+const appReducer = combineReducers({
     audio, routing, authentication, autocomplete
 });
+
+export const reducers = (state, action) => {
+    if (action.type === 'LOGOUT') {
+        state = undefined;
+    }
+    return appReducer(state, action);
+}

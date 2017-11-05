@@ -12,7 +12,7 @@ export const authenticationReducer = (state = initialState, action) => {
         case LOGIN_SUCCESS:
             return { ...state, isAuthenticated: action.isAuthenticated, loggedUser: action.loggedUser };
         case LOGOUT:
-            return { ...state, isAuthenticated: action.isAuthenticated };
+            return initialState;
         case REDIRECT_TO_LOGIN:
             return { ...state };
         case REDIRECT_TO_REGISTER:

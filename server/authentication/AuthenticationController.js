@@ -14,7 +14,6 @@ authRouter.post('/login', koaBody, async (ctx, next) => {
         ctx.body = 'Authentication failed. Wrong credentials.';
       }
       else {
-        console.log(user);
         ctx.body = {
           jwt: jwt.sign({
             email: user.email,

@@ -4,7 +4,7 @@
     color: #cacbc7;
     padding: 10px 10px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .logo {
@@ -21,4 +21,8 @@
 
 .menu-button {
     box-shadow: 5px;
+}
+
+.logo-center {
+    display: inline-flex;
 }

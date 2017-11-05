@@ -26,7 +26,6 @@ presetsRouter.get('/api/presets/:id', async (ctx, next) => {
 
 presetsRouter.post('/api/presets', koaBody, async (ctx, next) => {
     const savedPreset = ctx.request.body;
-    console.log(savedPreset);
     await PresetSchema.create(savedPreset);
     ctx.body = `created new preset: ${savedPreset.name}`;
     ctx.status = 200;

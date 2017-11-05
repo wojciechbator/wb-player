@@ -12,17 +12,27 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
+        this.enterDiagnostics = this.enterDiagnostics.bind(this);
     }
 
     handleLogout() {
         this.props.logoutCreator();
     }
 
+    enterDiagnostics() {
+
+    }
+
     render() {
         return (
             <div className='header'>
-                <img className='logo' src={logo} alt='logo' />
-                <div className='header-text'>Play and record Your music</div>
+                <div>
+                    <Button label='Diagnostics' onClick={this.enterDiagnostics}></Button>
+                </div>
+                <div className="logo-center">
+                    <img className='logo' src={logo} alt='logo' />
+                    <div className='header-text'>Play and record Your music</div>
+                </div>
                 <div>
                     <Button label='Log out' onClick={this.handleLogout}></Button>
                 </div>
