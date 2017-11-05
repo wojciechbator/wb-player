@@ -11,8 +11,6 @@ import LoginPage from './components/login';
 import RegisterPage from './components/register';
 import SplashScreen from './components/splash';
 import configureStore from './redux/store';
-import AudioChain from './utils/AudioChain';
-import { audioInitializer } from './utils/audioInitializer';
 
 import 'font-awesome/css/font-awesome.min.css';
 import 'primereact/resources/themes/trontastic/theme.css';
@@ -23,11 +21,9 @@ import './assets/images/icon.png';
 const routing = routerMiddleware(browserHistory);
 const store = configureStore(window.__INITIAL_STATE_, routing);
 const history = syncHistoryWithStore(browserHistory, store);
-audioInitializer(store);
 
 ReactDOM.render(<Provider store={store}>
     <div>
-        <AudioChain />
         <Router history={history}>
             <Route path='/' component={App}>
                 <IndexRoute component={MainPage} />

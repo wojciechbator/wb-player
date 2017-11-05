@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {AutoComplete} from 'primereact/components/autocomplete/AutoComplete';
 import { autocompleteValueCreator } from '../../redux/actions/autoCompleteActions';
 
@@ -12,17 +13,18 @@ class Search extends Component {
             fileNames: [],
             autocompleteValue: null
         };
+        this.gatherAutocompleteData = this.gatherAutocompleteData.bind(this);
         this.fetchFileNames = this.fetchFileNames.bind(this);
         this.filterFileNames = this.filterFileNames.bind(this);
     }
 
-    gatherAutocompleteData(event) {
-        autocompleteValueCreator(event.value);
-    }
-    
     componentDidMount() {
-        this.fileNames = this.fetchFileNames();
+        this.fetchFileNames();
     }
+
+    gatherAutocompleteData(event) {
+        this.props.autocompleteValueCreator(event.value);
+    }   
 
     fetchFileNames() {
         fetch('/soundFiles').then(response => {
@@ -30,10 +32,6 @@ class Search extends Component {
         }).then(data => {
             this.setState({ fileNames: JSON.parse(data) });
         })
-    }
-    
-    onBrandValueChange(e) {
-        this.setState({ fileName: e.value, filteredFileNames: null });
     }
     
     filterFileNames(event) {
@@ -60,4 +58,6 @@ const mapStateToProps = (store) => {
     }
 }
 
-export default connect(mapStateToProps)(Search);
+const mapDispatchToProps = dispatch => bindActionCreators({ autocompleteValueCreator }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

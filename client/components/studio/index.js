@@ -8,7 +8,6 @@ import Player from '../player';
 import Recorder from '../recorder';
 import PresetsContainer from '../presets';
 import NodesList from '../nodesList';
-import AudioNodes from '../../utils/AudioNodes';
 
 import './studio.css';
 
@@ -59,7 +58,6 @@ class StudioPage extends Component {
     render() {
         return (
             <div>
-                <AudioNodes audioContext={this.props.audioContext} />
                 <Player />
                 <div>
                     <div className="studio-container">
