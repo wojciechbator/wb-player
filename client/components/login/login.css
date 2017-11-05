@@ -5,3 +5,22 @@
     justify-content: center;
     align-items: center;
 }
+
+.label-text {
+    color: #cacbc7;
+    padding: 10px 10px;
+    text-align: center;
+}
+
+.error-input {
+    border-color: #e9400c !important;
+    color: #ec440c !important;
+}
+
+.error-message {
+    color: #ec440c;
+}
+
+.submit-button-wrapper {
+    padding-top: 10px;
+}

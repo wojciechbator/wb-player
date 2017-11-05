@@ -23,11 +23,11 @@ export default class RegisterPage extends Component {
                 password: ''
             },
             errors: {
-                login: false,
-                email: false,
-                fullName: false,
-                password: false,
-                confirmPassword: false
+                login: null,
+                email: null,
+                fullName: null,
+                password: null,
+                confirmPassword: null
             }
         }
         this.checkLogin = this.checkLogin.bind(this);
@@ -35,6 +35,7 @@ export default class RegisterPage extends Component {
         this.checkFullName = this.checkFullName.bind(this);
         this.checkPassword = this.checkPassword.bind(this);
         this.checkConfirmPassword = this.checkConfirmPassword.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     checkLogin(event) {
@@ -57,32 +58,46 @@ export default class RegisterPage extends Component {
         this.setState({ errors: { confirmPassword: !validField(event.target.value) } });
     }
 
+    handleSubmit() {
+        !Object.values(this.state.errors).includes(true) 
+        && 
+        fetch('/login', { 
+            method: 'POST',
+            body: this.state.values,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(data => console.log(data))
+        .catch(error => { throw new Error(error); });
+    }
+
     render() {
         return (
-            <div className="register-wrapper">
-                <img src={splash} alt="Splash image" draggable="false"></img>
-                <div>LOGIN</div>
+            <div className='register-wrapper'>
+                <img src={splash} alt='Splash image' draggable='false'></img>
+                <div className='label-text'>LOGIN</div>
                 <div>
-                    <InputText id="login" onChange={(event) => this.setState({ values: { login: event.target.value } })} onBlur={this.checkLogin} />
+                    <InputText id='login' onChange={(event) => this.setState({ values: { login: event.target.value } })} onBlur={this.checkLogin} />
                 </div>
-                <div>EMAIL</div>
+                <div className='label-text'>EMAIL</div>
                 <div>
-                    <InputText id="login" onChange={(event) => this.setState({ values: { email: event.target.value } })} onBlur={this.checkEmail} />
+                    <InputText id='login' onChange={(event) => this.setState({ values: { email: event.target.value } })} onBlur={this.checkEmail} />
                 </div>
-                <div>FULL NAME</div>
+                <div className='label-text'>FULL NAME</div>
                 <div>
-                    <InputText id="login" onChange={(event) => this.setState({ values: { fullName: event.target.value } })} onBlur={this.checkFullName} />
+                    <InputText id='login' onChange={(event) => this.setState({ values: { fullName: event.target.value } })} onBlur={this.checkFullName} />
                 </div>
-                <div>PASSWORD</div>
+                <div className='label-text'>PASSWORD</div>
                 <div>
-                    <InputText id="password" type="password" onChange={(event) => this.setState({ values: { password: event.target.value } })} onBlur={this.checkPassword} />
+                    <InputText id='password' type='password' onChange={(event) => this.setState({ values: { password: event.target.value } })} onBlur={this.checkPassword} />
                 </div>
-                <div>CONFIRM PASSWORD</div>
+                <div className='label-text'>CONFIRM PASSWORD</div>
                 <div>
-                    <InputText id="password" type="password" onChange={(event) => this.setState({ values: { confirmPassword: event.target.value } })} onBlur={this.checkConfirmPassword} />
+                    <InputText id='password' type='password' onChange={(event) => this.setState({ values: { confirmPassword: event.target.value } })} onBlur={this.checkConfirmPassword} />
                 </div>
-                <div>
-                    <Button label="SUBMIT"></Button>
+                <div className='submit-button-wrapper'>
+                    <Button label='SUBMIT'></Button>
                 </div>
             </div>
         )

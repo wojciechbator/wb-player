@@ -1,4 +1,4 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REDIRECT_TO_LOGIN } from '../types/authenticationTypes';
+import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REDIRECT_TO_LOGIN, REDIRECT_TO_REGISTER } from '../types/authenticationTypes';
 import { push } from 'react-router-redux';
 
 export const loginFailed = () => {
@@ -30,6 +30,12 @@ export const loginRedirect = () => {
     }
 }
 
+export const registerRedirect = () => {
+    return {
+        type: REDIRECT_TO_REGISTER
+    }
+}
+
 export const loginFailedCreator = () => {
     return dispatch => {
         dispatch(loginFailed());
@@ -54,5 +60,12 @@ export const loginRedirectCreator = () => {
     return dispatch => {
         dispatch(loginRedirect());
         dispatch(push('/login'));
+    }
+}
+
+export const registerRedirectCreator = () => {
+    return dispatch => {
+        dispatch(registerRedirect());
+        dispatch(push('/register'));
     }
 }

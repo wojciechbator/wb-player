@@ -7,13 +7,10 @@ import { loginRedirectCreator } from './redux/actions/authenticationActions';
 class App extends Component {
     constructor(props) {
         super(props);
+        !localStorage.getItem('token') && this.props.loginRedirectCreator();
         if (module.hot) {
             module.hot.accept();
         }
-    }
-
-    componentWillMount() {
-        !localStorage.getItem('token') && this.props.loginRedirectCreator();
     }
 
     render() {
