@@ -11,7 +11,7 @@ const usersRouter = new Router()
 
 usersRouter.get('/api/users', async (ctx, next) => {
   const token = ctx.headers.authorization.split(' ')[1];
-  await jwtPromisify(token, config.jwt_secret)
+  await jwtPromisify(token, config.jwtSecret)
     .then(user => {
       UserSchema.findOne({
         email: user.email

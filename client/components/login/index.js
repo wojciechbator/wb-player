@@ -6,7 +6,7 @@ import { Button } from 'primereact/components/button/Button';
 import { push } from 'react-router-redux';
 
 import { registerRedirectCreator } from '../../redux/actions/authenticationActions';
-import { validField } from '../../utils/formValidator';
+import { validField, validEmail } from '../../utils/formValidator';
 
 import splash from '../../assets/images/splash.png';
 import './login.css';
@@ -16,11 +16,11 @@ class LoginPage extends Component {
         super(props);
         this.state = {
             values: {
-                login: '',
+                email: '',
                 password: ''
             },
             errors: {
-                login: null,
+                email: null,
                 password: null
             }
         }
@@ -29,11 +29,13 @@ class LoginPage extends Component {
     }
     
     handleLogin() {
+        const email = this.state.values.email;
+        const password = this.state.values.password;
         !Object.values(this.state.errors).includes(true) 
         && 
         fetch('/login', { 
             method: 'POST',
-            body: this.state.values,
+            body: { email, password },
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -50,17 +52,17 @@ class LoginPage extends Component {
         return (
             <div className='login-wrapper'>
                 <img src={splash} alt='Splash image' draggable='false'></img>
-                <div className='label-text'>LOGIN</div>
+                <div className='label-text'>EMAIL</div>
                 <div>
                     <InputText
-                        id='login' 
-                        className={this.state.errors.login === true && 'error-input'} 
-                        onChange={event => this.setState({ values: { login: event.target.value } })} 
-                        onBlur={event => this.setState({ errors: { login: !validField(event.target.value) } })} 
-                        onFocus={() => this.setState({ errors: { login: false }})} 
+                        id='email' 
+                        className={this.state.errors.email === true && 'error-input'} 
+                        onChange={event => this.setState({ values: { email: event.target.value } })} 
+                        onBlur={event => this.setState({ errors: { email: !validEmail(event.target.value) } })} 
+                        onFocus={() => this.setState({ errors: { email: false }})} 
                     />
                 </div>
-                {this.state.errors.login === true && <div className='error-message'>This field is wrong</div>}
+                {this.state.errors.email === true && <div className='error-message'>This field is wrong</div>}
                 <div className='label-text'>PASSWORD</div>
                 <div>
                     <InputText

@@ -14,14 +14,15 @@ authRouter.post('/login', koaBody, async (ctx, next) => {
         ctx.body = 'Authentication failed. Wrong credentials.';
       }
       else {
-        ctx.status = 200;
+        console.log(user);
         ctx.body = {
           jwt: jwt.sign({
             email: user.email,
             fullName: user.fullName
-          }, config.jwt_secret),
+          }, config.jwtSecret),
           loggedUser: user.fullName
         };
+        ctx.status = 200;
       }
     })
     .catch(error => {
@@ -35,7 +36,7 @@ authRouter.post('/register', koaBody, async (ctx, next) => {
   registeredUser.hashedPassword = bcrypt.hashSync(ctx.request.body.password, 10);
   await userSchema.create(registeredUser)
     .then(user => {
-      ctx.body = `Registered new user ${registeredUser.name}`;
+      ctx.body = `Registered new user ${registeredUser.fullName}`;
       ctx.status = 201;
     })
     .catch(error => {
