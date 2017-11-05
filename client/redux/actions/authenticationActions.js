@@ -10,7 +10,6 @@ export const loginFailed = () => {
 
 export const loginSuccess = (token, loggedUser) => {
     localStorage.setItem('token', token);
-    localStorage.setItem('loggedUser', loggedUser);
     return {
         type: LOGIN_SUCCESS,
         isAuthenticated: true
@@ -18,6 +17,7 @@ export const loginSuccess = (token, loggedUser) => {
 }
 
 export const logout = () => {
+    localStorage.clear();
     return {
         type: LOGOUT,
         isAuthenticated: false
@@ -42,9 +42,9 @@ export const loginFailedCreator = () => {
     }
 }
 
-export const loginSuccessCreator = (loggedUser) => {
+export const loginSuccessCreator = (token, loggedUser) => {
     return dispatch => {
-        dispatch(loginSuccess(loggedUser));
+        dispatch(loginSuccess(token, loggedUser));
         dispatch(push('/'));
     }
 }

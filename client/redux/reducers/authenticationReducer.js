@@ -1,7 +1,8 @@
 import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REDIRECT_TO_LOGIN, REDIRECT_TO_REGISTER } from '../types/authenticationTypes';
 
 const initialState = {
-    isAuthenticated: false
+    isAuthenticated: false,
+    loggedUser: ''
 }
 
 export const authenticationReducer = (state = initialState, action) => {
@@ -9,7 +10,7 @@ export const authenticationReducer = (state = initialState, action) => {
         case LOGIN_FAILURE:
             return { ...state, isAuthenticated: action.isAuthenticated };
         case LOGIN_SUCCESS:
-            return { ...state, isAuthenticated: action.isAuthenticated };
+            return { ...state, isAuthenticated: action.isAuthenticated, loggedUser: action.loggedUser };
         case LOGOUT:
             return { ...state, isAuthenticated: action.isAuthenticated };
         case REDIRECT_TO_LOGIN:

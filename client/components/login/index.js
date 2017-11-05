@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
+import axios from 'axios';
 import { InputText } from 'primereact/components/inputtext/InputText';
 import { Button } from 'primereact/components/button/Button';
-import { push } from 'react-router-redux';
 
-import { registerRedirectCreator } from '../../redux/actions/authenticationActions';
+import { registerRedirectCreator, loginSuccessCreator } from '../../redux/actions/authenticationActions';
 import { validField, validEmail } from '../../utils/formValidator';
 
 import splash from '../../assets/images/splash.png';
@@ -27,21 +28,15 @@ class LoginPage extends Component {
         this.handleLogin = this.handleLogin.bind(this);
         this.headToRegister = this.headToRegister.bind(this);
     }
-    
+
     handleLogin() {
-        const email = this.state.values.email;
-        const password = this.state.values.password;
-        !Object.values(this.state.errors).includes(true) 
-        && 
-        fetch('/login', { 
-            method: 'POST',
-            body: { email, password },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(data => console.log(data))
-        .catch(error => { throw new Error(error); });
+        !Object.values(this.state.errors).includes(true)
+            &&
+            axios.post('/login', this.state.values)
+                .then(data => {
+                    this.props.loginSuccessCreator();
+                })
+                .catch(error => { throw new Error(error); });
     }
 
     headToRegister() {
@@ -55,22 +50,47 @@ class LoginPage extends Component {
                 <div className='label-text'>EMAIL</div>
                 <div>
                     <InputText
-                        id='email' 
-                        className={this.state.errors.email === true && 'error-input'} 
-                        onChange={event => this.setState({ values: { email: event.target.value } })} 
-                        onBlur={event => this.setState({ errors: { email: !validEmail(event.target.value) } })} 
-                        onFocus={() => this.setState({ errors: { email: false }})} 
+                        id='email'
+                        className={this.state.errors.email === true && 'error-input'}
+                        onChange={event => {
+                            let values = this.state.values;
+                            values.email = event.target.value;
+                            this.setState({ values: values });
+                        }}
+                        onBlur={event => {
+                            let errors = this.state.errors;
+                            errors.email = !validEmail(event.target.value);
+                            this.setState({ errors: errors });
+                        }}
+                        onFocus={event => {
+                            let errors = this.state.errors;
+                            errors.email = false;
+                            this.setState({ errors: errors });
+                        }}
                     />
                 </div>
                 {this.state.errors.email === true && <div className='error-message'>This field is wrong</div>}
                 <div className='label-text'>PASSWORD</div>
                 <div>
                     <InputText
-                        id='password' 
-                        className={this.state.errors.password === true && 'error-input'} 
-                        type='password' onChange={event => this.setState({ values: { password: event.target.value } })} 
-                        onBlur={event => this.setState({ errors: { password: !validField(event.target.value) } })} 
-                        onFocus={() => this.setState({ errors: { password: false }})} 
+                        id='password'
+                        className={this.state.errors.password === true && 'error-input'}
+                        type='password'
+                        onChange={event => {
+                            let values = this.state.values;
+                            values.password = event.target.value;
+                            this.setState({ values: values });
+                        }}
+                        onBlur={event => {
+                            let errors = this.state.errors;
+                            errors.password = !validField(event.target.value);
+                            this.setState({ errors: errors });
+                        }}
+                        onFocus={event => {
+                            let errors = this.state.errors;
+                            errors.password = false;
+                            this.setState({ errors: errors });
+                        }}
                     />
                 </div>
                 {this.state.errors.password === true && <div className='error-message'>This field is wrong</div>}
@@ -86,6 +106,6 @@ class LoginPage extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ registerRedirectCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ registerRedirectCreator, loginSuccessCreator }, dispatch);
 
 export default connect(null, mapDispatchToProps)(LoginPage);

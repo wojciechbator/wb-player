@@ -32,27 +32,15 @@ class RegisterPage extends Component {
                 confirmPassword: null
             }
         }
-        this.checkEmail = this.checkEmail.bind(this);
-        this.checkFullName = this.checkFullName.bind(this);
-        this.checkPassword = this.checkPassword.bind(this);
+        this.checkConfirmPassword = this.checkConfirmPassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.headToLogin = this.headToLogin.bind(this);
     }
 
-    checkEmail(event) {
-        this.setState({ errors: { email: !validEmail(event.target.value) } });
-    }
-
-    checkFullName(event) {
-        this.setState({ errors: { fullName: !validField(event.target.value) } });
-    }
-
-    checkPassword(event) {
-        this.setState({ errors: { password: !validPassword(event.target.value) } });
-    }
-
-    checkConfirmPassword(password, event) {
-        this.setState({ errors: { confirmPassword: !validConfirmPassword(password, event.target.value) } });
+    checkConfirmPassword(password, confirmPassword) {
+        let errors = this.state.errors;
+        errors.confirmPassword = !validConfirmPassword(password, confirmPassword);
+        this.setState({ errors: errors });
     }
 
     handleSubmit() {
@@ -86,9 +74,21 @@ class RegisterPage extends Component {
                     <InputText 
                         id='email'
                         className={this.state.errors.email === true && 'error-input'} 
-                        onChange={(event) => this.setState({ values: { email: event.target.value } })} 
-                        onBlur={this.checkEmail}
-                        onFocus={() => this.setState({ errors: { email: false }})} 
+                        onChange={event => {
+                            let values = this.state.values;
+                            values.email = event.target.value;
+                            this.setState({ values: values });
+                        }} 
+                        onBlur={event => {
+                            let errors = this.state.errors;
+                            errors.email = !validEmail(event.target.value);
+                            this.setState({ errors: errors });
+                        }}
+                        onFocus={event => {
+                            let errors = this.state.errors;
+                            errors.email = false;
+                            this.setState({ errors: errors });
+                        }}
                     />
                 </div>
                 {this.state.errors.email === true && <div className='error-message'>This field is wrong</div>}
@@ -97,9 +97,21 @@ class RegisterPage extends Component {
                     <InputText 
                         id='fullName'
                         className={this.state.errors.fullName === true && 'error-input'}
-                        onChange={(event) => this.setState({ values: { fullName: event.target.value } })} 
-                        onBlur={this.checkFullName} 
-                        onFocus={() => this.setState({ errors: { fullName: false }})}    
+                        onChange={event => {
+                            let values = this.state.values;
+                            values.fullName = event.target.value;
+                            this.setState({ values: values });
+                        }} 
+                        onBlur={event => {
+                            let errors = this.state.errors;
+                            errors.fullName = !validField(event.target.value);
+                            this.setState({ errors: errors });
+                        }}
+                        onFocus={event => {
+                            let errors = this.state.errors;
+                            errors.fullName = false;
+                            this.setState({ errors: errors });
+                        }}   
                     />
                 </div>
                 {this.state.errors.fullName === true && <div className='error-message'>This field is wrong</div>}
@@ -108,9 +120,21 @@ class RegisterPage extends Component {
                     <InputText 
                         id='password' 
                         type='password' 
-                        onChange={(event) => this.setState({ values: { password: event.target.value } })} 
-                        onBlur={this.checkPassword}
-                        onFocus={() => this.setState({ errors: { password: false }})}
+                        onChange={event => {
+                            let values = this.state.values;
+                            values.password = event.target.value;
+                            this.setState({ values: values });
+                        }} 
+                        onBlur={event => {
+                            let errors = this.state.errors;
+                            errors.password = !validField(event.target.value);
+                            this.setState({ errors: errors });
+                        }}
+                        onFocus={event => {
+                            let errors = this.state.errors;
+                            errors.password = false;
+                            this.setState({ errors: errors });
+                        }}
                     />
                 </div>
                 {this.state.errors.password === true && <div className='error-message'>This field is wrong</div>}
@@ -119,9 +143,12 @@ class RegisterPage extends Component {
                     <InputText 
                         id='confirmPassword' 
                         type='password' 
-                        onChange={(event) => this.setState({ values: { confirmPassword: event.target.value } })} 
                         onBlur={(event) => this.checkConfirmPassword(this.state.values.password, event.target.value)} 
-                        onFocus={() => this.setState({ errors: { confirmPassword: false }})}
+                        onFocus={event => {
+                            let errors = this.state.errors;
+                            errors.confirmPassword = false;
+                            this.setState({ errors: errors });
+                        }}
                     />
                 </div>
                 {this.state.errors.confirmPassword === true && <div className='error-message'>This field is wrong</div>}
