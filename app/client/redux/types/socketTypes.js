@@ -1,0 +1,1 @@
+export const STORE_SOCKET = 'STORE_SOCKET';

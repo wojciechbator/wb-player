@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { initializeAudioContext, storeInputStream } from '../redux/actions/audioActions';
+import { initContextCreator, inputStreamCreator } from '../redux/actions/audioActions';
 import AudioNodes from './AudioNodes';
 
 class AudioInitializer extends Component {
@@ -12,7 +12,7 @@ class AudioInitializer extends Component {
         this.state = {
             audioContext: new (window.AudioContext || window.webkitAudioContext)
         }
-        this.props.initializeAudioContext(this.state.audioContext);
+        this.props.initContextCreator(this.state.audioContext);
         this.captureAudio();
     }
 
@@ -23,7 +23,7 @@ class AudioInitializer extends Component {
         if (navigator.mediaDevices.getUserMedia) {
             return navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
                 const inputStream = this.state.audioContext.createMediaStreamSource(stream);
-                this.props.storeInputStream(inputStream);
+                this.props.inputStreamCreator(inputStream);
                 return inputStream;
             }).catch(error => {
                 alert('Error capturing audio.');
@@ -40,6 +40,6 @@ class AudioInitializer extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ initializeAudioContext, storeInputStream }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ initContextCreator, inputStreamCreator }, dispatch);
 
 export default connect(null, mapDispatchToProps)(AudioInitializer);

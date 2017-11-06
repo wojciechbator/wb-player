@@ -1,0 +1,3 @@
+export const STORE_PRESETS = 'STORE_PRESETS';
+export const SAVE_PRESET = 'SAVE_PRESET';
+export const UPDATE_PRESET = 'UPDATE_PRESET';

@@ -1,14 +1,14 @@
 import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REDIRECT_TO_LOGIN, REDIRECT_TO_REGISTER } from '../types/authenticationTypes';
 import { push } from 'react-router-redux';
 
-export const loginFailed = () => {
+const loginFailed = () => {
     return {
         type: LOGIN_FAILURE,
         isAuthenticated: false
     }
 }
 
-export const loginSuccess = (token, loggedUser) => {
+const loginSuccess = (token, loggedUser) => {
     localStorage.setItem('token', token);
     return {
         type: LOGIN_SUCCESS,
@@ -16,7 +16,7 @@ export const loginSuccess = (token, loggedUser) => {
     }
 }
 
-export const logout = () => {
+const logout = () => {
     localStorage.clear();
     return {
         type: LOGOUT,
@@ -24,13 +24,13 @@ export const logout = () => {
     }
 }
 
-export const loginRedirect = () => {
+const loginRedirect = () => {
     return {
         type: REDIRECT_TO_LOGIN
     }
 }
 
-export const registerRedirect = () => {
+const registerRedirect = () => {
     return {
         type: REDIRECT_TO_REGISTER
     }

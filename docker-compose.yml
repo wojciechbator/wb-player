@@ -4,28 +4,28 @@ services:
   mongo:
     container_name: mongo
     build: 
-      context: ./dockerfiles/mongo/
+      context: ./app/dockerfiles/mongo/
     volumes:
       - /data/db/:/data/db/
     ports:
       - "27017:27017"
     networks:
-      wifi_guitar:
+      network:
         ipv4_address: 10.0.1.2
 
   app:
     container_name: app
     build: 
       context: ./
-      dockerfile: ./dockerfiles/app/Dockerfile
+      dockerfile: ./app/dockerfiles/app/Dockerfile
     depends_on:
       - mongo
     networks:
-      wifi_guitar:
+      network:
         ipv4_address: 10.0.1.3
 
 networks:
-  wifi_guitar:
+  network:
     driver: bridge
     ipam:
       config:

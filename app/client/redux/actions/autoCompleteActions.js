@@ -1,6 +1,6 @@
 import { AUTOCOMPLETE_VALUE } from '../types/autoCompleteTypes'
 
-export const gatherAutocompleteValue = (autocompleteValue) => {
+const gatherAutocompleteValue = (autocompleteValue) => {
     return {
         type: AUTOCOMPLETE_VALUE,
         autocompleteValue
