@@ -24,7 +24,7 @@
     "koa-body": "^2.5.0",
     "koa-router": "^7.2.1",
     "mongoose": "4.10.8",
-    "primereact": "^1.0.0-rc.1",
+    "primereact": "^1.2.0",
     "prop-types": "^15.5.10",
     "react": "next",
     "react-dom": "next",

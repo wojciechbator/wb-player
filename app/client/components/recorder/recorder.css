@@ -1,31 +1,29 @@
 .recorder-module {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    padding: 20px;
 }
 
 .recorder-header {
+    text-align: center;
     color: #cacbc7;
-    background-color: #232323;
-    margin-top: 20px;
-    padding: 10px;   
     font-size: 20px;
 }
 
-.recorder-button {
-    height: 50px;
+.control-button {
+    cursor: pointer; 
+    transition-duration: 0.5s;
+    padding: .25em 1em;
     margin: 0px 10px;
 }
 
+.control-button:hover {
+    background: #4a4a4a;
+    color: white;
+}
+
 .recorder-buttons {
-    margin: 10px 0;
+    padding: 10px;
 }
 
 .save-file-wrapper {
-    margin-bottom: 10px;
-}
-
-.save-file-input {
-    height: 35px;
+    padding: 10px;
 }

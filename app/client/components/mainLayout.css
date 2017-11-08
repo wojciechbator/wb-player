@@ -1,0 +1,11 @@
+.main-wrapper {
+    height: 100%;
+    display: flex;
+}
+
+.left-menu {
+    flex-basis: 20%;
+    height: 100%;
+    background: #140603;
+    
+}

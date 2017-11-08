@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Button } from 'primereact/components/button/Button';
 import Search from '../search';
 import { addNodeCreator } from '../../redux/actions/audioActions';
 
@@ -86,19 +85,15 @@ class Player extends Component {
         return (
             <div>
                 <div className='player-module'>
-                    <Search />
-                    <div className='upload-container'>
-                        <div className='player-header'>or upload file</div>
-                        <label htmlFor='audio_file' className='file-upload'>
-                            Upload file
+                    <div className='player-header'>Playback</div>
+                    <div className='player-control-buttons'>
+                        <label htmlFor='audio_file' className='fa fa-upload file-upload'>
                             <input id='audio_file' className='ui-button' type='file' onChange={this.loadAudio} accept='audio/*' />
                         </label>
+                        <audio id='audio_player' />
+                        <button className='class="ui-button ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.playAudio}><i className="fa fa-play"></i></button>
+                        <button className='class="ui-button ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.pauseAudio}><i className="fa fa-pause"></i></button>
                     </div>
-                    <audio id='audio_player' />
-                </div>
-                <div className='player-control-buttons'>
-                    <Button className='control-button' label='&#9654; Play' onClick={this.playAudio} />
-                    <Button className='control-button' label='| | Pause' onClick={this.pauseAudio} />
                 </div>
             </div>
         );

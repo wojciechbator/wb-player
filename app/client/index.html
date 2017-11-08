@@ -6,33 +6,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body {
-            margin: 0px;
+        body, html {
+            margin: 0px auto;
+            height: 100%;
+            overflow-y: hidden;
+            font-family: Segoe UI, Arial, sans-serif;
         }
 
         #root {
-            position: absolute; 
             height: 100%;
-            width: 100%;
             background-color: #232323;
-        }
-
-        .splash-image {
-            position: relative; 
-            top: 50%; 
-            left: 50%; 
-            height: 300px; 
-            width: 800px;
-            margin-top: -150px; 
-            margin-left: -400px;
         }
     </style>
 </head>
 
 <body>
-    <div id="root">
-        <img class="splash-image" src="assets/images/splash.png" alt="Splash screen" />
-    </div>
+    <div id="root"></div>
 </body>
 
 </html>

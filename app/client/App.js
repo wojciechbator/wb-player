@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Header from './components/header';
+import Footer from './components/footer';
 import AudioInitializer from './utils/AudioInitializer';import AudioChain from './utils/AudioChain';
 import { loginRedirectCreator } from './redux/actions/authenticationActions';
+
+import './app.css'
 
 class App extends Component {
     constructor(props) {
@@ -19,13 +23,15 @@ class App extends Component {
 
     render() {
         return (
-            <div>
+            <div className='app-container'>
                 {this.props.isAuthenticated === true &&
                     <div>
                         <AudioInitializer />
                         <AudioChain />
-                    </div>}
+                    </div>}                
+                <Header />
                 {this.props.children}
+                <Footer />
             </div>
         );
     }

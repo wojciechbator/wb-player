@@ -4879,7 +4879,7 @@ pretty-format@^21.2.1:
     ansi-regex "^3.0.0"
     ansi-styles "^3.2.0"
 
-primereact@^1.0.0-rc.1:
+primereact@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/primereact/-/primereact-1.2.0.tgz#a2cce7ca24c7723c6b8531a7b053ed9fc7df6219"
 

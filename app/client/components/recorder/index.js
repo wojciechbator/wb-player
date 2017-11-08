@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'primereact/components/button/Button';
 import { InputText } from 'primereact/components/inputtext/InputText';
+import { Dialog } from 'primereact/components/dialog/Dialog';
 
 import WAVEInterface from './waveInterface';
 import downloadBlob from './downloadBlob';
@@ -13,10 +13,6 @@ const defaultProps = {
   className: '',
   style: {},
   filename: 'output.wav',
-  playingLabel: '| | Playing',
-  recordLabel: '● Record',
-  recordingLabel: '● Recording',
-  removeLabel: '✖ Remove',
 };
 
 export default class Recorder extends Component {
@@ -26,7 +22,8 @@ export default class Recorder extends Component {
       isRecording: false,
       isPlaying: false,
       audioData: this.props.outputContext,
-      fileName: null
+      fileName: null,
+      showSavePopup: false
     };
     this.waveInterface = new WAVEInterface();
     this.startRecording = this.startRecording.bind(this);
@@ -37,6 +34,8 @@ export default class Recorder extends Component {
     this.onDownloadClick = this.onDownloadClick.bind(this);
     this.onRemoveClick = this.onRemoveClick.bind(this);
     this.onFileNameTyping = this.onFileNameTyping.bind(this);
+    this.onHideModal = this.onHideModal.bind(this);
+    this.onShowModal = this.onShowModal.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,7 +49,7 @@ export default class Recorder extends Component {
       this.setState({
         audioData: nextProps.initialAudio,
         isPlaying: false,
-        isRecording: false,
+        isRecording: false
       });
     }
   }
@@ -115,8 +114,17 @@ export default class Recorder extends Component {
     });
   };
 
+  onShowModal() {
+    this.setState({ showSavePopup: true });
+  }
+
   onDownloadClick() {
+    this.setState({ showSavePopup: false });
     downloadBlob(this.state.audioData, this.state.fileName || defaultProps.filename);
+  }
+
+  onHideModal() {
+    this.setState({ showSavePopup: false });
   }
 
   onButtonClick(event) {
@@ -143,25 +151,26 @@ export default class Recorder extends Component {
   render() {
     return (
       <div className='recorder-module'>
+        <Dialog header='Save preset' visible={this.state.showSavePopup} modal={true} dismissableMask={true} onHide={this.onHideModal}>
+          <InputText className='save-file-input' onChange={this.onFileNameTyping} placeholder='name your record...' />
+          <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onDownloadClick}><i className='fa fa-save'></i></button>
+        </Dialog>
         <div className='recorder-header'>Recorder</div>
         <div className='recorder-buttons'>
           {
-            !this.state.isRecording ? 
-              <Button className='recorder-button' label={defaultProps.recordLabel} onClick={this.startRecording} />
+            !this.state.isRecording ?
+              <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.startRecording}><i className='fa fa-circle'></i></button>
               :
-              <Button className='recorder-button' label={defaultProps.recordingLabel} onClick={this.stopRecording} />
+              <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.stopRecording}><i className='fa fa-square'></i></button>
           }
           {
             !this.state.isPlaying && this.state.audioData ?
-              <Button className='recorder-button' label='&#9654; Play' onClick={this.startPlayback} />
+              <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.startPlayback}><i className='fa fa-play'></i></button>
               :
-              <Button className='recorder-button' label={defaultProps.playingLabel} onClick={this.stopPlayback} />
+              <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.stopPlayback}><i className='fa fa-pause'></i></button>
           }
-          <Button className='recorder-button' label={defaultProps.removeLabel} onClick={this.onRemoveClick} />
-          <Button className='recorder-button' label='&#128190; Save' onClick={this.onDownloadClick} />
-        </div>
-        <div className="save-file-wrapper" >
-          <InputText className="save-file-input" onChange={this.onFileNameTyping} placeholder="name your record..." />
+          <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onRemoveClick}><i className='fa fa-times'></i></button>
+          <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onShowModal}><i className='fa fa-save'></i></button>
         </div>
       </div>
     );

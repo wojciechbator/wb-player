@@ -1,5 +1,5 @@
 .player-module {
-    display: flex;
+    padding: 20px;
 }
 
 input[type="file"] {
@@ -10,8 +10,9 @@ input[type="file"] {
     display: inline-block;
     border: 1px solid #4a4a4a;
     transition-duration: 0.5s;
-    border-radius: 8px;
-    padding: 6px 10px; 
+    border-radius: 6px;
+    padding: .3em 0.95em;
+    margin: 0px 10px;
     color: #b8ec79;
     background: #0a0a0a;
     cursor: pointer; 
@@ -32,16 +33,22 @@ input[type="file"] {
 
 .player-header {
     color: #cacbc7;
-    padding-top: 20px;
-    padding-bottom: 10px; 
+    text-align: center;
     font-size: 20px;
 }
 
 .player-control-buttons {
-    text-align: center;
+    padding: 10px;
 }
 
 .control-button {
-    height: 50px;
+    cursor: pointer; 
+    transition-duration: 0.5s;
+    padding: .25em 1em;
     margin: 0px 10px;
+}
+
+.control-button:hover {
+    background: #4a4a4a;
+    color: white;
 }

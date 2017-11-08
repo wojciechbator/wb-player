@@ -5,8 +5,10 @@ import io from 'socket.io-client';
 
 import { storeSocketCreator } from '../redux/actions/socketActions';
 import StudioPage from './studio';
-import Header from './header';
-import Footer from './footer';
+import PresetsContainer from './presets';
+import NodesList from './nodesList';
+
+import './mainLayout.css';
 
 class MainPage extends Component {
     constructor(props) {
@@ -21,11 +23,11 @@ class MainPage extends Component {
     render() {
         return (
             <div className='main-wrapper'>
-                <Header />
-                <div className='body-wrapper'>
-                    <StudioPage />
+                <div className='left-menu'>
+                    <PresetsContainer />
+                    <NodesList />
                 </div>
-                <Footer />
+                <StudioPage />
             </div>
         );
     }

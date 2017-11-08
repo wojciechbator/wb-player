@@ -1,8 +1,18 @@
 .footer {
     bottom: 0;
     background-color: #232323;
-    color: #cacbc7;
     padding: 10px 10px;
     display: flex;
     justify-content: center;
+    z-index: 2;
+}
+
+.signature {
+    text-decoration: none;
+    color: #cacbc7;
+}
+
+.signature:hover {
+    transition: 0.3s;
+    color: #9fda58;
 }
