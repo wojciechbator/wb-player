@@ -6,7 +6,8 @@ import { AUDIO_CONTEXT_INIT,
     ADD_NODE_TO_AVAILABLE_NODES,
     REMOVE_NODE_FROM_AVAILABLE_NODES,
     ADD_COMPRESSOR,
-    ADD_MASTER
+    ADD_MASTER,
+    STORE_ANALYSER_NODE
 } from '../types/audioTypes';
 
 const initializeAudioContext = (audioContext) => {
@@ -20,6 +21,13 @@ const storeInputStream = (inputStream) => {
     return {
         type: INPUT_STREAM_VALUE,
         inputStream
+    }
+}
+
+const storeAnalyserNode = (analyserNode) => {
+    return {
+        type: STORE_ANALYSER_NODE,
+        analyserNode
     }
 }
 
@@ -124,5 +132,11 @@ export const addNodeToAvailablesCreator = (node) => {
 export const removeNodeFromAvailablesCreator = (availableNodes) => {
     return dispatch => {
         dispatch(removeNodeFromAvailables(availableNodes));
+    }
+}
+
+export const storeAnalyserNodeCreator = (analyserNode) => {
+    return dispatch => {
+        dispatch(storeAnalyserNode(analyserNode));
     }
 }

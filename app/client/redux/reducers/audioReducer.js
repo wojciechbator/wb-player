@@ -7,13 +7,15 @@ import {
     ADD_NODE_TO_AVAILABLE_NODES, 
     REMOVE_NODE_FROM_AVAILABLE_NODES,
     ADD_COMPRESSOR,
-    ADD_MASTER
+    ADD_MASTER,
+    STORE_ANALYSER_NODE
 } from '../types/audioTypes';
 import { prependArray } from '../../utils/prependArray';
 
 const initialState = {
     audioContext: null,
     inputStream: null,
+    analyserNode: null,
     currentChain: [],
     availableNodes: []
 }
@@ -41,6 +43,8 @@ export const audioReducer = (state = initialState, action) => {
             return { ...state, currentChain: state.currentChain.concat(action.master) };
         case ADD_NODE_TO_AVAILABLE_NODES:
             return { ...state, availableNodes: state.availableNodes.concat(action.node) };
+        case STORE_ANALYSER_NODE:
+            return { ...state, analyserNode: action.analyserNode };
         case REMOVE_NODE_FROM_AVAILABLE_NODES:
             return { ...state, availableNodes: state.availableNodes.filter((element, index) => index != state.availableNodes.indexOf(action.node)) };
         default:

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-class Diagnostics extends Component {
+class Signal extends Component {
     render() {
         return (
             <div>
-                Tu będzie diagnostyka
                 <canvas />
             </div>
         );
@@ -18,4 +18,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Diagnostics);
+export default connect(mapStateToProps)(Signal);
