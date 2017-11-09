@@ -7,6 +7,7 @@ import { InputText } from 'primereact/components/inputtext/InputText';
 
 import Growl from '../growl';
 import Audio from '../audio';
+import Diagnostics from '../diagnostics';
 import Player from '../player';
 import Recorder from '../recorder';
 import { savePresetCreator, storePresetsCreator, updatePresetCreator } from '../../redux/actions/presetActions';
@@ -96,6 +97,7 @@ class StudioPage extends Component {
                 <div>
                     <div>
                         <Audio />
+                        {<Diagnostics />}
                     </div>
                     <div className="save-button-wrapper">
                         <InputText className="save-file-input" onChange={this.handlePresetName} placeholder="name preset..." />
