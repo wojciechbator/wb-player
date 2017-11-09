@@ -9,7 +9,7 @@ const loginFailed = () => {
 }
 
 const loginSuccess = (token, loggedUser) => {
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
     return {
         type: LOGIN_SUCCESS,
         isAuthenticated: true
@@ -17,7 +17,7 @@ const loginSuccess = (token, loggedUser) => {
 }
 
 const logout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     return {
         type: LOGOUT,
         isAuthenticated: false

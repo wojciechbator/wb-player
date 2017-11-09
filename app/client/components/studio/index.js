@@ -95,9 +95,11 @@ class StudioPage extends Component {
                     <Recorder initialAudio={this.props.audioContext} />
                 </div>
                 <div>
+                    <Diagnostics />
+                </div>
+                <div>
                     <div>
                         <Audio />
-                        {<Diagnostics />}
                     </div>
                     <div className="save-button-wrapper">
                         <InputText className="save-file-input" onChange={this.handlePresetName} placeholder="name preset..." />

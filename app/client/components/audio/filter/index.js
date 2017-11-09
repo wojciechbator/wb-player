@@ -35,7 +35,7 @@ class FilterNode extends Component {
         return (
             <div>
                 <Fieldset legend={this.props.node.type} toggleable={true}>
-                    <div className="wrapper">
+                    <div className="filter-wrapper">
                         <h3>{this.props.node.type}: {this.state.value}</h3>
                         <Slider orientation='vertical' animate={true} value={this.state.value} onChange={this.onValueChange} />
                     </div>

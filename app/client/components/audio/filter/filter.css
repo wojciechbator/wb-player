@@ -1,8 +1,8 @@
-.wrapper {
+.filter-wrapper {
     text-align: center;
 }
 
-.wrapper > * {
+.filter-wrapper > * {
     margin: 0 auto;
 }
 

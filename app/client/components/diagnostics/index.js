@@ -8,41 +8,42 @@ class Diagnostics extends Component {
     }
 
     componentDidMount() {
-        const canvas = this.refs.canvas;
-        this.drawOnCanvas(canvas);
+        this.canvas.getContext('2d');
+        this.props.analyser && this.drawOnCanvas(this.props.analyser);
     }
 
-    drawOnCanvas(canvas) {
-        const canvasContext = canvas.getContext('2d');
-        const bufferLength = this.props.analyserNode.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-        const drawVisual = requestAnimationFrame(this.drawOnCanvas);
-        this.props.analyserNode.getByteTimeDomainData(dataArray);
-        this.setState({ canvasContext: { fillStyle: 'rgb(200, 200, 200)' } });
-        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-        this.setState({ canvasContext: { lineWidth: 2, strokeStyle: 'rgb(0, 0, 0)' } });
-        canvasContext.beginPath();
-        const sliceWidth = canvas.width * 1.0 / bufferLength;
-        let x = 0;
-        for (let i = 0; i < bufferLength; i++) {
-            const sample = dataArray[i] / 128.0;
-            const factor = sample * canvas.height / 2;
-            i === 0 ? canvasContext.moveTo(sample, factor) : canvasContext.lineTo(sample, factor);
-            x += sliceWidth;
+    drawOnCanvas(analyser) {
+        if (this.ctx) {
+            const gradient = this.ctx.createLinearGradient(0, 0, 0, 512);
+            gradient.addColorStop(1, '#000000');
+            gradient.addColorStop(0.75, '#2ecc71');
+            gradient.addColorStop(0.25, '#f1c40f');
+            gradient.addColorStop(0, '#e74c3c');
+      
+            const array = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(array);
+            this.ctx.clearRect(0, 0, 800, 512);
+            this.ctx.fillStyle = gradient;
+      
+            for (let i = 0; i < (array.length); i++) {
+              const value = array[i];
+              this.ctx.fillRect(i * 12, 512, 10, value * -2);
+            }
+          }
         }
+        render() {
+          return (
+            <canvas
+              className="react-music-canvas"
+              width="80%"
+              height={150}
+              ref={(c) => { this.canvas = c; }}
+            />
+          );
+        }
+      }
 
-        canvasContext.lineTo(canvas.width, canvas.height / 2);
-        canvasContext.stroke();
-    }
-
-    render() {
-        return (
-            <canvas ref='canvas' />
-        );
-    }
-}
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         analyserNode: state.audio.analyserNode
     }

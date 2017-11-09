@@ -35,7 +35,7 @@ class GainNode extends Component {
         return (
             <div>
                 <Fieldset legend="gain" toggleable={true}>
-                    <div className="wrapper">
+                    <div className="gain-wrapper">
                         <h3>Gain: {Math.round(this.state.value * 100)}</h3>
                         <Slider orientation='vertical' animate={true} value={Math.round(this.state.value * 100)} onChange={this.onValueChange} />
                     </div>

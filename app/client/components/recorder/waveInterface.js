@@ -28,7 +28,6 @@ export default class WAVEInterface {
 
         recProcessingNode.onaudioprocess = (event) => {
           if (this.encodingCache) this.encodingCache = null;
-          // save left and right buffers
           for (let i = 0; i < 2; i++) {
             const channel = event.inputBuffer.getChannelData(i);
             this.buffers[i].push(new Float32Array(channel));

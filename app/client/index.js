@@ -4,9 +4,8 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
-import App from './App';
+import App from './app';
 import MainPage from './components/mainPage';
-import Diagnostics from './components/diagnostics';
 import LoginPage from './components/login';
 import RegisterPage from './components/register';
 import SplashScreen from './components/splash';
