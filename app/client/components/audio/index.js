@@ -19,6 +19,7 @@ class Audio extends Component {
         this.state = {
             savedPresetProperly: null,
             updatedPresetProperly: null,
+            showPopup: false,
             presetName: '',
             showGrowl: false,
             textFieldError: null
@@ -37,6 +38,8 @@ class Audio extends Component {
     }
 
     savePreset() {
+        let nodesNames = [];
+        this.props.currentChain.map(node => node.type ? nodesNames.push(node.type) : nodesNames.push(node.constructor.name));        
         const presetObject = {
             name: this.state.presetName,
             gain: 50,
@@ -46,7 +49,7 @@ class Audio extends Component {
             middle: 50,
             treble: 50,
             user: sessionStorage.getItem('loggedUser'),
-            currentChain: this.props.currentChain
+            currentChain: nodesNames
         }
         axios.post('/api/presets', presetObject)
             .then(response => {
@@ -54,9 +57,12 @@ class Audio extends Component {
                 this.props.savePresetCreator(presetObject);
             })
             .catch(error => this.setState({ savedPresetProperly: false }));
+        this.setState({ showPopup: false });
     }
 
     updatePreset(presetId) {
+        let nodesNames = [];
+        this.props.currentChain.map(node => node.type ? nodesNames.push(node.type) : nodesNames.push(node.constructor.name));
         const newPresetObject = {
             name: this.state.presetName,
             gain: 52,
@@ -66,7 +72,7 @@ class Audio extends Component {
             middle: 52,
             treble: 52,
             user: sessionStorage.getItem('loggedUser'),
-            currentChain: this.props.currentChain
+            currentChain: nodesNames
         }
         axios.put(`/api/presets/${presetId}`, newPresetObject)
             .then(response => {
@@ -74,14 +80,15 @@ class Audio extends Component {
                 this.props.updatePresetCreator(presetId, newPresetObject);
             })
             .catch(error => this.setState({ updatedPresetProperly: false }));
+        this.setState({ showPopup: false });            
     }
 
     onShowModal() {
-        this.setState({ showSavePopup: true });
+        this.setState({ showPopup: true });
     }
 
     onHideModal() {
-        this.setState({ showSavePopup: false, presetName: '' });
+        this.setState({ showPopup: false, presetName: '' });
     }
 
     hideGrowl() {
@@ -96,7 +103,7 @@ class Audio extends Component {
         return (
             <div className='preset-container'>
                 {this.state.showGrowl === true && <Growl positive={true} header='Success' body='Operation done right!' onClick={this.hideGrowl} liveTime={2000} />}
-                <Dialog header='Save preset' visible={this.state.showSavePopup} modal={true} dismissableMask={true} onHide={this.onHideModal}>
+                <Dialog header='Save preset' visible={this.state.showPopup} modal={true} dismissableMask={true} onHide={this.onHideModal}>
                     <div className='dialog-body'>
                         <InputText
                             id='presetName'

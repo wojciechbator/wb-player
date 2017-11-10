@@ -1,51 +1,64 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import './diagnostics.css';
+
+window.requestAnimationFrame = window.requestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.msRequestAnimationFrame;
+
 class Diagnostics extends Component {
-    constructor(props) {
-        super(props);
-        this.drawOnCanvas = this.drawOnCanvas.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.drawOnCanvas = this.drawOnCanvas.bind(this);
+    this.context = null;
+  }
 
-    componentDidMount() {
-        this.canvas.getContext('2d');
-        this.props.analyser && this.drawOnCanvas(this.props.analyser);
-    }
+  componentDidMount() {
+    this.canvas.style.width = '100%';
+    this.canvas.width = this.canvas.offsetWidth;
+    this.context = this.canvas.getContext('2d');
+    this.drawValue = requestAnimationFrame(this.drawOnCanvas);
+    // this.drawOnCanvas();
+  }
 
-    drawOnCanvas(analyser) {
-        if (this.ctx) {
-            const gradient = this.ctx.createLinearGradient(0, 0, 0, 512);
-            gradient.addColorStop(1, '#000000');
-            gradient.addColorStop(0.75, '#2ecc71');
-            gradient.addColorStop(0.25, '#f1c40f');
-            gradient.addColorStop(0, '#e74c3c');
-      
-            const array = new Uint8Array(analyser.frequencyBinCount);
-            analyser.getByteFrequencyData(array);
-            this.ctx.clearRect(0, 0, 800, 512);
-            this.ctx.fillStyle = gradient;
-      
-            for (let i = 0; i < (array.length); i++) {
-              const value = array[i];
-              this.ctx.fillRect(i * 12, 512, 10, value * -2);
-            }
-          }
-        }
-        render() {
-          return (
-            <canvas
-              className="react-music-canvas"
-              height={150}
-              ref={(c) => { this.canvas = c; }}
-            />
-          );
-        }
-      }
+  componentDidUpdate(prevProps, prevState) {
+    this.drawValue = requestAnimationFrame(this.drawOnCanvas);
+  }
+
+  drawOnCanvas() {
+    const dataArray = new Uint8Array(this.props.analyserNode.frequencyBinCount);
+    this.props.analyserNode.getByteFrequencyData(dataArray);
+    this.context.fillStyle = '#140703';
+    this.context.fillRect(0, 0, this.canvas.width, this.canvas.width);
+    const barWidth = (this.canvas.width / this.props.analyserNode.frequencyBinCount) * 2.5 - 1;
+    let barHeight;
+    let parameter = 0;
+    for (let i = 0; i < this.props.analyserNode.frequencyBinCount; i++) {
+      barHeight = dataArray[i];
+      this.context.fillStyle = 'rgb(' + (barHeight + 100) + ', 50, 50)';
+      this.context.fillRect(parameter, this.canvas.height - barHeight / 2, barWidth, barHeight);
+      parameter += barWidth;
+    }
+    this.drawValue = requestAnimationFrame(this.drawOnCanvas);
+  }
+
+  render() {
+    return (
+      <canvas
+        className="react-music-canvas"
+        height={150}
+        ref={(c) => { this.canvas = c; }}
+      />
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
-    return {
-        analyserNode: state.audio.analyserNode
-    }
+  return {
+    analyserNode: state.audio.analyserNode
+  }
 }
 
 export default connect(mapStateToProps)(Diagnostics);

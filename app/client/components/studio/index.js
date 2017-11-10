@@ -16,9 +16,7 @@ class StudioPage extends Component {
                     <Player />
                     <Recorder initialAudio={this.props.audioContext} />
                 </div>
-                <div>
-                    <Diagnostics />
-                </div>
+                <Diagnostics />
                 <Audio />
             </div>
         );

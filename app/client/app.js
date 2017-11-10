@@ -14,7 +14,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.props.isAuthenticated === false && this.props.loginRedirectCreator();
+        !sessionStorage.getItem('loggedUser') && this.props.loginRedirectCreator();
     }
 
     render() {

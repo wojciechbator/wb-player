@@ -16,22 +16,21 @@ class AudioInitializer extends Component {
         this.captureAudio();
     }
 
-    captureAudio() {
+    async captureAudio() {
         if (!navigator.mediaDevices.getUserMedia)
             navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia ||
                 navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia;
         if (navigator.mediaDevices.getUserMedia) {
-            return navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+            await navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
                 const inputStream = this.state.audioContext.createMediaStreamSource(stream);
                 this.props.inputStreamCreator(inputStream);
-                return inputStream;
             }).catch(error => {
                 alert('Error capturing audio.');
-                return new Error(error);
+                throw new Error(error);
             });
         } else {
             alert('getUserMedia is not supported in this browser.');
-            return new Error();
+            throw new Error();
         }
     }
 

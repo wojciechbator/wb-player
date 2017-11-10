@@ -104,6 +104,7 @@ class AudioNodes extends Component {
 
     createAnalyser() {
         let analyser = this.props.audioContext.createAnalyser();
+        analyser.fftSize = 256;
         return analyser;
     }
 

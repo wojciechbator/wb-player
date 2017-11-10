@@ -22,6 +22,7 @@
 
 .recorder-buttons {
     padding: 10px;
+    display: inline-flex;    
 }
 
 .save-file-wrapper {
