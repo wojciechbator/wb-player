@@ -17,7 +17,7 @@ class NodesList extends Component {
 
     nodeTemplate(node) {
         let name = node.type ? node.type : node.constructor.name;
-        if(!name) return;
+        if (!name) return;
         return (
             <div onClick={() => this.addAudioToChain(node)}>{name}</div>
         );
@@ -25,8 +25,11 @@ class NodesList extends Component {
 
     render() {
         return (
-            <div className="nodes-list">
-                <OrderList value={this.props.availableNodes} dragdrop={true} itemTemplate={this.nodeTemplate} responsive={true} header='Available nodes' />     
+            <div className='nodes-container'>
+                <div className='nodes-header'>Available nodes</div>
+                <div className='nodes-list'>
+                    {this.props.availableNodes.map((node, key) => node.type ? <div key={key} className='node'>{node.type}</div> : <div key={key} className='node'>{node.constructor.name}</div>)}
+                </div>
             </div>
         );
     }
@@ -42,3 +45,4 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = dispatch => bindActionCreators({ addNodeCreator }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(NodesList);
+

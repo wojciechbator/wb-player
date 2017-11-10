@@ -16,7 +16,7 @@ export default class Growl extends Component {
     render() {
         this.growlTimeout = setTimeout(() => this.showGrowl = false, this.props.liveTime);
         return (
-            this.showGrowl &&
+            this.showGrowl === true &&
             <div className={this.props.positive === true ? 'growl-wrapper-positive' : 'growl-wrapper-negative'} onClick={this.props.onClick} >
                 <div className='growl-head'>{this.props.header}</div>
                 <div className='growl-body'>{this.props.body}</div>

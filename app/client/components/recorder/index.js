@@ -5,6 +5,7 @@ import { Dialog } from 'primereact/components/dialog/Dialog';
 
 import WAVEInterface from './waveInterface';
 import downloadBlob from './downloadBlob';
+import { validField } from '../../utils/formValidator';
 import './recorder.css';
 
 const defaultProps = {
@@ -23,7 +24,8 @@ export default class Recorder extends Component {
       isPlaying: false,
       audioData: this.props.outputContext,
       fileName: null,
-      showSavePopup: false
+      showSavePopup: false,
+      textFieldError: null
     };
     this.waveInterface = new WAVEInterface();
     this.startRecording = this.startRecording.bind(this);
@@ -151,9 +153,17 @@ export default class Recorder extends Component {
   render() {
     return (
       <div className='recorder-module'>
-        <Dialog header='Save preset' visible={this.state.showSavePopup} modal={true} dismissableMask={true} onHide={this.onHideModal}>
-          <InputText className='save-file-input' onChange={this.onFileNameTyping} placeholder='name your record...' />
-          <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onDownloadClick}><i className='fa fa-save'></i></button>
+        <Dialog header='Save record' visible={this.state.showSavePopup} modal={true} dismissableMask={true} onHide={this.onHideModal}>
+          <div className='dialog-body'>
+            <InputText
+              id='fileName'
+              className={this.state.textFieldError === true && 'error-input'}
+              onChange={this.onFileNameTyping}
+              onBlur={event => this.setState({ textFieldError: !validField(event.target.value) })}
+              onFocus={event => this.setState({ textFieldError: false })} />
+            <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onDownloadClick} disabled={!this.state.textFieldError || this.state.textFieldError === true}><i className='fa fa-save'></i></button>
+            {this.state.textFieldError === true && <div className='error-message'>This field is wrong</div>}
+          </div>
         </Dialog>
         <div className='recorder-header'>Recorder</div>
         <div className='recorder-buttons'>

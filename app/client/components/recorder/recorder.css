@@ -27,3 +27,17 @@
 .save-file-wrapper {
     padding: 10px;
 }
+
+.dialog-body {
+    height: 50px;
+    text-align: center;
+}
+
+.error-input {
+    border-color: #e9400c !important;
+    color: #ec440c !important;
+}
+
+.error-message {
+    color: #ec440c;
+}
