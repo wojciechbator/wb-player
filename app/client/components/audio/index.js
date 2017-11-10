@@ -3,13 +3,14 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { Button } from 'primereact/components/button/Button';
+import { Dialog } from 'primereact/components/dialog/Dialog';
 import { InputText } from 'primereact/components/inputtext/InputText';
 
 import GainNode from './gain';
 import FilterNode from './filter';
 import Growl from '../growl';
 import { savePresetCreator, storePresetsCreator, updatePresetCreator } from '../../redux/actions/presetActions';
+import { validField } from '../../utils/formValidator';
 import './audio.css';
 
 class Audio extends Component {
@@ -19,12 +20,16 @@ class Audio extends Component {
             savedPresetProperly: null,
             updatedPresetProperly: null,
             presetName: '',
-            showGrowl: false
+            showGrowl: false,
+            textFieldError: null
         }
         this.savePreset = this.savePreset.bind(this);
         this.updatePreset = this.updatePreset.bind(this);
         this.handlePresetName = this.handlePresetName.bind(this);
         this.hideGrowl = this.hideGrowl.bind(this);
+        this.onShowModal = this.onShowModal.bind(this);
+        this.onHideModal = this.onHideModal.bind(this);
+        this.checkField = this.checkField.bind(this);
     }
 
     handlePresetName(event) {
@@ -69,20 +74,44 @@ class Audio extends Component {
             .catch(error => this.setState({ updatedPresetProperly: false }));
     }
 
+    onShowModal() {
+        this.setState({ showSavePopup: true });
+    }
+
+    onHideModal() {
+        this.setState({ showSavePopup: false, presetName: '' });
+    }
+
     hideGrowl() {
         this.setState({ showGrowl: false })
     }
 
+    checkField(event) {
+        this.setState({ textFieldError: !validField(event.target.value) });
+    }
+
     render() {
         return (
-            <div className='audio-chain'>
-                <div className='audio-header'>
-                    
-                </div>
+            <div className='preset-container'>
                 {this.state.showGrowl === true && <Growl positive={true} header='Success' body='Operation done right!' onClick={this.hideGrowl} liveTime={2000} />}
-                <InputText onChange={this.handlePresetName} placeholder="name preset..." />
-                <Button className="save-button" label="Save preset" onClick={this.savePreset} />
-                {this.props.currentChain.map((element, i) => <GainNode key={i} index={i} node={element} />)}
+                <Dialog header='Save preset' visible={this.state.showSavePopup} modal={true} dismissableMask={true} onHide={this.onHideModal}>
+                    <div className='dialog-body'>
+                        <InputText
+                            id='presetName'
+                            className={this.state.textFieldError === true && 'error-input'}
+                            onChange={this.handlePresetName && this.checkField}
+                        />
+                        <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.savePreset} disabled={this.state.textFieldError === null || this.state.textFieldError === true}><i className='fa fa-save'></i></button>
+                        {this.state.textFieldError === true && <div className='error-message'>This field is wrong</div>}
+                    </div>
+                </Dialog>
+                <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onShowModal}><i className='fa fa-save'></i></button>
+                <div className='audio-header'>
+                    Current Preset
+                </div>
+                <div className='audio-chain'>
+                    {this.props.currentChain.map((element, i) => <GainNode key={i} index={i} node={element} />)}
+                </div>
             </div>
         );
     }

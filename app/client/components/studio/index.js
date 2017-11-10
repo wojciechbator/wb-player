@@ -19,11 +19,7 @@ class StudioPage extends Component {
                 <div>
                     <Diagnostics />
                 </div>
-                <div>
-                    <div>
-                        <Audio />
-                    </div>
-                </div>
+                <Audio />
             </div>
         );
     }

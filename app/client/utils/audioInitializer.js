@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { initContextCreator, inputStreamCreator } from '../redux/actions/audioActions';
-import AudioNodes from './AudioNodes';
+import AudioNodes from './audioNodes';
 
 class AudioInitializer extends Component {
     constructor(props) {

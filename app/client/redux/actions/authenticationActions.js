@@ -12,7 +12,9 @@ const loginSuccess = (token, loggedUser) => {
     sessionStorage.setItem('token', token);
     return {
         type: LOGIN_SUCCESS,
-        isAuthenticated: true
+        isAuthenticated: true,
+        token,
+        loggedUser
     }
 }
 

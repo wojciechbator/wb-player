@@ -35,7 +35,6 @@ class Diagnostics extends Component {
           return (
             <canvas
               className="react-music-canvas"
-              width="80%"
               height={150}
               ref={(c) => { this.canvas = c; }}
             />

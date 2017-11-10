@@ -38,6 +38,7 @@ export default class Recorder extends Component {
     this.onFileNameTyping = this.onFileNameTyping.bind(this);
     this.onHideModal = this.onHideModal.bind(this);
     this.onShowModal = this.onShowModal.bind(this);
+    this.checkField = this.checkField.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -150,6 +151,10 @@ export default class Recorder extends Component {
     this.setState({ fileName: event.target.value })
   }
 
+  checkField(event) {
+    this.setState({ textFieldError: !validField(event.target.value) });
+  }
+
   render() {
     return (
       <div className='recorder-module'>
@@ -158,10 +163,9 @@ export default class Recorder extends Component {
             <InputText
               id='fileName'
               className={this.state.textFieldError === true && 'error-input'}
-              onChange={this.onFileNameTyping}
-              onBlur={event => this.setState({ textFieldError: !validField(event.target.value) })}
-              onFocus={event => this.setState({ textFieldError: false })} />
-            <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onDownloadClick} disabled={!this.state.textFieldError || this.state.textFieldError === true}><i className='fa fa-save'></i></button>
+              onChange={this.onFileNameTyping && this.checkField}
+            />
+            <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onDownloadClick} disabled={this.state.textFieldError === null || this.state.textFieldError === true}><i className='fa fa-save'></i></button>
             {this.state.textFieldError === true && <div className='error-message'>This field is wrong</div>}
           </div>
         </Dialog>

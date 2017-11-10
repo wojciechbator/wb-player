@@ -13,7 +13,8 @@ class Preset extends mongoose.Schema {
             bass: Number,
             middle: Number,
             treble: Number,
-            currentChain: [{}]
+            currentChain: [String],
+            user: String
         });
     }
 }

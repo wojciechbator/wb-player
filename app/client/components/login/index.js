@@ -33,8 +33,8 @@ class LoginPage extends Component {
         !Object.values(this.state.errors).includes(true)
             &&
             axios.post('/login', this.state.values)
-                .then(data => {
-                    this.props.loginSuccessCreator();
+                .then(response => {
+                    this.props.loginSuccessCreator(response.data.jwt, response.data.loggedUser);
                 })
                 .catch(error => { throw new Error(error); });
     }

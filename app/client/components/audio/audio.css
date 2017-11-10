@@ -1,6 +1,15 @@
+.preset-container {
+}
+
 .audio-chain {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
+}
+
+.audio-header {
+    display: inline;
+    color: #cacbc7;
+    font-size: 1.5em;
 }

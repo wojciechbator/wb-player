@@ -2,6 +2,7 @@ import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REDIRECT_TO_LOGIN, REDIRECT_TO_RE
 
 const initialState = {
     isAuthenticated: false,
+    token: '',
     loggedUser: ''
 }
 
@@ -10,7 +11,7 @@ export const authenticationReducer = (state = initialState, action) => {
         case LOGIN_FAILURE:
             return { ...state, isAuthenticated: action.isAuthenticated };
         case LOGIN_SUCCESS:
-            return { ...state, isAuthenticated: action.isAuthenticated, loggedUser: action.loggedUser };
+            return { ...state, isAuthenticated: action.isAuthenticated, loggedUser: action.loggedUser, token: action.token };
         case LOGOUT:
             return initialState;
         case REDIRECT_TO_LOGIN:

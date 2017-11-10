@@ -5,10 +5,10 @@ import io from 'socket.io-client';
 
 import { storeSocketCreator } from '../redux/actions/socketActions';
 import StudioPage from './studio';
-import PresetsContainer from './presets';
+import Presets from './presets';
 import NodesList from './nodesList';
-import AudioInitializer from '../utils/AudioInitializer';
-import AudioChain from '../utils/AudioChain';
+import AudioInitializer from '../utils/audioInitializer';
+import AudioChain from '../utils/audioChain';
 import Header from './header';
 import Footer from './footer';
 
@@ -32,7 +32,7 @@ class MainPage extends Component {
                 <Header />
                 <div className='content-wrapper'>
                     <div className='left-menu'>
-                        <PresetsContainer />
+                        <Presets />
                         <NodesList />
                     </div>
                     <StudioPage />

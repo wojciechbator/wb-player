@@ -9,6 +9,7 @@ class NodesList extends Component {
     constructor(props) {
         super(props);
         this.nodeTemplate = this.nodeTemplate.bind(this);
+        this.addAudioToChain = this.addAudioToChain.bind(this);
     }
 
     addAudioToChain(node) {
@@ -28,7 +29,7 @@ class NodesList extends Component {
             <div className='nodes-container'>
                 <div className='nodes-header'>Available nodes</div>
                 <div className='nodes-list'>
-                    {this.props.availableNodes.map((node, key) => node.type ? <div key={key} className='node'>{node.type}</div> : <div key={key} className='node'>{node.constructor.name}</div>)}
+                    {this.props.availableNodes.map((node, key) => node.type ? <div key={key} className='node' onDoubleClick={this.addAudioToChain}>{node.type}</div> : <div key={key} className='node' onDoubleClick={this.addAudioToChain}>{node.constructor.name}</div>)}
                 </div>
             </div>
         );
