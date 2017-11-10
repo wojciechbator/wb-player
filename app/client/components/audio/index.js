@@ -45,6 +45,7 @@ class Audio extends Component {
             bass: 50,
             middle: 50,
             treble: 50,
+            user: sessionStorage.getItem('loggedUser'),
             currentChain: this.props.currentChain
         }
         axios.post('/api/presets', presetObject)
@@ -64,6 +65,7 @@ class Audio extends Component {
             bass: 52,
             middle: 52,
             treble: 52,
+            user: sessionStorage.getItem('loggedUser'),
             currentChain: this.props.currentChain
         }
         axios.put(`/api/presets/${presetId}`, newPresetObject)
@@ -105,9 +107,9 @@ class Audio extends Component {
                         {this.state.textFieldError === true && <div className='error-message'>This field is wrong</div>}
                     </div>
                 </Dialog>
-                <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onShowModal}><i className='fa fa-save'></i></button>
                 <div className='audio-header'>
-                    Current Preset
+                    <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onShowModal}><i className='fa fa-save'></i></button>
+                    <div className='inline-header'>Current Preset</div>
                 </div>
                 <div className='audio-chain'>
                     {this.props.currentChain.map((element, i) => <GainNode key={i} index={i} node={element} />)}

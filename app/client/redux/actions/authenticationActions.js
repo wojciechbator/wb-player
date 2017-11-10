@@ -10,11 +10,10 @@ const loginFailed = () => {
 
 const loginSuccess = (token, loggedUser) => {
     sessionStorage.setItem('token', token);
+    sessionStorage.setItem('loggedUser', loggedUser);
     return {
         type: LOGIN_SUCCESS,
-        isAuthenticated: true,
-        token,
-        loggedUser
+        isAuthenticated: true
     }
 }
 

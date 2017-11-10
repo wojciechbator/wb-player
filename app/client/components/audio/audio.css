@@ -1,15 +1,23 @@
 .preset-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .audio-chain {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     flex: 1;
+    width: 80%;
 }
 
 .audio-header {
-    display: inline;
+    padding: 10px;
+}
+
+.inline-header {
     color: #cacbc7;
     font-size: 1.5em;
+    display: inline;    
 }

@@ -24,11 +24,11 @@ class GainNode extends Component {
 
     onValueChange(event) {
         this.setState({ value: event.value / 100 });
-        // this.props.nodeValueCreator(this.props.index, event.value);
+        this.props.nodeValueCreator(this.props.index, event.value);
     }
 
     removeNode(node) {
-        // this.props.removeNodeCreator(node);
+        this.props.removeNodeCreator(node);
     }
     
     render() {
@@ -46,16 +46,6 @@ class GainNode extends Component {
     }
 }
 
-const mapStateToProps = (store, props) => {
-    if (store.audio.currentChain[props.index].gain) {
-        return {
-            value: store.audio.currentChain[props.index].gain.value
-        }
-    } else {
-        return {}
-    }
-}
+const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
 
-// const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
-
-export default connect(mapStateToProps)(GainNode);
+export default connect(null, mapDispatchToProps)(GainNode);

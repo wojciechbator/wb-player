@@ -8,7 +8,6 @@ import './nodesList.css';
 class NodesList extends Component {
     constructor(props) {
         super(props);
-        this.nodeTemplate = this.nodeTemplate.bind(this);
         this.addAudioToChain = this.addAudioToChain.bind(this);
     }
 
@@ -16,20 +15,12 @@ class NodesList extends Component {
         this.props.addNodeCreator(node);
     }
 
-    nodeTemplate(node) {
-        let name = node.type ? node.type : node.constructor.name;
-        if (!name) return;
-        return (
-            <div onClick={() => this.addAudioToChain(node)}>{name}</div>
-        );
-    }
-
     render() {
         return (
             <div className='nodes-container'>
                 <div className='nodes-header'>Available nodes</div>
                 <div className='nodes-list'>
-                    {this.props.availableNodes.map((node, key) => node.type ? <div key={key} className='node' onDoubleClick={this.addAudioToChain}>{node.type}</div> : <div key={key} className='node' onDoubleClick={this.addAudioToChain}>{node.constructor.name}</div>)}
+                    {this.props.availableNodes.map((node, key) => node.type ? <div key={key} className='node' onDoubleClick={() => this.addAudioToChain(node)}>{node.type}</div> : <div key={key} className='node' onDoubleClick={() => this.addAudioToChain(node)}>{node.constructor.name}</div>)}
                 </div>
             </div>
         );
