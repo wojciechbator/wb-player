@@ -3,11 +3,14 @@ import { connect } from 'react-redux';
 
 class AudioChain extends Component {
     componentDidMount() {
-        this.props.inputStream && this.props.analyserNode && this.props.analyserNode.connect(this.props.currentChain[0]);
+        this.props.inputStream.connect(this.props.currentChain[0]);
         for (let i = 0; i < this.props.currentChain.length; i++) {
-            this.props.currentChain[i + 1] ? 
-            this.props.currentChain[i].connect(this.props.currentChain[i + 1]) : 
-            this.props.currentChain[i].connect(this.props.audioContext.destination);
+            if (this.props.currentChain[i + 1]) 
+                this.props.currentChain[i].connect(this.props.currentChain[i + 1])
+            else {
+                this.props.currentChain[i].connect(this.props.analyserNode);
+                this.props.analyserNode.connect(this.props.audioContext.destination);
+            }
         }
     }
 
@@ -18,7 +21,6 @@ class AudioChain extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        inputStream: state.audio.inputStream,
         analyserNode: state.audio.analyserNode,
         audioContext: state.audio.audioContext,
         currentChain: state.audio.currentChain

@@ -24,7 +24,6 @@ class AudioInitializer extends Component {
             await navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
                 const inputStream = this.state.audioContext.createMediaStreamSource(stream);
                 this.props.inputStreamCreator(inputStream);
-                inputStream.connect(this.props.analyserNode);
             }).catch(error => {
                 alert('Error capturing audio.');
                 throw new Error(error);

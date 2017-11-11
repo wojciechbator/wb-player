@@ -28,7 +28,7 @@ class MainPage extends Component {
         return (
             <div className='app-container'>
                 <AudioInitializer />
-                <AudioChain />
+                {this.props.inputStream && <AudioChain inputStream={this.props.inputStream} />}
                 <Header />
                 <div className='content-wrapper'>
                     <div className='left-menu'>
@@ -43,6 +43,12 @@ class MainPage extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        inputStream: state.audio.inputStream
+    }
+}
+
 const mapDispatchToProps = dispatch => bindActionCreators({ storeSocketCreator }, dispatch);
 
-export default connect(null, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
