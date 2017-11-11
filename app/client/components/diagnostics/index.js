@@ -16,7 +16,7 @@ class Diagnostics extends Component {
   }
 
   componentDidMount() {
-    this.canvas.style.width = '75%';
+    this.canvas.style.width = '100%';
     this.canvas.width = this.canvas.offsetWidth;
     this.context = this.canvas.getContext('2d');
     this.drawValue = requestAnimationFrame(this.drawOnCanvas);
@@ -30,7 +30,7 @@ class Diagnostics extends Component {
     const dataArray = new Uint8Array(this.props.analyserNode.frequencyBinCount);
     this.props.analyserNode.getByteFrequencyData(dataArray);
     this.context.fillStyle = '#140703';
-    this.context.fillRect(0, 0, this.canvas.width, this.canvas.width);
+    this.canvas && this.context.fillRect(0, 0, this.canvas.width, this.canvas.width);
     const barWidth = (this.canvas.width / this.props.analyserNode.frequencyBinCount) * 2.5 - 1;
     let barHeight;
     let parameter = 0;

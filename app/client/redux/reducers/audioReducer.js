@@ -27,12 +27,9 @@ export const audioReducer = (state = initialState, action) => {
         case INPUT_STREAM_VALUE:
             return { ...state, inputStream: action.inputStream };
         case NODE_VALUE:
-            return { ...state, currentChain: {
-                        [action.nodeIndex]: {
-                            gain: { value: action.nodeValue }
-                        }
-                    }
-                };
+            let currentChain = state.currentChain;
+            currentChain[action.nodeIndex].gain.value = action.nodeValue / 100;
+            return { ...state, currentChain };
         case ADD_NODE:
             return { ...state, currentChain: prependArray(action.node, state.currentChain) };
         case REMOVE_NODE:
