@@ -5,7 +5,7 @@ class AudioChain extends Component {
     componentDidMount() {
         this.props.inputStream.connect(this.props.currentChain[0]);
         for (let i = 0; i < this.props.currentChain.length; i++) {
-            if (this.props.currentChain[i + 1]) 
+            if (this.props.currentChain[i + 1])
                 this.props.currentChain[i].connect(this.props.currentChain[i + 1])
             else {
                 this.props.currentChain[i].connect(this.props.analyserNode);

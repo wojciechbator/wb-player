@@ -8,10 +8,10 @@ class AudioWebsocket {
         this.socket.on('connection', (socket) => {
             console.log('User connected');
             this.emitUsage(this.socket);
-            this.socket.on('disconnect', () => {
-                console.log('user disconnected');
-                clearTimeout(this.timeout);
-            });
+        });
+        this.socket.on('disconnect', () => {
+            console.log('user disconnected');
+            clearTimeout(this.timeout);
         });
     }
 

@@ -16,6 +16,7 @@ class Header extends Component {
 
     handleLogout() {
         this.props.logoutCreator();
+        this.props.socket.emit('disconnect');
     }
 
     render() {
@@ -35,7 +36,8 @@ class Header extends Component {
 
 const mapStateToProps = (store) => {
     return {
-        loggedUser: store.authentication.loggedUser
+        loggedUser: store.authentication.loggedUser,
+        socket: store.socket.socket
     }
 }
 
