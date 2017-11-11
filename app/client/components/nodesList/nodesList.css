@@ -4,6 +4,12 @@
     height: 30%;
 }
 
+@media screen and (max-width: 480px) {
+    .nodes-container {
+        height: 50%;
+    }
+}
+
 .nodes-list {
     height: 90%;
     overflow-y: auto;

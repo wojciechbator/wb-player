@@ -29,6 +29,20 @@
     padding: 10px;
 }
 
+@media screen and (max-width: 480px) {
+    .control-button {
+        margin: 0px;
+    }
+    
+    .recorder-buttons {
+        padding: 0px;
+    }
+    
+    .save-file-wrapper {
+        padding: 0px;
+    }
+}
+
 .dialog-body {
     height: 50px;
     text-align: center;

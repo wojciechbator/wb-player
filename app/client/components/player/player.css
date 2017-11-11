@@ -19,6 +19,12 @@ input[type="file"] {
     text-align: center; 
 }
 
+@media screen and (max-width: 480px) {
+    .file-upload { 
+        margin: 0px;
+    }
+}
+
 .file-upload:hover {
     background: #4a4a4a;
     color: white;

@@ -24,7 +24,7 @@ class Header extends Component {
             <div className='header'>
                 <div className="logo-center">
                     <img className='logo' src={logo} alt='logo' />
-                    <div className='header-text'>Hello {sessionStorage.getItem('loggedUser')}, play and record Your music</div>
+                    <div className='header-text'>Hello {sessionStorage.getItem('loggedUser')}!</div>
                 </div>
                 <div>
                     <Button label='Log out' onClick={this.handleLogout}></Button>

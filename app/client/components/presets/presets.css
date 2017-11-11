@@ -1,12 +1,19 @@
 .presets-container {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
     margin-right: 10px;
     height: 70%;
 }
 
 .presets-list {
-    height: 90%;
     overflow-y: auto;
+}
+
+
+@media screen and (max-width: 480px) {
+    .presets-container {
+        height: 50%;
+    }
 }
 
 .presets-header {
