@@ -148,7 +148,8 @@ export default class Recorder extends Component {
   };
 
   onFileNameTyping(event) {
-    this.setState({ fileName: event.target.value })
+    this.setState({ fileName: event.target.value });
+    console.log(this.state.fileName);
   }
 
   checkField(event) {

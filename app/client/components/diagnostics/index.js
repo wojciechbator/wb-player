@@ -27,20 +27,22 @@ class Diagnostics extends Component {
   }
 
   drawOnCanvas() {
-    const dataArray = new Uint8Array(this.props.analyserNode.frequencyBinCount);
-    this.props.analyserNode.getByteFrequencyData(dataArray);
-    this.context.fillStyle = '#140703';
-    this.canvas && this.context.fillRect(0, 0, this.canvas.width, this.canvas.width);
-    const barWidth = (this.canvas.width / this.props.analyserNode.frequencyBinCount) * 2.5 - 1;
-    let barHeight;
-    let parameter = 0;
-    for (let i = 0; i < this.props.analyserNode.frequencyBinCount; i++) {
-      barHeight = dataArray[i];
-      this.context.fillStyle = 'rgb(' + (barHeight + 100) + ', 50, 50)';
-      this.context.fillRect(parameter, this.canvas.height - barHeight / 2, barWidth, barHeight);
-      parameter += barWidth;
+    if (this.canvas) {
+      const dataArray = new Uint8Array(this.props.analyserNode.frequencyBinCount);
+      this.props.analyserNode.getByteFrequencyData(dataArray);
+      this.context.fillStyle = '#140703';
+      this.context.fillRect(0, 0, this.canvas.width, this.canvas.width);
+      const barWidth = (this.canvas.width / this.props.analyserNode.frequencyBinCount) * 2.5 - 1;
+      let barHeight;
+      let parameter = 0;
+      for (let i = 0; i < this.props.analyserNode.frequencyBinCount; i++) {
+        barHeight = dataArray[i];
+        this.context.fillStyle = 'rgb(' + (barHeight + 100) + ', 50, 50)';
+        this.context.fillRect(parameter, this.canvas.height - barHeight / 2, barWidth, barHeight);
+        parameter += barWidth;
+      }
+      this.drawValue = requestAnimationFrame(this.drawOnCanvas);
     }
-    this.drawValue = requestAnimationFrame(this.drawOnCanvas);
   }
 
   render() {

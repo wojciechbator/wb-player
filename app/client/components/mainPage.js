@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import io from 'socket.io-client';
 import { Sidebar } from 'primereact/components/sidebar/Sidebar';
-// import { Chart } from 'primereact/components/chart/Chart';
+import { Chart } from 'primereact/components/chart/Chart';
 
 import { storeSocketCreator } from '../redux/actions/socketActions';
 import StudioPage from './studio';
@@ -20,8 +20,12 @@ class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showSidebar: false
+            showSidebar: false,
+            cpuUsage: [],
+            usedMemory: 0,
+            freeMemory: 0
         }
+        this.socket = io();
         this.showSidebar = this.showSidebar.bind(this);
         this.hideSidebar = this.hideSidebar.bind(this);
     }
@@ -35,20 +39,89 @@ class MainPage extends Component {
     }
 
     componentDidMount() {
-        const socket = io();
-        this.props.storeSocketCreator(socket);
+        this.props.storeSocketCreator(this.socket);
+        this.socket.on('cpu', (data) => {
+            let bufferArray = this.state.cpuUsage;
+            if (bufferArray.length < 10) {
+                bufferArray.push(data.system / data.user * 100);  
+            } else {
+                bufferArray.shift();
+                bufferArray.push(data.system / data.user * 100);
+            }
+            this.setState({ cpuUsage: bufferArray });
+        });
+        this.socket.on('memory', (data) => {
+            this.setState({ usedMemory: data.heapUsed, freeMemory: data.heapTotal - data.heapUsed });
+        });
     }
 
     render() {
+        const data = {
+            labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+            datasets: [
+                {
+                    label: 'CPU usage',
+                    data: this.state.cpuUsage,
+                    fill: false,
+                    borderColor: '#4bc0c0'
+                },
+            ]
+        }
+        const options = {
+            animation: false,
+            scales:
+                {
+                    xAxes: [{
+                        display: false
+                    }]
+                },
+            title: {
+                display: true,
+                text: 'CPU usage',
+                fontSize: 16
+            },
+            legend: {
+                display: false
+            }
+        };
+
+        const doughnutData = {
+            datasets: [{
+                data: [this.state.usedMemory, this.state.freeMemory],
+                backgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                ],
+                hoverBackgroundColor: [
+                    "#FF6384",
+                    "#36A2EB",
+                ],
+            }],
+            labels: [
+                'Used heap',
+                'Free heap'
+            ]
+        };
+
+        const doughnutOptions = {
+            animation: false,
+            title: {
+                display: true,
+                text: 'Process heap usage',
+                fontSize: 16
+            },
+            legend: {
+                display: true
+            }
+        }
+
         return (
             <div className='app-container'>
                 <AudioInitializer />
                 <Sidebar visible={this.state.showSidebar} position='right' onHide={this.hideSidebar}>
-                    <div className='sidebar-context'>
-                        Content here
-                        {/* <Chart type='line' />
-                        <Chart type='doughtnut' />
-                        <Chart type ='bar' /> */}
+                    <div className='sidebar-content'>
+                        <Chart className='diagnostics-chart' type='line' data={data} options={options} />
+                        <Chart className='diagnostics-chart' type='doughnut' data={doughnutData} options={doughnutOptions} />
                     </div>
                 </Sidebar>
                 <button className='class="ui-button ui-widget ui-state-default ui-corner-all show-sidebar-button ui-button-text-only' onClick={this.showSidebar}><i className="fa fa-arrow-left"></i></button>
