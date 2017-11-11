@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class AudioChain extends Component {
-    componentWillReceiveProps(nextProps) {
-        nextProps.inputStream && nextProps.inputStream.connect(nextProps.currentChain[0]);
-        for (let i = 0; i < nextProps.currentChain.length; i++) {
-            nextProps.currentChain[i + 1] ? 
-            nextProps.currentChain[i].connect(nextProps.currentChain[i + 1]) : 
-            nextProps.currentChain[i].connect(nextProps.audioContext.destination);
+    componentDidMount() {
+        this.props.inputStream && this.props.analyserNode && this.props.analyserNode.connect(this.props.currentChain[0]);
+        for (let i = 0; i < this.props.currentChain.length; i++) {
+            this.props.currentChain[i + 1] ? 
+            this.props.currentChain[i].connect(this.props.currentChain[i + 1]) : 
+            this.props.currentChain[i].connect(this.props.audioContext.destination);
         }
     }
 
@@ -19,6 +19,7 @@ class AudioChain extends Component {
 const mapStateToProps = (state) => {
     return {
         inputStream: state.audio.inputStream,
+        analyserNode: state.audio.analyserNode,
         audioContext: state.audio.audioContext,
         currentChain: state.audio.currentChain
     }

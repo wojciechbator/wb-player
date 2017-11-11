@@ -24,6 +24,7 @@ class AudioInitializer extends Component {
             await navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
                 const inputStream = this.state.audioContext.createMediaStreamSource(stream);
                 this.props.inputStreamCreator(inputStream);
+                inputStream.connect(this.props.analyserNode);
             }).catch(error => {
                 alert('Error capturing audio.');
                 throw new Error(error);
@@ -39,6 +40,12 @@ class AudioInitializer extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        analyserNode: state.audio.analyserNode
+    }
+}
+
 const mapDispatchToProps = dispatch => bindActionCreators({ initContextCreator, inputStreamCreator }, dispatch);
 
-export default connect(null, mapDispatchToProps)(AudioInitializer);
+export default connect(mapStateToProps, mapDispatchToProps)(AudioInitializer);

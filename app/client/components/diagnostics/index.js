@@ -16,11 +16,10 @@ class Diagnostics extends Component {
   }
 
   componentDidMount() {
-    this.canvas.style.width = '100%';
+    this.canvas.style.width = '75%';
     this.canvas.width = this.canvas.offsetWidth;
     this.context = this.canvas.getContext('2d');
     this.drawValue = requestAnimationFrame(this.drawOnCanvas);
-    // this.drawOnCanvas();
   }
 
   componentDidUpdate(prevProps, prevState) {

@@ -24,7 +24,7 @@ const storeInputStream = (inputStream) => {
     }
 }
 
-const storeAnalyserNode = (analyserNode) => {
+const addAnalyserNode = (analyserNode) => {
     return {
         type: STORE_ANALYSER_NODE,
         analyserNode
@@ -135,8 +135,8 @@ export const removeNodeFromAvailablesCreator = (availableNodes) => {
     }
 }
 
-export const storeAnalyserNodeCreator = (analyserNode) => {
+export const addAnalyserNodeCreator = (analyserNode) => {
     return dispatch => {
-        dispatch(storeAnalyserNode(analyserNode));
+        dispatch(addAnalyserNode(analyserNode));
     }
 }
