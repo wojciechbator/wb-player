@@ -23,7 +23,7 @@ export default class Recorder extends Component {
       isRecording: false,
       isPlaying: false,
       audioData: this.props.outputContext,
-      fileName: null,
+      fileName: '',
       showSavePopup: false,
       textFieldError: null
     };
@@ -35,10 +35,8 @@ export default class Recorder extends Component {
     this.onAudioEnded = this.onAudioEnded.bind(this);
     this.onDownloadClick = this.onDownloadClick.bind(this);
     this.onRemoveClick = this.onRemoveClick.bind(this);
-    this.onFileNameTyping = this.onFileNameTyping.bind(this);
     this.onHideModal = this.onHideModal.bind(this);
     this.onShowModal = this.onShowModal.bind(this);
-    this.checkField = this.checkField.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -127,7 +125,8 @@ export default class Recorder extends Component {
   }
 
   onHideModal() {
-    this.setState({ showSavePopup: false });
+    this.setState({ showSavePopup: false, fileName: '', textFieldError: null });
+    document.getElementById('fileName').value = '';
   }
 
   onButtonClick(event) {
@@ -149,7 +148,6 @@ export default class Recorder extends Component {
 
   onFileNameTyping(event) {
     this.setState({ fileName: event.target.value });
-    console.log(this.state.fileName);
   }
 
   checkField(event) {
@@ -164,7 +162,10 @@ export default class Recorder extends Component {
             <InputText
               id='fileName'
               className={this.state.textFieldError === true && 'error-input'}
-              onChange={this.onFileNameTyping && this.checkField}
+              onChange={event => {
+                this.onFileNameTyping(event);
+                this.checkField(event);
+              }}
             />
             <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.onDownloadClick} disabled={this.state.textFieldError === null || this.state.textFieldError === true}><i className='fa fa-save'></i></button>
             {this.state.textFieldError === true && <div className='error-message'>This field is wrong</div>}

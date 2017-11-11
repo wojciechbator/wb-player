@@ -26,11 +26,9 @@ class Audio extends Component {
         }
         this.savePreset = this.savePreset.bind(this);
         this.updatePreset = this.updatePreset.bind(this);
-        this.handlePresetName = this.handlePresetName.bind(this);
         this.hideGrowl = this.hideGrowl.bind(this);
         this.onShowModal = this.onShowModal.bind(this);
         this.onHideModal = this.onHideModal.bind(this);
-        this.checkField = this.checkField.bind(this);
     }
 
     handlePresetName(event) {
@@ -39,7 +37,7 @@ class Audio extends Component {
 
     savePreset() {
         let nodesNames = [];
-        this.props.currentChain.map(node => node.type ? nodesNames.push(node.type) : nodesNames.push(node.constructor.name));        
+        this.props.currentChain.map(node => node.type ? nodesNames.push(node.type) : nodesNames.push(node.constructor.name));
         const presetObject = {
             name: this.state.presetName,
             gain: 50,
@@ -80,7 +78,7 @@ class Audio extends Component {
                 this.props.updatePresetCreator(presetId, newPresetObject);
             })
             .catch(error => this.setState({ updatedPresetProperly: false }));
-        this.setState({ showPopup: false });            
+        this.setState({ showPopup: false });
     }
 
     onShowModal() {
@@ -88,7 +86,8 @@ class Audio extends Component {
     }
 
     onHideModal() {
-        this.setState({ showPopup: false, presetName: '' });
+        this.setState({ showPopup: false, presetName: '', textFieldError: null });
+        document.getElementById('presetName').value = '';
     }
 
     hideGrowl() {
@@ -108,7 +107,10 @@ class Audio extends Component {
                         <InputText
                             id='presetName'
                             className={this.state.textFieldError === true && 'error-input'}
-                            onChange={this.handlePresetName && this.checkField}
+                            onChange={event => {
+                                this.handlePresetName(event);
+                                this.checkField(event);
+                            }}
                         />
                         <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.savePreset} disabled={this.state.textFieldError === null || this.state.textFieldError === true}><i className='fa fa-save'></i></button>
                         {this.state.textFieldError === true && <div className='error-message'>This field is wrong</div>}
