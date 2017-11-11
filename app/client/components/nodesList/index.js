@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { OrderList } from 'primereact/components/orderlist/OrderList';
 import { addNodeCreator } from '../../redux/actions/audioActions';
 import './nodesList.css';
 
