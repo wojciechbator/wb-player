@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import Audio from '../audio';
 import Diagnostics from '../diagnostics';
@@ -8,13 +7,13 @@ import Recorder from '../recorder';
 
 import './studio.css';
 
-class StudioPage extends Component {
+export default class StudioPage extends Component {
     render() {
         return (
             <div className='studio-container'>
                 <div className='control-panel'>
                     <Player />
-                    <Recorder initialAudio={this.props.audioContext} />
+                    <Recorder />
                 </div>
                 <Diagnostics />
                 <Audio />
@@ -22,11 +21,3 @@ class StudioPage extends Component {
         );
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        audioContext: state.audio.audioContext
-    }
-}
-
-export default connect(mapStateToProps)(StudioPage);

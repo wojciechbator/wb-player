@@ -55,6 +55,10 @@ class MainPage extends Component {
         });
     }
 
+    componentWillUnmount() {
+        this.socket.emit('disconnect');
+    }
+
     render() {
         const data = {
             labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
@@ -118,7 +122,7 @@ class MainPage extends Component {
         return (
             <div className='app-container'>
             {
-                this.props.isAuthenticated && 
+                (this.props.isAuthenticated || sessionStorage.getItem('loggedUser')) && 
                 <div className='app-container'>
                     <AudioInitializer />
                     <Sidebar visible={this.state.showSidebar} position='right' onHide={this.hideSidebar}>

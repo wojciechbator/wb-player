@@ -9,20 +9,15 @@ import { validField } from '../../utils/formValidator';
 import './recorder.css';
 
 const defaultProps = {
-  loop: false,
-  downloadable: true,
-  className: '',
-  style: {},
-  filename: 'output.wav',
+  filename: 'output.wav'
 };
 
-export default class Recorder extends Component {
+class Recorder extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isRecording: false,
       isPlaying: false,
-      audioData: this.props.outputContext,
       fileName: '',
       showSavePopup: false,
       textFieldError: null
@@ -40,19 +35,11 @@ export default class Recorder extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.initialAudio &&
-      nextProps.initialAudio !== this.props.initialAudio &&
-      this.state.audioData &&
-      nextProps.initialAudio !== this.state.audioData
-    ) {
-      this.waveInterface.reset();
-      this.setState({
-        audioData: nextProps.initialAudio,
-        isPlaying: false,
-        isRecording: false
-      });
-    }
+    this.waveInterface.reset();
+    this.setState({
+      isPlaying: false,
+      isRecording: false
+    });
   }
 
   componentWillMount() { this.waveInterface.reset(); }
@@ -73,14 +60,12 @@ export default class Recorder extends Component {
     this.waveInterface.stopRecording();
 
     this.setState({
-      isRecording: false,
-      audioData: this.waveInterface.audioData
+      isRecording: false
     });
 
     if (this.props.onChange) {
       this.props.onChange({
-        duration: this.waveInterface.audioDuration,
-        audioData: this.waveInterface.audioData
+        duration: this.waveInterface.audioDuration
       });
     }
   }
@@ -107,11 +92,10 @@ export default class Recorder extends Component {
 
   onRemoveClick() {
     this.waveInterface.reset();
-    if (this.state.audioData && this.props.onChange) this.props.onChange({ duration: 0, audioData: null });
+    if (this.props.audioContext && this.props.onChange) this.props.onChange({ duration: 0 });
     this.setState({
       isPlaying: false,
-      isRecording: false,
-      audioData: null,
+      isRecording: false
     });
   };
 
@@ -121,7 +105,7 @@ export default class Recorder extends Component {
 
   onDownloadClick() {
     this.setState({ showSavePopup: false });
-    downloadBlob(this.state.audioData, this.state.fileName || defaultProps.filename);
+    downloadBlob(this.props.audioContext, this.state.fileName || defaultProps.filename);
   }
 
   onHideModal() {
@@ -130,7 +114,7 @@ export default class Recorder extends Component {
   }
 
   onButtonClick(event) {
-    if (this.state.audioData) {
+    if (this.props.audioContext) {
       if (this.state.isPlaying) {
         this.stopPlayback();
         event.preventDefault();
@@ -180,7 +164,7 @@ export default class Recorder extends Component {
               <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.stopRecording}><i className='fa fa-square'></i></button>
           }
           {
-            !this.state.isPlaying && this.state.audioData ?
+            !this.state.isPlaying && this.props.audioContext ?
               <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.startPlayback}><i className='fa fa-play'></i></button>
               :
               <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.stopPlayback}><i className='fa fa-pause'></i></button>
@@ -192,3 +176,11 @@ export default class Recorder extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    audioContext: state.audio.audioContext
+  }
+}
+
+export default connect(mapStateToProps)(Recorder);

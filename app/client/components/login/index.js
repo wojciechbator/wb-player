@@ -56,15 +56,13 @@ class LoginPage extends Component {
                             let values = this.state.values;
                             values.email = event.target.value;
                             this.setState({ values: values });
-                        }}
-                        onBlur={event => {
                             let errors = this.state.errors;
                             errors.email = !validEmail(event.target.value);
                             this.setState({ errors: errors });
                         }}
-                        onFocus={event => {
+                        onBlur={event => {
                             let errors = this.state.errors;
-                            errors.email = false;
+                            errors.email = !validEmail(event.target.value);
                             this.setState({ errors: errors });
                         }}
                     />
@@ -80,22 +78,20 @@ class LoginPage extends Component {
                             let values = this.state.values;
                             values.password = event.target.value;
                             this.setState({ values: values });
+                            let errors = this.state.errors;
+                            errors.password = !validField(event.target.value);
+                            this.setState({ errors: errors });
                         }}
                         onBlur={event => {
                             let errors = this.state.errors;
                             errors.password = !validField(event.target.value);
                             this.setState({ errors: errors });
                         }}
-                        onFocus={event => {
-                            let errors = this.state.errors;
-                            errors.password = false;
-                            this.setState({ errors: errors });
-                        }}
                     />
                 </div>
                 {this.state.errors.password === true && <div className='error-message'>This field is wrong</div>}
                 <div className='submit-button-wrapper'>
-                    <Button label='SUBMIT' onClick={this.handleLogin}></Button>
+                    <Button label='SUBMIT' onClick={this.handleLogin} disabled={Object.values(this.state.errors).includes(true)}></Button>
                 </div>
                 <div className='label-text'>Want to register? Head right there!</div>
                 <div>

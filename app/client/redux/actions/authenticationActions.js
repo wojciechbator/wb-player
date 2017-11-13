@@ -18,7 +18,6 @@ const loginSuccess = (token, loggedUser) => {
 }
 
 const logout = () => {
-    sessionStorage.clear();
     return {
         type: LOGOUT,
         isAuthenticated: false

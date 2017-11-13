@@ -78,15 +78,13 @@ class RegisterPage extends Component {
                             let values = this.state.values;
                             values.email = event.target.value;
                             this.setState({ values: values });
-                        }} 
-                        onBlur={event => {
                             let errors = this.state.errors;
                             errors.email = !validEmail(event.target.value);
                             this.setState({ errors: errors });
                         }}
-                        onFocus={event => {
+                        onBlur={event => {
                             let errors = this.state.errors;
-                            errors.email = false;
+                            errors.email = !validEmail(event.target.value);
                             this.setState({ errors: errors });
                         }}
                     />
@@ -101,17 +99,15 @@ class RegisterPage extends Component {
                             let values = this.state.values;
                             values.fullName = event.target.value;
                             this.setState({ values: values });
-                        }} 
+                            let errors = this.state.errors;
+                            errors.fullName = !validField(event.target.value);
+                            this.setState({ errors: errors });
+                        }}
                         onBlur={event => {
                             let errors = this.state.errors;
                             errors.fullName = !validField(event.target.value);
                             this.setState({ errors: errors });
                         }}
-                        onFocus={event => {
-                            let errors = this.state.errors;
-                            errors.fullName = false;
-                            this.setState({ errors: errors });
-                        }}   
                     />
                 </div>
                 {this.state.errors.fullName === true && <div className='error-message'>This field is wrong</div>}
@@ -124,15 +120,13 @@ class RegisterPage extends Component {
                             let values = this.state.values;
                             values.password = event.target.value;
                             this.setState({ values: values });
-                        }} 
-                        onBlur={event => {
                             let errors = this.state.errors;
                             errors.password = !validField(event.target.value);
                             this.setState({ errors: errors });
                         }}
-                        onFocus={event => {
+                        onBlur={event => {
                             let errors = this.state.errors;
-                            errors.password = false;
+                            errors.password = !validField(event.target.value);
                             this.setState({ errors: errors });
                         }}
                     />
@@ -143,17 +137,18 @@ class RegisterPage extends Component {
                     <InputText 
                         id='confirmPassword' 
                         type='password' 
-                        onBlur={(event) => this.checkConfirmPassword(this.state.values.password, event.target.value)} 
-                        onFocus={event => {
+                        onChange={event => {
+                            this.checkConfirmPassword(this.state.values.password, event.target.value);
                             let errors = this.state.errors;
                             errors.confirmPassword = false;
                             this.setState({ errors: errors });
                         }}
+                        onBlur={(event) => this.checkConfirmPassword(this.state.values.password, event.target.value)} 
                     />
                 </div>
                 {this.state.errors.confirmPassword === true && <div className='error-message'>This field is wrong</div>}
                 <div className='submit-button-wrapper'>
-                    <Button label='SUBMIT' onClick={this.handleSubmit}></Button>
+                    <Button label='SUBMIT' onClick={this.handleSubmit} disabled={Object.values(this.state.errors).includes(true)}></Button>
                 </div>
                 <div className='label-text'>Already has account? Login</div>
                 <div>
