@@ -63,7 +63,7 @@ class Player extends Component {
             let source = this.state.source;
             source.buffer = decodedAudioBuffer;
             this.setState({ source: source });
-            this.state.source.connect(this.props.audioContext.destination);
+            this.state.source.connect(this.props.currentChain[this.props.currentChain.length - 1]);
             this.setState({ paused: false });
             if (this.state.pausedAt) {
                 this.setState({ startedAt: this.props.audioContext.currentTime - this.state.pausedAt });
@@ -95,9 +95,10 @@ class Player extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = state => {
     return {
-        audioContext: store.audio.audioContext
+        audioContext: state.audio.audioContext,
+        currentChain: state.audio.currentChain
     } 
 }
 
