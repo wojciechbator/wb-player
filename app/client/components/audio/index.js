@@ -111,6 +111,7 @@ class Audio extends Component {
                                 this.handlePresetName(event);
                                 this.checkField(event);
                             }}
+                            onBlur={event => this.checkField(event)}
                         />
                         <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.savePreset} disabled={this.state.textFieldError === null || this.state.textFieldError === true}><i className='fa fa-save'></i></button>
                         {this.state.textFieldError === true && <div className='error-message'>This field is wrong</div>}

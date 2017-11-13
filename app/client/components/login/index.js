@@ -91,7 +91,7 @@ class LoginPage extends Component {
                 </div>
                 {this.state.errors.password === true && <div className='error-message'>This field is wrong</div>}
                 <div className='submit-button-wrapper'>
-                    <Button label='SUBMIT' onClick={this.handleLogin} disabled={Object.values(this.state.errors).includes(true)}></Button>
+                    <Button label='SUBMIT' onClick={this.handleLogin} disabled={Object.values(this.state.errors).includes(true) || Object.values(this.state.errors).includes(null)}></Button>
                 </div>
                 <div className='label-text'>Want to register? Head right there!</div>
                 <div>
