@@ -29,6 +29,7 @@ class LoginPage extends Component {
         }
         this.handleLogin = this.handleLogin.bind(this);
         this.headToRegister = this.headToRegister.bind(this);
+        this.onGrowlClick = this.onGrowlClick.bind(this);
     }
 
     handleLogin() {
@@ -49,10 +50,14 @@ class LoginPage extends Component {
         this.props.registerRedirectCreator();
     }
 
+    onGrowlClick() {
+        this.setState({ showGrowl: !this.state.showGrowl });
+    }
+
     render() {
         return (
             <div className='login-wrapper'>
-                {this.state.showGrowl && <Growl header='Fail!' body='Login failed' positive={false} />}
+                <Growl header='Fail!' body='Login failed' positive={false} showGrowl={this.state.showGrowl === true} onClick={this.onGrowlClick} />
                 <img src={splash} alt='Splash image' draggable='false'></img>
                 <div className='label-text'>EMAIL</div>
                 <div>

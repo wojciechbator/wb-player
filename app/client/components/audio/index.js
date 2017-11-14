@@ -25,7 +25,7 @@ class Audio extends Component {
         }
         this.savePreset = this.savePreset.bind(this);
         this.updatePreset = this.updatePreset.bind(this);
-        this.hideGrowl = this.hideGrowl.bind(this);
+        this.onGrowlClick = this.onGrowlClick.bind(this);
         this.onShowModal = this.onShowModal.bind(this);
         this.onHideModal = this.onHideModal.bind(this);
     }
@@ -89,8 +89,8 @@ class Audio extends Component {
         document.getElementById('presetName').value = '';
     }
 
-    hideGrowl() {
-        this.setState({ showGrowl: false })
+    onGrowlClick() {
+        this.setState({ showGrowl: !this.state.showGrowl });
     }
 
     checkField(event) {
@@ -100,7 +100,7 @@ class Audio extends Component {
     render() {
         return (
             <div className='preset-container'>
-                {this.state.showGrowl === true && <Growl positive={true} header='Success' body='Operation done right!' onClick={this.hideGrowl} liveTime={2000} />}
+                <Growl positive={true} header='Success' body='Operation done right!' onClick={this.onGrowlClick} showGrowl={this.state.showGrowl === true} />
                 <Dialog header='Save preset' visible={this.state.showPopup} modal={true} dismissableMask={true} onHide={this.onHideModal}>
                     <div className='dialog-body'>
                         <InputText
