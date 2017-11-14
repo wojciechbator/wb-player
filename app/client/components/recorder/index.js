@@ -105,7 +105,7 @@ class Recorder extends Component {
 
   onDownloadClick() {
     this.setState({ showSavePopup: false });
-    downloadBlob(this.props.audioContext, this.state.fileName || defaultProps.filename);
+    downloadBlob(this.waveInterface.audioData, this.state.fileName || defaultProps.filename);
   }
 
   onHideModal() {

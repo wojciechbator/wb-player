@@ -33,7 +33,7 @@ export const audioReducer = (state = initialState, action) => {
         case ADD_NODE:
             return { ...state, currentChain: prependArray(action.node, state.currentChain) };
         case REMOVE_NODE:
-            return { ...state, currentChain: state.currentChain.filter((element, index) => index != state.currentChain.indexOf(action.node)) };
+            return { ...state, currentChain: state.currentChain.filter((element, index) => index !== state.currentChain.indexOf(action.node)) };
         case ADD_COMPRESSOR:
             return { ...state, currentChain: state.currentChain.concat(action.compressor) };
         case ADD_MASTER:
@@ -43,7 +43,7 @@ export const audioReducer = (state = initialState, action) => {
         case STORE_ANALYSER_NODE:
             return { ...state, analyserNode: action.analyserNode };
         case REMOVE_NODE_FROM_AVAILABLE_NODES:
-            return { ...state, availableNodes: state.availableNodes.filter((element, index) => index != state.availableNodes.indexOf(action.node)) };
+            return { ...state, availableNodes: state.availableNodes.filter((element, index) => index !== state.availableNodes.indexOf(action.node)) };
         default:
             return state;
     }
