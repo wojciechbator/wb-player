@@ -5,4 +5,4 @@ before_install: cd app
 install:
   - npm install
 script:
-  - npm web
+  - npm run-script web
