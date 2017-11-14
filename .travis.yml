@@ -1,8 +1,4 @@
 language: node_js
 node_js:
   - "8"
-before_install: cd app
-install:
-  - npm install
-script:
-  - npm run-script web
+before_script: cd app
