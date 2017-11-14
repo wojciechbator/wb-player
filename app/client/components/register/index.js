@@ -65,7 +65,7 @@ class RegisterPage extends Component {
     render() {
         return (
             <div className='register-wrapper'>
-                {this.state.showMessage === true && <Growl header='Success!' body='Registered successfully' />}
+                {this.state.showMessage === true && <Growl header='Success!' body='Registered successfully' positive={true} />}
                 <img src={splash} alt='Splash image' draggable='false'></img>
                 <div className='label-text'>EMAIL</div>
                 <div>

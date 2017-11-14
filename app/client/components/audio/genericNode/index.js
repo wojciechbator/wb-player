@@ -7,19 +7,20 @@ import { Fieldset } from 'primereact/components/fieldset/Fieldset';
 import { Button } from 'primereact/components/button/Button';
 import { Slider } from 'primereact/components/slider/Slider';
 
-import './gain.css';
+import './genericNode.css';
 
-class GainNode extends Component {
+class GenericNode extends Component {
     constructor(props) { 
         super(props);
         this.state = {
-            value: 0.5
+            value: 0.5,
+            name: ''
         }
         this.onValueChange = this.onValueChange.bind(this);
     }
 
     componentDidMount() {
-        // this.props.nodeValueCreator(this.props.index, this.state.value);
+        this.props.node.type ? this.setState({ name: this.props.node.type }) : this.setState({ name: this.props.node.constructor.name });
     }
 
     onValueChange(event) {
@@ -30,16 +31,16 @@ class GainNode extends Component {
     removeNode(node) {
         this.props.removeNodeCreator(node);
     }
-    
+
     render() {
         return (
             <div>
-                <Fieldset legend="gain" toggleable={true}>
-                    <div className="gain-wrapper">
-                        <h3>Gain: {Math.round(this.state.value * 100)}</h3>
+                <Fieldset legend={this.state.name} toggleable={true}>
+                    <div className="generic-node-wrapper">
+                        <h3>value: {Math.round(this.state.value * 100)}</h3>
                         <Slider orientation='vertical' animate={true} value={Math.round(this.state.value * 100)} onChange={this.onValueChange} />
+                        <Button label="Remove" onClick={() => this.removeNode(this.props.node)}/>
                     </div>
-                    <Button label="Remove" onClick={() => this.removeNode(this.props.node)}/>
                 </Fieldset>
             </div>
         )
@@ -48,4 +49,4 @@ class GainNode extends Component {
 
 const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
 
-export default connect(null, mapDispatchToProps)(GainNode);
+export default connect(null, mapDispatchToProps)(GenericNode);

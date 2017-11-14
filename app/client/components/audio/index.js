@@ -6,8 +6,7 @@ import axios from 'axios';
 import { Dialog } from 'primereact/components/dialog/Dialog';
 import { InputText } from 'primereact/components/inputtext/InputText';
 
-import GainNode from './gain';
-import FilterNode from './filter';
+import GenericNode from './genericNode';
 import Growl from '../growl';
 import { savePresetCreator, storePresetsCreator, updatePresetCreator } from '../../redux/actions/presetActions';
 import { validField } from '../../utils/formValidator';
@@ -122,7 +121,7 @@ class Audio extends Component {
                     <div className='inline-header'>Current Preset</div>
                 </div>
                 <div className='audio-chain'>
-                    {this.props.currentChain.map((element, i) => <GainNode key={i} index={i} node={element} />)}
+                    {this.props.currentChain.map((element, i) => <GenericNode key={i} index={i} node={element} />)}
                 </div>
             </div>
         );

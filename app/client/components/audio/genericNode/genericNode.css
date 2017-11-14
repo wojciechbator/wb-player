@@ -1,0 +1,7 @@
+.generic-node-wrapper {
+    text-align: center;
+}
+
+.generic-node-wrapper > * {
+    margin: 0 auto;
+}

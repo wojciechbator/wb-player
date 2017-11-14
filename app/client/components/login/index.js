@@ -6,6 +6,7 @@ import axios from 'axios';
 import { InputText } from 'primereact/components/inputtext/InputText';
 import { Button } from 'primereact/components/button/Button';
 
+import Growl from '../growl';
 import { registerRedirectCreator, loginSuccessCreator } from '../../redux/actions/authenticationActions';
 import { validField, validEmail } from '../../utils/formValidator';
 
@@ -23,7 +24,8 @@ class LoginPage extends Component {
             errors: {
                 email: null,
                 password: null
-            }
+            },
+            showGrowl: false
         }
         this.handleLogin = this.handleLogin.bind(this);
         this.headToRegister = this.headToRegister.bind(this);
@@ -34,9 +36,13 @@ class LoginPage extends Component {
             &&
             axios.post('/login', this.state.values)
                 .then(response => {
+                    this.setState({ showGrowl: false });
                     this.props.loginSuccessCreator(response.data.jwt, response.data.loggedUser);
                 })
-                .catch(error => { throw new Error(error); });
+                .catch(error => {
+                    this.setState({ showGrowl: true });
+                    throw new Error(error);
+                });
     }
 
     headToRegister() {
@@ -46,6 +52,7 @@ class LoginPage extends Component {
     render() {
         return (
             <div className='login-wrapper'>
+                {this.state.showGrowl && <Growl header='Fail!' body='Login failed' positive={false} />}
                 <img src={splash} alt='Splash image' draggable='false'></img>
                 <div className='label-text'>EMAIL</div>
                 <div>

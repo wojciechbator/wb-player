@@ -1,11 +1,11 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
-const comparePasswords = (incomingPswd, hashedPswd) => {
-  return bcrypt.compareSync(incomingPswd, hashedPswd)
+const comparePasswords = (incomingPassword, hashedPassword) => {
+  return bcrypt.compareSync(incomingPassword, hashedPassword);
 }
 
 const isRequestAuthenticated = (incomingToken, validToken) => {
-  return incomingToken === validToken
+  return incomingToken === validToken;
 }
 
 module.exports = {comparePasswords, isRequestAuthenticated}
