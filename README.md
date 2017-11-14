@@ -8,4 +8,4 @@ With this project I aim to create simple and handy, yet powerful application for
 
 ## Tech stack and data flow ##
 
-The concept is not that easy: to create reactive chain of audio nodes that works together as a preset. For reactive flow I included RxJS with Redux. Every change will trigger redux action, which is gonna also notify all subscribers. The full solution is a bit more complicated, and I'll update this readme with the gist. Node.js sits on the backend. 
+The concept is not that easy: to create reactive chain of audio nodes that works together as a preset. Another problem to solve is to reduce sound latency. When I'm done, I'll expand this readme.
