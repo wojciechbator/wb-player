@@ -53,7 +53,7 @@ class GenericNode extends Component {
                 <Fieldset className='node-body' legend={this.state.name} toggleable={true}>
                     <div className="generic-node-wrapper">
                         {this.state.isWaveShaperOrDelay ? <h3 className='node-inner-label'>{this.state.name}</h3> : <h3>value: {this.state.type ? this.state.value : Math.round(this.state.value * 100)}</h3>}
-                        {!this.state.isWaveShaperOrDelay && <Slider orientation='vertical' animate={true} value={this.state.type ? this.state.value : Math.round(this.state.value * 100)} onChange={this.onValueChange} />}
+                        {!this.state.isWaveShaperOrDelay && <Slider className='node-slider' orientation='vertical' animate={true} value={this.state.type ? this.state.value : Math.round(this.state.value * 100)} onChange={this.onValueChange} />}
                         <Button className='remove-button' label='Remove' onClick={() => this.removeNode(this.props.node)} disabled={this.props.isMaster} />
                     </div>
                 </Fieldset>

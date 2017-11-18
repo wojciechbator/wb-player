@@ -8,7 +8,7 @@ import { InputText } from 'primereact/components/inputtext/InputText';
 
 import GenericNode from './genericNode';
 import Growl from '../growl';
-import { addNodeCreator } from '../../redux/actions/audioActions';
+import { addNodeCreator, clearChainCreator } from '../../redux/actions/audioActions';
 import { savePresetCreator, storePresetsCreator, updatePresetCreator } from '../../redux/actions/presetActions';
 import { validField } from '../../utils/formValidator';
 import './audio.css';
@@ -38,11 +38,11 @@ class Audio extends Component {
     }
 
     setPresetFromDatabase() {
-        this.props.currentChain = [];
+        this.props.clearChainCreator();
         this.props.presets[this.props.presets.length - 1].currentChain.map(element => {
             this.props.availableNodes.map(availableNode => {
                 if (element.name === availableNode.constructor.name) {
-                    this.addNodeCreator(availableNode);
+                    this.props.addNodeCreator(availableNode);
                 }
             });
         });
@@ -128,6 +128,6 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ savePresetCreator, storePresetsCreator, updatePresetCreator, addNodeCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ savePresetCreator, storePresetsCreator, updatePresetCreator, addNodeCreator, clearChainCreator }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Audio);

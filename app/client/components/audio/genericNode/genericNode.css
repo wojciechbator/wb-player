@@ -1,5 +1,10 @@
 .generic-node-wrapper {
+    padding: 20px 0px;
     text-align: center;
+}
+
+.node-slider {
+    min-height: 120px;
 }
 
 .generic-node-wrapper > * {
@@ -7,7 +12,7 @@
 }
 
 .node-inner-label {
-    padding: 50px 0px;
+    padding: 60px 0px;
 }
 
 .node-body:hover, .remove-button:hover, .ui-fieldset-legend:hover {

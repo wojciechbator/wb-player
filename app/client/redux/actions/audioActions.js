@@ -7,7 +7,8 @@ import { AUDIO_CONTEXT_INIT,
     REMOVE_NODE_FROM_AVAILABLE_NODES,
     ADD_COMPRESSOR,
     ADD_MASTER,
-    STORE_ANALYSER_NODE
+    STORE_ANALYSER_NODE,
+    CLEAR_CHAIN
 } from '../types/audioTypes';
 
 const initializeAudioContext = (audioContext) => {
@@ -21,6 +22,12 @@ const storeInputStream = (inputStream) => {
     return {
         type: INPUT_STREAM_VALUE,
         inputStream
+    }
+}
+
+const clearCurrentChain = () => {
+    return {
+        type: CLEAR_CHAIN
     }
 }
 
@@ -90,6 +97,12 @@ export const initContextCreator = (audioContext) => {
 export const inputStreamCreator = (inputStream) => {
     return dispatch => {
         dispatch(storeInputStream(inputStream));
+    }
+}
+
+export const clearChainCreator = () => {
+    return dispatch => {
+        dispatch(clearCurrentChain());
     }
 }
 

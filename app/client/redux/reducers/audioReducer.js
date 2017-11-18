@@ -8,7 +8,8 @@ import {
     REMOVE_NODE_FROM_AVAILABLE_NODES,
     ADD_COMPRESSOR,
     ADD_MASTER,
-    STORE_ANALYSER_NODE
+    STORE_ANALYSER_NODE,
+    CLEAR_CHAIN
 } from '../types/audioTypes';
 import { prependArray } from '../../utils/prependArray';
 
@@ -27,6 +28,8 @@ export const audioReducer = (state = initialState, action) => {
             return { ...state, audioContext: action.audioContext };
         case INPUT_STREAM_VALUE:
             return { ...state, inputStream: action.inputStream };
+        case CLEAR_CHAIN:
+            return { ...state, currentChain: state.currentChain.splice(0, state.currentChain.length - 2) };
         case NODE_VALUE:
             let currentChain = state.currentChain;
             currentChain[action.nodeIndex].gain.value = action.nodeValue / 100;
