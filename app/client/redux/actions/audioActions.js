@@ -38,10 +38,11 @@ const addAnalyserNode = (analyserNode) => {
     }
 }
 
-const storeNodeValue = (nodeIndex, nodeValue) => {
+const storeNodeValue = (nodeIndex, node, nodeValue) => {
     return {
         type: NODE_VALUE,
         nodeIndex,
+        node,
         nodeValue
     }
 }
@@ -106,9 +107,9 @@ export const clearChainCreator = () => {
     }
 }
 
-export const nodeValueCreator = (nodeIndex, nodeValue) => {
+export const nodeValueCreator = (nodeIndex, node, nodeValue) => {
     return dispatch => {
-        dispatch(storeNodeValue(nodeIndex, nodeValue));
+        dispatch(storeNodeValue(nodeIndex, node, nodeValue));
     }
 }
 

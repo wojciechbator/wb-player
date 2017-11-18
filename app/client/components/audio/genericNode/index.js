@@ -36,7 +36,7 @@ class GenericNode extends Component {
 
     onValueChange(event) {
         this.state.type ? this.setState({ value: event.value }) : this.setState({ value: event.value / 100 });
-        this.props.nodeValueCreator(this.props.index, event.value);
+        this.props.nodeValueCreator(this.props.index, this.props.node, event.value);
     }
 
     removeNode(node) {
