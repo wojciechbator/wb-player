@@ -21,7 +21,7 @@ class AudioNodes extends Component {
         this.addNodesToAvailables = this.addNodesToAvailables.bind(this);
         this.prepareDefaultAudioChain = this.prepareDefaultAudioChain.bind(this);
         this.addNodesToAvailables();
-        this.prepareDefaultAudioChain();
+        this.props.presets.length === 0 && this.prepareDefaultAudioChain();
     }
 
     createGain() {
@@ -141,6 +141,7 @@ class AudioNodes extends Component {
 
 const mapStateToProps = state => {
     return {
+        presets: state.preset.presets,
         inputStream: state.audio.inputStream,
         currentChain: state.audio.currentChain
     }

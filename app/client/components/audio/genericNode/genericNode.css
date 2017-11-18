@@ -9,3 +9,8 @@
 .node-inner-label {
     padding: 50px 0px;
 }
+
+.node-body:hover, .remove-button:hover, .ui-fieldset-legend:hover {
+    box-shadow: 0px 0px 20px #232323;
+    transition-duration: 0.6s;
+}

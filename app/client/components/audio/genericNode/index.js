@@ -23,10 +23,15 @@ class GenericNode extends Component {
     }
 
     componentDidMount() {
-        this.setState({ type: this.props.node.type });
-        this.state.type ? this.setState({ value: 50, name: this.state.type }) : this.setState({ value: 0.5, name: this.props.node.constructor.name });
-        !this.state.type && this.props.node.constructor.name === 'WaveShaperNode' || this.props.node.constructor.name === 'DelayNode' ?
-            this.setState({ isWaveShaperOrDelay: true, name: this.props.node.constructor.name }) : this.setState({ isWaveShaperOrDelay: false, name: this.props.node.constructor.name });
+        if (this.props.isMaster) {
+            this.setState({ value: 0.5, name: 'Master' });
+        }
+        else {
+            this.setState({ type: this.props.node.type });
+            this.props.node.type ? this.setState({ value: 50, name: this.props.node.type }) : this.setState({ value: 0.5, name: this.props.node.constructor.name });
+            this.props.node.constructor.name === 'WaveShaperNode' || this.props.node.constructor.name === 'DelayNode' ?
+                this.setState({ isWaveShaperOrDelay: true, name: this.props.node.constructor.name }) : this.setState({ isWaveShaperOrDelay: false, name: this.props.node.constructor.name });
+        }
     }
 
     onValueChange(event) {
@@ -45,11 +50,11 @@ class GenericNode extends Component {
     render() {
         return (
             <div>
-                <Fieldset legend={this.state.name} toggleable={true}>
+                <Fieldset className='node-body' legend={this.state.name} toggleable={true}>
                     <div className="generic-node-wrapper">
                         {this.state.isWaveShaperOrDelay ? <h3 className='node-inner-label'>{this.state.name}</h3> : <h3>value: {this.state.type ? this.state.value : Math.round(this.state.value * 100)}</h3>}
                         {!this.state.isWaveShaperOrDelay && <Slider orientation='vertical' animate={true} value={this.state.type ? this.state.value : Math.round(this.state.value * 100)} onChange={this.onValueChange} />}
-                        <Button label="Remove" onClick={() => this.removeNode(this.props.node)} />
+                        <Button className='remove-button' label='Remove' onClick={() => this.removeNode(this.props.node)} disabled={this.props.isMaster} />
                     </div>
                 </Fieldset>
             </div>

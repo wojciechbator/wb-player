@@ -7,13 +7,7 @@ class Preset extends mongoose.Schema {
                 type: String,
                 unique: true
             },
-            gain: Number,
-            delay: Boolean,
-            distortion: Number,
-            bass: Number,
-            middle: Number,
-            treble: Number,
-            currentChain: [String],
+            currentChain: [{}],
             user: String
         });
     }

@@ -8,6 +8,7 @@ import { InputText } from 'primereact/components/inputtext/InputText';
 
 import GenericNode from './genericNode';
 import Growl from '../growl';
+import { addNodeCreator } from '../../redux/actions/audioActions';
 import { savePresetCreator, storePresetsCreator, updatePresetCreator } from '../../redux/actions/presetActions';
 import { validField } from '../../utils/formValidator';
 import './audio.css';
@@ -24,10 +25,27 @@ class Audio extends Component {
             textFieldError: null
         }
         this.savePreset = this.savePreset.bind(this);
-        this.updatePreset = this.updatePreset.bind(this);
         this.onGrowlClick = this.onGrowlClick.bind(this);
         this.onShowModal = this.onShowModal.bind(this);
+        this.setPresetFromDatabase = this.setPresetFromDatabase.bind(this);
         this.onHideModal = this.onHideModal.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.props.presets.length > 0) {
+            this.setPresetFromDatabase();
+        }
+    }
+
+    setPresetFromDatabase() {
+        this.props.currentChain = [];
+        this.props.presets[this.props.presets.length - 1].currentChain.map(element => {
+            this.props.availableNodes.map(availableNode => {
+                if (element.name === availableNode.constructor.name) {
+                    this.addNodeCreator(availableNode);
+                }
+            });
+        });
     }
 
     handlePresetName(event) {
@@ -35,18 +53,14 @@ class Audio extends Component {
     }
 
     savePreset() {
-        let nodesNames = [];
-        this.props.currentChain.map(node => node.type ? nodesNames.push(node.type) : nodesNames.push(node.constructor.name));
+        let nodes = [];
+        this.props.currentChain.map(node => node.type ?
+            nodes.push({ name: node.type, value: node.gain ? node.gain.value : 0 }) :
+            nodes.push({ name: node.constructor.name, value: node.gain ? node.gain.value : 0 }));
         const presetObject = {
             name: this.state.presetName,
-            gain: 50,
-            delay: false,
-            distortion: 400,
-            bass: 50,
-            middle: 50,
-            treble: 50,
             user: sessionStorage.getItem('loggedUser'),
-            currentChain: nodesNames
+            currentChain: nodes
         }
         axios.post('/api/presets', presetObject)
             .then(response => {
@@ -54,29 +68,6 @@ class Audio extends Component {
                 this.props.savePresetCreator(presetObject);
             })
             .catch(error => this.setState({ savedPresetProperly: false }));
-        this.setState({ showPopup: false });
-    }
-
-    updatePreset(presetId) {
-        let nodesNames = [];
-        this.props.currentChain.map(node => node.type ? nodesNames.push(node.type) : nodesNames.push(node.constructor.name));
-        const newPresetObject = {
-            name: this.state.presetName,
-            gain: 52,
-            delay: false,
-            distortion: 380,
-            bass: 52,
-            middle: 52,
-            treble: 52,
-            user: sessionStorage.getItem('loggedUser'),
-            currentChain: nodesNames
-        }
-        axios.put(`/api/presets/${presetId}`, newPresetObject)
-            .then(response => {
-                this.setState({ showGrowl: true });
-                this.props.updatePresetCreator(presetId, newPresetObject);
-            })
-            .catch(error => this.setState({ updatedPresetProperly: false }));
         this.setState({ showPopup: false });
     }
 
@@ -121,20 +112,22 @@ class Audio extends Component {
                     <div className='inline-header'>Current Preset</div>
                 </div>
                 <div className='audio-chain'>
-                    {this.props.currentChain.map((element, i) => <GenericNode key={i} index={i} node={this.props.currentChain[0]} />)}
+                    {this.props.currentChain.map((element, i) => <GenericNode key={i} index={i === 0 ? this.props.currentChain.length - 1 : i - 1} node={this.props.currentChain[0]} isMaster={i === 0} />)}
                 </div>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         audioContext: state.audio.audioContext,
-        currentChain: state.audio.currentChain
+        currentChain: state.audio.currentChain,
+        presets: state.preset.presets,
+        availableNodes: state.audio.availableNodes
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ savePresetCreator, storePresetsCreator, updatePresetCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ savePresetCreator, storePresetsCreator, updatePresetCreator, addNodeCreator }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Audio);
