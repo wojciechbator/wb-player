@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import AudioChain from './audioChain';
 import { addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator, addAnalyserNodeCreator } from '../redux/actions/audioActions';
 
 class AudioNodes extends Component {
@@ -17,9 +19,9 @@ class AudioNodes extends Component {
         this.createDelay = this.createDelay.bind(this);
         this.createAnalyser = this.createAnalyser.bind(this);
         this.addNodesToAvailables = this.addNodesToAvailables.bind(this);
-        this.prepareAudioChain = this.prepareAudioChain.bind(this);
+        this.prepareDefaultAudioChain = this.prepareDefaultAudioChain.bind(this);
         this.addNodesToAvailables();
-        this.prepareAudioChain();
+        this.prepareDefaultAudioChain();
     }
 
     createGain() {
@@ -127,7 +129,7 @@ class AudioNodes extends Component {
         this.props.addAnalyserNodeCreator(analyser);
     }
 
-    prepareAudioChain() {
+    prepareDefaultAudioChain() {
         this.props.addMasterCreator(this.createGain());
         this.props.addCompressorCreator(this.createDynamicsCompressor());
     }
@@ -137,9 +139,10 @@ class AudioNodes extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = state => {
     return {
-        currentChain: store.audio.currentChain
+        inputStream: state.audio.inputStream,
+        currentChain: state.audio.currentChain
     }
 }
 

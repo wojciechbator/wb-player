@@ -16,6 +16,7 @@ const initialState = {
     audioContext: null,
     inputStream: null,
     analyserNode: null,
+    compressorNode: null,
     currentChain: [],
     availableNodes: []
 }
@@ -35,7 +36,7 @@ export const audioReducer = (state = initialState, action) => {
         case REMOVE_NODE:
             return { ...state, currentChain: state.currentChain.filter((element, index) => index !== state.currentChain.indexOf(action.node)) };
         case ADD_COMPRESSOR:
-            return { ...state, currentChain: state.currentChain.concat(action.compressor) };
+            return { ...state, compressorNode: action.compressor };
         case ADD_MASTER:
             return { ...state, currentChain: state.currentChain.concat(action.master) };
         case ADD_NODE_TO_AVAILABLE_NODES:

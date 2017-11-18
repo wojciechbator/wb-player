@@ -5,3 +5,7 @@
 .generic-node-wrapper > * {
     margin: 0 auto;
 }
+
+.node-inner-label {
+    padding: 50px 0px;
+}

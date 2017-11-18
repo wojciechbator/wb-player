@@ -8,7 +8,8 @@ class AudioChain extends Component {
             if (this.props.currentChain[i + 1])
                 this.props.currentChain[i].connect(this.props.currentChain[i + 1]);
             else {
-                this.props.currentChain[i].connect(this.props.analyserNode);
+                this.props.currentChain[i].connect(this.props.compressorNode);
+                this.props.compressorNode.connect(this.props.analyserNode);
                 this.props.analyserNode.connect(this.props.audioContext.destination);
             }
         }
@@ -20,7 +21,8 @@ class AudioChain extends Component {
             if (this.props.currentChain[i + 1])
                 this.props.currentChain[i].connect(this.props.currentChain[i + 1]);
             else {
-                this.props.currentChain[i].connect(this.props.analyserNode);
+                this.props.currentChain[i].connect(this.props.compressorNode);
+                this.props.compressorNode.connect(this.props.analyserNode);
                 this.props.analyserNode.connect(this.props.audioContext.destination);
             }
         }
@@ -31,8 +33,9 @@ class AudioChain extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
+        compressorNode: state.audio.compressorNode,
         analyserNode: state.audio.analyserNode,
         audioContext: state.audio.audioContext,
         currentChain: state.audio.currentChain

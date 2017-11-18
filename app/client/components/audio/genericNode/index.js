@@ -10,21 +10,27 @@ import { Slider } from 'primereact/components/slider/Slider';
 import './genericNode.css';
 
 class GenericNode extends Component {
-    constructor(props) { 
+    constructor(props) {
         super(props);
         this.state = {
-            value: 0.5,
-            name: ''
+            value: 0,
+            name: '',
+            type: null,
+            isWaveShaperOrDelay: false
         }
         this.onValueChange = this.onValueChange.bind(this);
+        this.displayProperValue = this.displayProperValue.bind(this);
     }
 
     componentDidMount() {
-        this.props.node.type ? this.setState({ name: this.props.node.type }) : this.setState({ name: this.props.node.constructor.name });
+        this.setState({ type: this.props.node.type });
+        this.state.type ? this.setState({ value: 50, name: this.state.type }) : this.setState({ value: 0.5, name: this.props.node.constructor.name });
+        !this.state.type && this.props.node.constructor.name === 'WaveShaperNode' || this.props.node.constructor.name === 'DelayNode' ?
+            this.setState({ isWaveShaperOrDelay: true, name: this.props.node.constructor.name }) : this.setState({ isWaveShaperOrDelay: false, name: this.props.node.constructor.name });
     }
 
     onValueChange(event) {
-        this.setState({ value: event.value / 100 });
+        this.state.type ? this.setState({ value: event.value }) : this.setState({ value: event.value / 100 });
         this.props.nodeValueCreator(this.props.index, event.value);
     }
 
@@ -32,21 +38,25 @@ class GenericNode extends Component {
         this.props.removeNodeCreator(node);
     }
 
+    displayProperValue() {
+        this.state.type ? this.state.value : Math.round(this.state.value * 100);
+    }
+
     render() {
         return (
             <div>
                 <Fieldset legend={this.state.name} toggleable={true}>
                     <div className="generic-node-wrapper">
-                        <h3>value: {Math.round(this.state.value * 100)}</h3>
-                        <Slider orientation='vertical' animate={true} value={Math.round(this.state.value * 100)} onChange={this.onValueChange} />
-                        <Button label="Remove" onClick={() => this.removeNode(this.props.node)}/>
+                        {this.state.isWaveShaperOrDelay ? <h3 className='node-inner-label'>{this.state.name}</h3> : <h3>value: {this.state.type ? this.state.value : Math.round(this.state.value * 100)}</h3>}
+                        {!this.state.isWaveShaperOrDelay && <Slider orientation='vertical' animate={true} value={this.state.type ? this.state.value : Math.round(this.state.value * 100)} onChange={this.onValueChange} />}
+                        <Button label="Remove" onClick={() => this.removeNode(this.props.node)} />
                     </div>
                 </Fieldset>
             </div>
-        )
+        );
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({nodeValueCreator, removeNodeCreator}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ nodeValueCreator, removeNodeCreator }, dispatch);
 
 export default connect(null, mapDispatchToProps)(GenericNode);

@@ -121,7 +121,7 @@ class Audio extends Component {
                     <div className='inline-header'>Current Preset</div>
                 </div>
                 <div className='audio-chain'>
-                    {this.props.currentChain.map((element, i) => <GenericNode key={i} index={i} node={element} />)}
+                    {this.props.currentChain.map((element, i) => <GenericNode key={i} index={i} node={this.props.currentChain[0]} />)}
                 </div>
             </div>
         );
