@@ -18,7 +18,7 @@ if (shouldQuit) app.quit();
     
 const createWindow = () => {
     app.server = require('./server');
-    win = new BrowserWindow({ width: 1920, height: 1080 });
+    win = new BrowserWindow({ width: 1920, height: 1080, titleBarStyle: 'hidden', title: 'WB Player', icon: path.resolve(__dirname, '..', 'client', 'assets', 'images', 'logo.png' ) });
     win.setMenu(null);
     win.loadURL(config.localURL);
     win.on('closed', () => { win = null; });

@@ -1,4 +1,4 @@
-# WiFi Guitar #
+# WB Player #
 
 Travis CI project status: [![Build Status](https://travis-ci.org/wojciechbator/wifi-guitar.svg?branch=develop)](https://travis-ci.org/wojciechbator/wifi-guitar)
 

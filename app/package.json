@@ -1,6 +1,6 @@
 {
-  "name": "wifi-guitar-browser",
-  "description": "Koa app version",
+  "name": "wb-player",
+  "description": "Application for play and record music",
   "version": "0.0.1",
   "author": "Wojciech Bator",
   "license": "ISC",

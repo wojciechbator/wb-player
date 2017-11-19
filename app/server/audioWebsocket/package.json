@@ -1,7 +1,7 @@
 {
   "name": "audio-websocket",
   "version": "0.0.1",
-  "description": "Websocket component for wifi-guitar",
+  "description": "Websocket component for WB Player",
   "main": "index.js",
   "author": "Wojciech Bator",
   "license": "ISC",
