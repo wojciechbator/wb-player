@@ -28,7 +28,8 @@ class GenericNode extends Component {
         }
         else {
             this.setState({ type: this.props.node.type });
-            this.props.node.type ? this.setState({ value: this.props.node.gain.value, name: this.props.node.type }) : this.setState({ value: this.props.node.gain.value, name: this.props.node.constructor.name });
+            this.props.node.type ? this.setState({ value: this.props.node.gain ? this.props.node.gain.value : 50, name: this.props.node.type }) : 
+            this.setState({ value: this.props.node.gain ? this.props.node.gain.value : 0.5, name: this.props.node.constructor.name });
             this.props.node.constructor.name === 'WaveShaperNode' || this.props.node.constructor.name === 'DelayNode' ?
                 this.setState({ isWaveShaperOrDelay: true, name: this.props.node.constructor.name }) : this.setState({ isWaveShaperOrDelay: false, name: this.props.node.constructor.name });
         }

@@ -1,3 +1,9 @@
 .react-music-canvas {
     text-align: center;
 }
+
+@media screen and (max-width: 480px) and (max-height: 480px) {
+    .react-music-canvas {
+        display: none;
+    }
+}
