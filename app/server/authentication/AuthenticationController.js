@@ -30,21 +30,21 @@ authRouter.post('/login', koaBody, async (ctx, next) => {
     });
 });
 
-authRouter.post('/register', koaBody, async (ctx, next) => {
-  await userSchema.find({ email: ctx.request.body.email }).then(user => {
-    if (user) {
+authRouter.post('/register', koaBody, async (ctx) => {
+  await userSchema.find({ email: ctx.request.body.email }).then(async user => {
+    if (user.length > 0) {
       ctx.status = 409;
       ctx.body = 'Such user already exist';
     } else {
       const registeredUser = new userSchema(ctx.request.body);
       registeredUser.hashedPassword = bcrypt.hashSync(ctx.request.body.password, bcrypt.genSaltSync(10));
-      userSchema.create(registeredUser)
+      await userSchema.create(registeredUser)
         .then(user => {
           ctx.body = `Registered new user ${registeredUser.fullName}`;
           ctx.status = 201;
         })
         .catch(error => {
-          ctx.status = 409;
+          ctx.status = 500;
           ctx.body = error.errmsg;
           throw new Error(error);
         });
