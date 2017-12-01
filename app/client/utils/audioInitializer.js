@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import Growl from '../components/growl';
 import { initContextCreator, inputStreamCreator } from '../redux/actions/audioActions';
 import AudioNodes from './audioNodes';
 
@@ -10,10 +11,12 @@ class AudioInitializer extends Component {
         super(props);
         this.captureAudio = this.captureAudio.bind(this);
         this.state = {
-            audioContext: new (window.AudioContext || window.webkitAudioContext)
+            audioContext: new (window.AudioContext || window.webkitAudioContext),
+            showGrowl: false
         };
-        
+
         this.props.initContextCreator(this.state.audioContext);
+        this.onGrowlClick = this.onGrowlClick.bind(this);
         this.captureAudio();
     }
 
@@ -26,7 +29,7 @@ class AudioInitializer extends Component {
                 const inputStream = this.state.audioContext.createMediaStreamSource(stream);
                 this.props.inputStreamCreator(inputStream);
             }).catch(error => {
-                alert('Error capturing audio.');
+                this.setState({ showGrowl: true });
                 throw new Error(error);
             });
         } else {
@@ -35,8 +38,17 @@ class AudioInitializer extends Component {
         }
     }
 
+    onGrowlClick() {
+        this.setState({ showGrowl: !this.state.showGrowl });
+    }
+
     render() {
-        return <AudioNodes audioContext={this.state.audioContext} />;
+        return (
+            <div>
+                <Growl header='Problem' body='Error capturing audio' positive={false} showGrowl={this.state.showGrowl === true} onClick={this.onGrowlClick} />
+                <AudioNodes audioContext={this.state.audioContext} />
+            </div>
+        );
     }
 }
 
