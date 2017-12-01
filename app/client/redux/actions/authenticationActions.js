@@ -5,8 +5,8 @@ const loginFailed = () => {
     return {
         type: LOGIN_FAILURE,
         isAuthenticated: false
-    }
-}
+    };
+};
 
 const loginSuccess = (token, loggedUser) => {
     sessionStorage.setItem('token', token);
@@ -21,51 +21,39 @@ const logout = () => {
     return {
         type: LOGOUT,
         isAuthenticated: false
-    }
-}
+    };
+};
 
 const loginRedirect = () => {
     return {
         type: REDIRECT_TO_LOGIN
-    }
-}
+    };
+};
 
 const registerRedirect = () => {
     return {
         type: REDIRECT_TO_REGISTER
-    }
-}
+    };
+};
 
-export const loginFailedCreator = () => {
-    return dispatch => {
-        dispatch(loginFailed());
-    }
-}
+export const loginFailedCreator = () => dispatch => dispatch(loginFailed());
 
-export const loginSuccessCreator = (token, loggedUser) => {
-    return dispatch => {
-        dispatch(loginSuccess(token, loggedUser));
-        dispatch(push('/'));
-    }
-}
+export const loginSuccessCreator = (token, loggedUser) => dispatch => {
+    dispatch(loginSuccess(token, loggedUser));
+    dispatch(push('/'));
+};
 
-export const logoutCreator = () => {
-    return dispatch => {
-        dispatch(logout());
-        dispatch(push('/login'));
-    }
-}
+export const logoutCreator = () => dispatch => {
+    dispatch(logout());
+    dispatch(push('/login'));
+};
 
-export const loginRedirectCreator = () => {
-    return dispatch => {
-        dispatch(loginRedirect());
-        dispatch(push('/login'));
-    }
-}
+export const loginRedirectCreator = () => dispatch => {
+    dispatch(loginRedirect());
+    dispatch(push('/login'));
+};
 
-export const registerRedirectCreator = () => {
-    return dispatch => {
-        dispatch(registerRedirect());
-        dispatch(push('/register'));
-    }
-}
+export const registerRedirectCreator = () => dispatch => {
+    dispatch(registerRedirect());
+    dispatch(push('/register'));
+};

@@ -11,7 +11,8 @@ class AudioInitializer extends Component {
         this.captureAudio = this.captureAudio.bind(this);
         this.state = {
             audioContext: new (window.AudioContext || window.webkitAudioContext)
-        }
+        };
+        
         this.props.initContextCreator(this.state.audioContext);
         this.captureAudio();
     }

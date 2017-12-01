@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Growl from '../growl';
+
 import './player.css';
 
 class Player extends Component {
@@ -10,25 +12,23 @@ class Player extends Component {
             source: null,
             startedAt: null,
             pausedAt: null,
-            paused: true
-        }
+            paused: true,
+            showGrowl: false
+        };
         this.playAudio = this.playAudio.bind(this);
         this.pauseAudio = this.pauseAudio.bind(this);
         this.loadAudio = this.loadAudio.bind(this);
         this.loadAudioUsingFileAPI = this.loadAudioUsingFileAPI.bind(this);
         this.decodeMp3FromBufferAndPlay = this.decodeMp3FromBufferAndPlay.bind(this);
+        this.onGrowlClick = this.onGrowlClick.bind(this);
     }
 
     playAudio(event) {
         event.stopPropagation();
         const fileInput = document.getElementById('audio_file');
-        if (fileInput.files.length > 0 && ['audio/mpeg', 'audio/mp3'].includes(fileInput.files[0].type)) {
-            this.loadAudioUsingFileAPI(fileInput.files[0], (mp3BytesArray) => {
-                this.decodeMp3FromBufferAndPlay(mp3BytesArray);
-            });
-        } else {
-            alert('Could not play, check if You loaded audio properly');
-        }
+        if (fileInput.files.length > 0 && ['audio/mpeg', 'audio/mp3'].includes(fileInput.files[0].type))
+            this.loadAudioUsingFileAPI(fileInput.files[0], mp3BytesArray => this.decodeMp3FromBufferAndPlay(mp3BytesArray));
+        else this.setState({ showGrowl: true });
     }
 
     pauseAudio() {
@@ -40,25 +40,21 @@ class Player extends Component {
     loadAudio() {
         const audioFile = document.getElementById('audio_file');
         const audioPlayer = document.getElementById('audio_player');
-        const file = URL.createObjectURL(audioFile.files[0]);        
+        const file = URL.createObjectURL(audioFile.files[0]);
         audioPlayer.src = file;
-    }
-
-    loadAudioFromAutocomplete() {
-
     }
 
     loadAudioUsingFileAPI(selectedFile, callback) {
         const reader = new FileReader();
-        reader.onload = function(event) {
+        reader.onload = event => {
             const mp3AudioBufferArray = reader.result;
             callback(mp3AudioBufferArray);
-        }
+        };
         reader.readAsArrayBuffer(selectedFile);
     }
 
     decodeMp3FromBufferAndPlay(mp3AudioBufferArray) {
-        this.props.audioContext.decodeAudioData(mp3AudioBufferArray, (decodedAudioBuffer) => {
+        this.props.audioContext.decodeAudioData(mp3AudioBufferArray, decodedAudioBuffer => {
             this.setState({ source: this.props.audioContext.createBufferSource() });
             let source = this.state.source;
             source.buffer = decodedAudioBuffer;
@@ -74,11 +70,16 @@ class Player extends Component {
                 this.state.source.start(0);
             }
         });
-    } 
+    }
+
+    onGrowlClick() {
+        this.setState({ showGrowl: !this.state.showGrowl });
+    }
 
     render() {
         return (
             <div>
+                <Growl header='Problem' body='Could not play, check source' positive={false} showGrowl={this.state.showGrowl === true} onClick={this.onGrowlClick} />
                 <div className='player-module'>
                     <div className='player-header'>Playback</div>
                     <div className='player-control-buttons'>
@@ -99,7 +100,7 @@ const mapStateToProps = state => {
     return {
         audioContext: state.audio.audioContext,
         currentChain: state.audio.currentChain
-    } 
+    }
 }
 
 export default connect(mapStateToProps)(Player);

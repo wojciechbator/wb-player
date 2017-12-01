@@ -2,7 +2,7 @@ import { STORE_SOCKET } from '../types/socketTypes';
 
 const initialState = {
     socket: null
-}
+};
 
 export const socketReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -11,4 +11,4 @@ export const socketReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};

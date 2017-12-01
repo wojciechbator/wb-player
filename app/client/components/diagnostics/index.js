@@ -47,19 +47,15 @@ class Diagnostics extends Component {
 
   render() {
     return (
-      <canvas
-        className="react-music-canvas"
-        height={150}
-        ref={(c) => { this.canvas = c; }}
-      />
+      <canvas className="react-music-canvas" height={150} ref={c => this.canvas = c} />
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     analyserNode: state.audio.analyserNode
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Diagnostics);

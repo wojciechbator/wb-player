@@ -26,7 +26,7 @@ class LoginPage extends Component {
                 password: null
             },
             showGrowl: false
-        }
+        };
         this.handleLogin = this.handleLogin.bind(this);
         this.headToRegister = this.headToRegister.bind(this);
         this.onGrowlClick = this.onGrowlClick.bind(this);
@@ -57,7 +57,7 @@ class LoginPage extends Component {
     render() {
         return (
             <div className='login-wrapper'>
-                <Growl header='Fail!' body='Login failed' positive={false} showGrowl={this.state.showGrowl === true} onClick={this.onGrowlClick} />
+                <Growl header='Problem' body='Login failed' positive={false} showGrowl={this.state.showGrowl === true} onClick={this.onGrowlClick} />
                 <img src={splash} alt='Splash image' draggable='false'></img>
                 <div className='label-text'>EMAIL</div>
                 <div>
@@ -110,7 +110,7 @@ class LoginPage extends Component {
                     <Button label='REGISTER' onClick={this.headToRegister}></Button>
                 </div>
             </div>
-        )
+        );
     }
 }
 

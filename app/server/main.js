@@ -7,7 +7,7 @@ let win = null;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
-const shouldQuit = app.makeSingleInstance(function(otherInstArgv, otherInstWorkingDir) {
+const shouldQuit = app.makeSingleInstance((otherInstArgv, otherInstWorkingDir) => {
     if (win != null) {
         if (win.isMinimized()) win.restore();
         win.focus();

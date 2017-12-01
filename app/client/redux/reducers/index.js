@@ -15,4 +15,4 @@ export const reducers = (state, action) => {
         state = undefined;
     }
     return appReducer(state, action);
-}
+};

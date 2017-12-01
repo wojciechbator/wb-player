@@ -37,8 +37,8 @@ class Presets extends Component {
     getPresets() {
         axios.get('/api/presets')
             .then(response => {
-                this.setState({ presets: response.data })
-                this.props.storePresetsCreator(response.data)
+                this.setState({ presets: response.data });
+                this.props.storePresetsCreator(response.data);
             })
             .catch(error => { throw new Error(error); });
     }
@@ -51,18 +51,17 @@ class Presets extends Component {
                     {this.state.presets.map((preset, key) => <div key={key} className='preset' onDoubleClick={this.setPresetFromDatabase}>{preset.name}</div>)}
                 </div>
             </div>
-        )
+        );
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         presets: state.preset.presets.data,
         currentChain: state.audio.currentChain,
         availableNodes: state.audio.availableNodes
-    }
-    
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({ storePresetsCreator, clearChainCreator, addNodeCreator }, dispatch);
 

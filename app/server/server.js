@@ -20,7 +20,7 @@ const mongoUrl = process.env.MONGO || appConfig.mongoUrl;
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl).then(
     () => console.log(`Connected to database on url: ${mongoUrl}`),
-    (error) => { throw new Error(error); }
+    error => { throw new Error(error); }
 );
 
 router.get('/', async (req, res) => {

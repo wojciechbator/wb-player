@@ -30,33 +30,31 @@ class MainPage extends Component {
         this.hideSidebar = this.hideSidebar.bind(this);
     }
 
-    showSidebar() {
-        this.setState({ showSidebar: true });
-    }
-
-    hideSidebar() {
-        this.setState({ showSidebar: false });
-    }
-
     componentDidMount() {
         this.props.storeSocketCreator(this.socket);
-        this.socket.on('cpu', (data) => {
+        this.socket.on('cpu', data => {
             let bufferArray = this.state.cpuUsage;
             if (bufferArray.length < 10) {
-                bufferArray.push(data.system / data.user * 100);  
+                bufferArray.push(data.system / data.user * 100);
             } else {
                 bufferArray.shift();
                 bufferArray.push(data.system / data.user * 100);
             }
             this.setState({ cpuUsage: bufferArray });
         });
-        this.socket.on('memory', (data) => {
-            this.setState({ usedMemory: data.heapUsed, freeMemory: data.heapTotal - data.heapUsed });
-        });
+        this.socket.on('memory', data => this.setState({ usedMemory: data.heapUsed, freeMemory: data.heapTotal - data.heapUsed }));
     }
 
     componentWillUnmount() {
         this.socket.emit('disconnect');
+    }
+
+    showSidebar() {
+        this.setState({ showSidebar: true });
+    }
+
+    hideSidebar() {
+        this.setState({ showSidebar: false });
     }
 
     render() {
@@ -70,7 +68,8 @@ class MainPage extends Component {
                     borderColor: '#4bc0c0'
                 },
             ]
-        }
+        };
+        
         const options = {
             animation: false,
             scales:
@@ -117,33 +116,33 @@ class MainPage extends Component {
             legend: {
                 display: true
             }
-        }
+        };
 
         return (
             <div className='app-container'>
-            {
-                (this.props.isAuthenticated || sessionStorage.getItem('loggedUser')) && 
-                <div className='app-container'>
-                    <AudioInitializer />
-                    <Sidebar visible={this.state.showSidebar} position='right' onHide={this.hideSidebar}>
-                        <div className='sidebar-content'>
-                            <Chart className='diagnostics-chart' type='line' data={data} options={options} />
-                            <Chart className='diagnostics-chart' type='doughnut' data={doughnutData} options={doughnutOptions} />
+                {
+                    (this.props.isAuthenticated || sessionStorage.getItem('loggedUser')) &&
+                    <div className='app-container'>
+                        <AudioInitializer />
+                        <Sidebar visible={this.state.showSidebar} position='right' onHide={this.hideSidebar}>
+                            <div className='sidebar-content'>
+                                <Chart className='diagnostics-chart' type='line' data={data} options={options} />
+                                <Chart className='diagnostics-chart' type='doughnut' data={doughnutData} options={doughnutOptions} />
+                            </div>
+                        </Sidebar>
+                        <button className='class="ui-button ui-widget ui-state-default ui-corner-all show-sidebar-button ui-button-text-only' onClick={this.showSidebar}><i className="fa fa-arrow-left"></i></button>
+                        {this.props.inputStream && <AudioChain inputStream={this.props.inputStream} />}
+                        <Header />
+                        <div className='content-wrapper'>
+                            <div className='left-menu'>
+                                <Presets />
+                                <NodesList />
+                            </div>
+                            <StudioPage />
                         </div>
-                    </Sidebar>
-                    <button className='class="ui-button ui-widget ui-state-default ui-corner-all show-sidebar-button ui-button-text-only' onClick={this.showSidebar}><i className="fa fa-arrow-left"></i></button>
-                    {this.props.inputStream && <AudioChain inputStream={this.props.inputStream} />}
-                    <Header />
-                    <div className='content-wrapper'>
-                        <div className='left-menu'>
-                            <Presets />
-                            <NodesList />
-                        </div>
-                        <StudioPage />
+                        <Footer />
                     </div>
-                    <Footer />
-                </div>
-            }
+                }
             </div>
         );
     }
@@ -153,8 +152,8 @@ const mapStateToProps = state => {
     return {
         isAuthenticated: state.authentication.isAuthenticated,
         inputStream: state.audio.inputStream
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({ storeSocketCreator }, dispatch);
 

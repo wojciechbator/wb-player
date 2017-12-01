@@ -23,7 +23,7 @@ class Audio extends Component {
             presetName: '',
             showGrowl: false,
             textFieldError: null
-        }
+        };
         this.savePreset = this.savePreset.bind(this);
         this.onGrowlClick = this.onGrowlClick.bind(this);
         this.onShowModal = this.onShowModal.bind(this);
@@ -32,20 +32,14 @@ class Audio extends Component {
     }
 
     componentDidMount() {
-        if (this.props.presets.length > 0) {
-            this.setPresetFromDatabase();
-        }
+        this.props.presets.length > 0 && this.setPresetFromDatabase();
     }
 
     setPresetFromDatabase() {
         this.props.clearChainCreator();
-        this.props.presets[this.props.presets.length - 1].currentChain.map(element => {
-            this.props.availableNodes.map(availableNode => {
-                if (element.name === availableNode.constructor.name) {
-                    this.props.addNodeCreator(availableNode);
-                }
-            });
-        });
+        this.props.presets[this.props.presets.length - 1].currentChain.map(element =>
+            this.props.availableNodes.map(availableNode =>
+                element.name === availableNode.constructor.name && this.props.addNodeCreator(availableNode)));
     }
 
     handlePresetName(event) {
@@ -61,7 +55,7 @@ class Audio extends Component {
             name: this.state.presetName,
             user: sessionStorage.getItem('loggedUser'),
             currentChain: nodes
-        }
+        };
         axios.post('/api/presets', presetObject)
             .then(response => {
                 this.setState({ showGrowl: true });
@@ -125,8 +119,8 @@ const mapStateToProps = state => {
         currentChain: state.audio.currentChain,
         presets: state.preset.presets,
         availableNodes: state.audio.availableNodes
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({ savePresetCreator, storePresetsCreator, updatePresetCreator, addNodeCreator, clearChainCreator }, dispatch);
 

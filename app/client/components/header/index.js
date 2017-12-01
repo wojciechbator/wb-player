@@ -34,12 +34,12 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = store => {
     return {
         loggedUser: store.authentication.loggedUser,
         socket: store.socket.socket
-    }
-}
+    };
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({ logoutCreator }, dispatch);
 

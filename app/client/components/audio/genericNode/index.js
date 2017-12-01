@@ -17,15 +17,14 @@ class GenericNode extends Component {
             name: null,
             type: null,
             isWaveShaperOrDelay: false
-        }
+        };
         this.onValueChange = this.onValueChange.bind(this);
         this.displayProperValue = this.displayProperValue.bind(this);
     }
 
     componentDidMount() {
-        if (this.props.isMaster) {
+        if (this.props.isMaster)
             this.setState({ value: 0.5, name: 'Master' });
-        }
         else {
             this.setState({ type: this.props.node.type });
             this.props.node.type ? this.setState({ value: this.props.node.gain ? this.props.node.gain.value : 50, name: this.props.node.type }) : 
@@ -55,7 +54,7 @@ class GenericNode extends Component {
                     <div className="generic-node-wrapper">
                         {this.state.isWaveShaperOrDelay ? <h3 className='node-inner-label'>{this.state.name}</h3> : <h3>value: {this.state.type ? this.state.value : Math.round(this.state.value * 100)}</h3>}
                         {!this.state.isWaveShaperOrDelay && <Slider className='node-slider' orientation='vertical' animate={true} value={this.state.type ? this.state.value : Math.round(this.state.value * 100)} onChange={this.onValueChange} />}
-                        <Button className='remove-button' label='Remove' onClick={() => this.removeNode(this.props.node)} disabled={this.props.isMaster} />
+                        <Button className='remove-button' label='Remove' onClick={() => this.removeNode(this.props.currentChain.indexOf(this.props.node))} disabled={this.props.isMaster} />
                     </div>
                 </Fieldset>
             </div>
@@ -63,6 +62,12 @@ class GenericNode extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        currentChain: state.audio.currentChain
+    };
+};
+
 const mapDispatchToProps = dispatch => bindActionCreators({ nodeValueCreator, removeNodeCreator }, dispatch);
 
-export default connect(null, mapDispatchToProps)(GenericNode);
+export default connect(mapStateToProps, mapDispatchToProps)(GenericNode);

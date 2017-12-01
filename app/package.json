@@ -56,5 +56,10 @@
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5"
+  },
+  "jshintConfig": {
+    "esversion": 7,
+    "undef": true,
+    "unused": true
   }
 }

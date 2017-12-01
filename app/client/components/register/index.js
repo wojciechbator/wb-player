@@ -8,12 +8,7 @@ import { Button } from 'primereact/components/button/Button';
 import Growl from '../growl';
 import { loginRedirectCreator } from '../../redux/actions/authenticationActions';
 
-import {
-    validField,
-    validEmail,
-    validPassword,
-    validConfirmPassword
-} from '../../utils/formValidator';
+import { validField, validEmail, validPassword, validConfirmPassword } from '../../utils/formValidator';
 
 import splash from '../../assets/images/splash.png';
 import './register.css';
@@ -34,7 +29,8 @@ class RegisterPage extends Component {
                 confirmPassword: null
             },
             showMessage: false
-        }
+        };
+
         this.checkConfirmPassword = this.checkConfirmPassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.headToLogin = this.headToLogin.bind(this);
@@ -54,9 +50,7 @@ class RegisterPage extends Component {
         !Object.values(this.state.errors).includes(true)
             &&
             axios.post('/register', { email, fullName, password })
-                .then(response => {
-                    this.props.loginRedirectCreator();
-                })
+                .then(response => this.props.loginRedirectCreator())
                 .catch(error => {
                     this.setState({ showMessage: true });
                     throw new Error(error);
@@ -74,7 +68,7 @@ class RegisterPage extends Component {
     render() {
         return (
             <div className='register-wrapper'>
-                <Growl header='Fail!' body='Username already exists' positive={false} onClick={this.onGrowlClick} showGrowl={this.state.showMessage === true} />
+                <Growl header='Problem' body='Username already exists' positive={false} onClick={this.onGrowlClick} showGrowl={this.state.showMessage === true} />
                 <img src={splash} alt='Splash image' draggable='false'></img>
                 <div className='label-text'>EMAIL</div>
                 <div>
@@ -159,9 +153,9 @@ class RegisterPage extends Component {
                     <Button label="LOGIN" onClick={this.headToLogin}></Button>
                 </div>
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({ loginRedirectCreator }, dispatch);
 

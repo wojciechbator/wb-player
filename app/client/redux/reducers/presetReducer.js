@@ -2,7 +2,7 @@ import { SAVE_PRESET, STORE_PRESETS, UPDATE_PRESET } from '../types/presetTypes'
 
 const initialState = {
     presets: []
-}
+};
 
 export const presetReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -17,4 +17,4 @@ export const presetReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};

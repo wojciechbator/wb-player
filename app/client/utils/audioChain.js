@@ -39,8 +39,8 @@ const mapStateToProps = state => {
         analyserNode: state.audio.analyserNode,
         audioContext: state.audio.audioContext,
         currentChain: state.audio.currentChain
-    }
-}
+    };
+};
 
 export default connect(mapStateToProps)(AudioChain);
 

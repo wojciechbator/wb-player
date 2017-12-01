@@ -29,7 +29,7 @@ class NodesList extends Component {
     }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = store => {
     return {
         availableNodes: store.audio.availableNodes,
         currentChain: store.audio.currentChain

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import AudioChain from './audioChain';
 import { addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator, addAnalyserNodeCreator } from '../redux/actions/audioActions';
 
 class AudioNodes extends Component {
@@ -144,9 +143,9 @@ const mapStateToProps = state => {
         presets: state.preset.presets,
         inputStream: state.audio.inputStream,
         currentChain: state.audio.currentChain
-    }
-}
+    };
+};
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator, addAnalyserNodeCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator, addAnalyserNodeCreator }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AudioNodes);

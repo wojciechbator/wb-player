@@ -1,7 +1,8 @@
-import { AUDIO_CONTEXT_INIT, 
-    INPUT_STREAM_VALUE, 
+import {
+    AUDIO_CONTEXT_INIT,
+    INPUT_STREAM_VALUE,
     NODE_VALUE,
-    ADD_NODE, 
+    ADD_NODE,
     REMOVE_NODE,
     ADD_NODE_TO_AVAILABLE_NODES,
     REMOVE_NODE_FROM_AVAILABLE_NODES,
@@ -11,32 +12,32 @@ import { AUDIO_CONTEXT_INIT,
     CLEAR_CHAIN
 } from '../types/audioTypes';
 
-const initializeAudioContext = (audioContext) => {
+const initializeAudioContext = audioContext => {
     return {
         type: AUDIO_CONTEXT_INIT,
         audioContext
-    }
-}
+    };
+};
 
-const storeInputStream = (inputStream) => {
+const storeInputStream = inputStream => {
     return {
         type: INPUT_STREAM_VALUE,
         inputStream
-    }
-}
+    };
+};
 
 const clearCurrentChain = () => {
     return {
         type: CLEAR_CHAIN
-    }
-}
+    };
+};
 
-const addAnalyserNode = (analyserNode) => {
+const addAnalyserNode = analyserNode => {
     return {
         type: STORE_ANALYSER_NODE,
         analyserNode
-    }
-}
+    };
+};
 
 const storeNodeValue = (nodeIndex, node, nodeValue) => {
     return {
@@ -44,113 +45,69 @@ const storeNodeValue = (nodeIndex, node, nodeValue) => {
         nodeIndex,
         node,
         nodeValue
-    }
-}
+    };
+};
 
-const addNodeToChain = (node) => {
+const addNodeToChain = node => {
     return {
         type: ADD_NODE,
         node
-    }
-}
+    };
+};
 
-const removeNodeFromChain = (node) => {
+const removeNodeFromChain = nodeIndex => {
     return {
         type: REMOVE_NODE,
-        node
-    }
-}
+        nodeIndex
+    };
+};
 
-const addCompressor = (compressor) => {
+const addCompressor = compressor => {
     return {
         type: ADD_COMPRESSOR,
         compressor
-    }
-}
+    };
+};
 
-const addMaster = (master) => {
+const addMaster = master => {
     return {
         type: ADD_MASTER,
         master
-    }
-}
+    };
+};
 
-const addNodeToAvailables = (node) => {
+const addNodeToAvailables = node => {
     return {
         type: ADD_NODE_TO_AVAILABLE_NODES,
         node
-    }
-}
+    };
+};
 
-const removeNodeFromAvailables = (availableNodes) => {
+const removeNodeFromAvailables = availableNodes => {
     return {
         type: ADD_NODE_TO_AVAILABLE_NODES,
         availableNodes
-    }
+    };
 }
 
-export const initContextCreator = (audioContext) => {
-    return dispatch => {
-        dispatch(initializeAudioContext(audioContext));
-    }
-}
+export const initContextCreator = audioContext => dispatch => dispatch(initializeAudioContext(audioContext));
 
-export const inputStreamCreator = (inputStream) => {
-    return dispatch => {
-        dispatch(storeInputStream(inputStream));
-    }
-}
+export const inputStreamCreator = inputStream => dispatch => dispatch(storeInputStream(inputStream));
 
-export const clearChainCreator = () => {
-    return dispatch => {
-        dispatch(clearCurrentChain());
-    }
-}
+export const clearChainCreator = () => dispatch => dispatch(clearCurrentChain());
 
-export const nodeValueCreator = (nodeIndex, node, nodeValue) => {
-    return dispatch => {
-        dispatch(storeNodeValue(nodeIndex, node, nodeValue));
-    }
-}
+export const nodeValueCreator = (nodeIndex, node, nodeValue) => dispatch => dispatch(storeNodeValue(nodeIndex, node, nodeValue));
 
-export const addNodeCreator = (node) => {
-    return dispatch => {
-        dispatch(addNodeToChain(node));
-    }
-}
+export const addNodeCreator = node => dispatch => dispatch(addNodeToChain(node));
 
-export const removeNodeCreator = (node) => {
-    return dispatch => {
-        dispatch(removeNodeFromChain(node));
-    }
-}
+export const removeNodeCreator = nodeIndex => dispatch => dispatch(removeNodeFromChain(nodeIndex));
 
-export const addCompressorCreator = (compressor) => {
-    return dispatch => {
-        dispatch(addCompressor(compressor));
-    }
-}
+export const addCompressorCreator = compressor => dispatch => dispatch(addCompressor(compressor));
 
-export const addMasterCreator = (master) => {
-    return dispatch => {
-        dispatch(addMaster(master));
-    }
-}
+export const addMasterCreator = master => dispatch => dispatch(addMaster(master));
 
-export const addNodeToAvailablesCreator = (node) => {
-    return dispatch => {
-        dispatch(addNodeToAvailables(node));
-    }
-}
+export const addNodeToAvailablesCreator = node => dispatch => dispatch(addNodeToAvailables(node));
 
-export const removeNodeFromAvailablesCreator = (availableNodes) => {
-    return dispatch => {
-        dispatch(removeNodeFromAvailables(availableNodes));
-    }
-}
+export const removeNodeFromAvailablesCreator = availableNodes => dispatch => dispatch(removeNodeFromAvailables(availableNodes));
 
-export const addAnalyserNodeCreator = (analyserNode) => {
-    return dispatch => {
-        dispatch(addAnalyserNode(analyserNode));
-    }
-}
+export const addAnalyserNodeCreator = analyserNode => dispatch => dispatch(addAnalyserNode(analyserNode));

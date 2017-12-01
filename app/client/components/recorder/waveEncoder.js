@@ -2,7 +2,7 @@ const writeUTFBytes = (dataview, offset, string) => {
   for(let i = 0; i < string.length; i++) {
     dataview.setUint8(offset + i, string.charCodeAt(i));
   }
-}
+};
 
 const mergeBuffers = (buffer, length) => {
   const result = new Float64Array(length);
@@ -13,7 +13,7 @@ const mergeBuffers = (buffer, length) => {
     offset += inner.length;
   }
   return result;
-}
+};
 
 const interleave = (left, right) => {
   const length = left.length + right.length;
@@ -25,14 +25,9 @@ const interleave = (left, right) => {
     inputIndex++;
   }
   return result;
-}
+};
 
-export default function encodeWAV(
-  buffers,
-  bufferLength,
-  sampleRate,
-  volume = 1
-) {
+export const encodeWAV = (buffers, bufferLength, sampleRate, volume = 1) => {
   const left = mergeBuffers(buffers[0], bufferLength);
   const right = mergeBuffers(buffers[1], bufferLength);
   const interleaved = interleave(left, right);
@@ -54,9 +49,7 @@ export default function encodeWAV(
   writeUTFBytes(view, 36, 'data');
   view.setUint32(40, interleaved.length * 2, true);
 
-  interleaved.forEach((sample, index) => {
-    view.setInt16(44 + (index * 2), sample * (0x7fff * volume), true);
-  });
+  interleaved.forEach((sample, index) => view.setInt16(44 + (index * 2), sample * (0x7fff * volume), true));
 
   return new Blob([view], { type: 'audio/wav' });
-}
+};

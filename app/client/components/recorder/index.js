@@ -4,7 +4,7 @@ import { InputText } from 'primereact/components/inputtext/InputText';
 import { Dialog } from 'primereact/components/dialog/Dialog';
 
 import WAVEInterface from './waveInterface';
-import downloadBlob from './downloadBlob';
+import { downloadBlob } from './downloadBlob';
 import { validField } from '../../utils/formValidator';
 import './recorder.css';
 
