@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import { DataList } from 'primereact/components/datalist/DataList';
 
-import { clearChainCreator, addNodeCreator } from '../../redux/actions/audioActions';
+import { clearChainCreator, addNodeCreator, nodeValueCreator } from '../../redux/actions/audioActions';
 import { storePresetsCreator } from '../../redux/actions/presetActions';
 
 import './presets.css';
@@ -16,6 +16,7 @@ class Presets extends Component {
             presets: []
         };
         this.getPresets = this.getPresets.bind(this);
+        this.removePreset = this.removePreset.bind(this);
         this.setPresetFromDatabase = this.setPresetFromDatabase.bind(this);
     }
 
@@ -23,12 +24,13 @@ class Presets extends Component {
         this.getPresets();
     }
 
-    setPresetFromDatabase() {
+    setPresetFromDatabase(key) {
         this.props.clearChainCreator();
-        this.state.presets[this.state.presets.length - 1].currentChain.map(element => {
+        this.state.presets[key].currentChain.map((element, i) => {
             this.props.availableNodes.map(availableNode => {
-                if (element.name === availableNode.constructor.name) {
+                if (availableNode.constructor.name === element.name) {
                     this.props.addNodeCreator(availableNode);
+                    availableNode.gain && this.props.nodeValueCreator(0, availableNode, element.value);
                 }
             });
         });
@@ -42,13 +44,25 @@ class Presets extends Component {
             })
             .catch(error => { throw new Error(error); });
     }
-    
+
+    removePreset(key) {
+        axios.delete(`/api/presets/${key}`)
+            .then(response => {
+                console.log(`REMOVED ${key}`);
+            });
+        this.getPresets();
+    }
+
     render() {
         return (
             <div className='presets-container'>
                 <div className='presets-header'>Presets</div>
                 <div className='presets-list'>
-                    {this.state.presets.map((preset, key) => <div key={key} className='preset' onDoubleClick={this.setPresetFromDatabase}>{preset.name}</div>)}
+                    {this.state.presets.map((preset, key) =>
+                        <div className='flexible-preset'>
+                            <div key={key} className='preset' onDoubleClick={() => this.setPresetFromDatabase(key)}>{preset.name}</div>
+                            <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={() => this.removePreset(key)}><i className='fa fa-times'></i></button>
+                        </div>)}
                 </div>
             </div>
         );
@@ -63,6 +77,6 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ storePresetsCreator, clearChainCreator, addNodeCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ storePresetsCreator, clearChainCreator, addNodeCreator, nodeValueCreator }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Presets);

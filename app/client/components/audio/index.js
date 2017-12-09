@@ -28,6 +28,7 @@ class Audio extends Component {
         this.onGrowlClick = this.onGrowlClick.bind(this);
         this.onShowModal = this.onShowModal.bind(this);
         this.setPresetFromDatabase = this.setPresetFromDatabase.bind(this);
+        this.checkNodeIndexInChain = this.checkNodeIndexInChain.bind(this);
         this.onHideModal = this.onHideModal.bind(this);
     }
 
@@ -82,6 +83,10 @@ class Audio extends Component {
         this.setState({ textFieldError: !validField(event.target.value) });
     }
 
+    checkNodeIndexInChain(node, chain, i) {
+        return i === 0 ? chain.length - 1 : chain.indexOf(node) - 1;
+    }
+
     render() {
         return (
             <div className='preset-container'>
@@ -106,7 +111,7 @@ class Audio extends Component {
                     <div className='inline-header'>Current Preset</div>
                 </div>
                 <div className='audio-chain'>
-                    {this.props.currentChain.map((element, i) => <GenericNode key={i} index={i === 0 ? this.props.currentChain.length - 1 : i - 1} node={this.props.currentChain[0]} isMaster={i === 0} />)}
+                    {this.props.currentChain.map((element, i) => <GenericNode key={i} index={this.checkNodeIndexInChain(element, this.props.currentChain, i)} node={this.props.currentChain[0]} isMaster={i === 0} />)}
                 </div>
             </div>
         );

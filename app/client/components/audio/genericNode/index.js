@@ -20,6 +20,7 @@ class GenericNode extends Component {
         };
         this.onValueChange = this.onValueChange.bind(this);
         this.displayProperValue = this.displayProperValue.bind(this);
+        this.removeNode = this.removeNode.bind(this);
     }
 
     componentDidMount() {
@@ -39,8 +40,8 @@ class GenericNode extends Component {
         this.props.nodeValueCreator(this.props.index, this.props.node, event.value);
     }
 
-    removeNode(node) {
-        this.props.removeNodeCreator(node);
+    removeNode() {
+        this.props.removeNodeCreator(this.props.index);
     }
 
     displayProperValue() {
@@ -54,7 +55,7 @@ class GenericNode extends Component {
                     <div className="generic-node-wrapper">
                         {this.state.isWaveShaperOrDelay ? <h3 className='node-inner-label'>{this.state.name}</h3> : <h3>value: {this.state.type ? this.state.value : Math.round(this.state.value * 100)}</h3>}
                         {!this.state.isWaveShaperOrDelay && <Slider className='node-slider' orientation='vertical' animate={true} value={this.state.type ? this.state.value : Math.round(this.state.value * 100)} onChange={this.onValueChange} />}
-                        <Button className='remove-button' label='Remove' onClick={() => this.removeNode(this.props.currentChain.indexOf(this.props.node))} disabled={this.props.isMaster} />
+                        <Button className='remove-button' label='Remove' onClick={this.removeNode} disabled={this.props.isMaster} />
                     </div>
                 </Fieldset>
             </div>
@@ -62,12 +63,6 @@ class GenericNode extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        currentChain: state.audio.currentChain
-    };
-};
-
 const mapDispatchToProps = dispatch => bindActionCreators({ nodeValueCreator, removeNodeCreator }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(GenericNode);
+export default connect(null, mapDispatchToProps)(GenericNode);
