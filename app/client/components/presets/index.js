@@ -46,11 +46,10 @@ class Presets extends Component {
     }
 
     removePreset(key) {
-        axios.delete(`/api/presets/${key}`)
+        axios.delete(`/api/presets/${this.state.presets[key]._id}`)
             .then(response => {
-                console.log(`REMOVED ${key}`);
+                this.getPresets();
             });
-        this.getPresets();
     }
 
     render() {
@@ -59,9 +58,13 @@ class Presets extends Component {
                 <div className='presets-header'>Presets</div>
                 <div className='presets-list'>
                     {this.state.presets.map((preset, key) =>
-                        <div className='flexible-preset'>
-                            <div key={key} className='preset' onDoubleClick={() => this.setPresetFromDatabase(key)}>{preset.name}</div>
-                            <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={() => this.removePreset(key)}><i className='fa fa-times'></i></button>
+                        <div key={key} className='flexible-preset'>
+                            <div className='preset' onDoubleClick={() => this.setPresetFromDatabase(key)}>{preset.name}</div>
+                            <button 
+                                className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' 
+                                onClick={() => this.removePreset(key)}>
+                                <i className='fa fa-times'></i>
+                            </button>
                         </div>)}
                 </div>
             </div>

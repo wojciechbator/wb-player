@@ -17,7 +17,7 @@ module.exports = {
             './index.js']
         },
         output: {
-            path: __dirname,
+            path: __dirname + '/dist',
             filename: 'bundle.js',
         },
         devtool: '#cheap-module-source-map',
@@ -44,7 +44,10 @@ module.exports = {
                 test: /\.css$/,
                 loader: "style-loader!css-loader"
             },
-            { test: /\.(png|woff|woff2|eot|ttf|svg|gif)$/, loader: 'url-loader?limit=100000' }
+            { 
+                test: /\.(png|woff|woff2|eot|ttf|svg|gif)$/, 
+                loader: 'url-loader?limit=100000' 
+            }
         ]
     },
     plugins: [

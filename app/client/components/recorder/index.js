@@ -180,7 +180,7 @@ class Recorder extends Component {
 const mapStateToProps = state => {
   return {
     audioContext: state.audio.audioContext
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Recorder);

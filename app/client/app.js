@@ -7,7 +7,7 @@ import './app.css';
 
 class App extends Component {
     constructor(props) {
-        super(props);  
+        super(props);
         if (module.hot) {
             module.hot.accept();
         }
