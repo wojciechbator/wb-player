@@ -14,7 +14,8 @@ class Player extends Component {
             pausedAt: null,
             paused: true,
             showGrowl: false,
-            fileInput: null
+            fileInput: null,
+            nextAudioFileLoaded: false
         };
         this.blockPlayButton = this.blockPlayButton.bind(this);
         this.playAudio = this.playAudio.bind(this);
@@ -28,11 +29,14 @@ class Player extends Component {
     playAudio(event) {
         if (this.state.source) {
             this.state.source.connect(this.props.currentChain[this.props.currentChain.length - 1]);
+            this.setState({ paused: false });
         }
         else {
             event.stopPropagation();
-            if (this.state.fileInput.files.length > 0 && ['audio/mpeg', 'audio/mp3'].includes(this.state.fileInput.files[0].type))
+            if (this.state.fileInput && this.state.fileInput.files.length > 0 && ['audio/mpeg', 'audio/mp3'].includes(this.state.fileInput.files[0].type)) {
                 this.loadAudioUsingFileAPI(this.state.fileInput.files[0], mp3BytesArray => this.decodeMp3FromBufferAndPlay(mp3BytesArray));
+                this.setState({ paused: false });
+            }
             else this.setState({ showGrowl: true });
         }
     }
@@ -46,15 +50,14 @@ class Player extends Component {
     loadAudio() {
         const fileInput = document.getElementById('audio_file');
         this.setState({ fileInput: fileInput });
+        if (this.state.source && !this.state.paused) {
+            this.state.source.disconnect(this.props.currentChain[this.props.currentChain.length - 1]);
+            this.setState({ source: null, nextAudioFileLoaded: true });
+        }
     }
 
     blockPlayButton() {
-        if (!this.state.fileInput || this.state.paused === false) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.state.source && this.state.paused === false;
     }
 
     loadAudioUsingFileAPI(selectedFile, callback) {
@@ -67,17 +70,15 @@ class Player extends Component {
     }
 
     decodeMp3FromBufferAndPlay(mp3AudioBufferArray) {
-        if (this.state.source) {
-            this.state.source.noteOff(0);
-        }
         this.props.audioContext.decodeAudioData(mp3AudioBufferArray, decodedAudioBuffer => {
             this.setState({ source: this.props.audioContext.createBufferSource() });
-            let source = this.state.source;
-            source.buffer = decodedAudioBuffer;
-            this.setState({ source: source });
+            let newSource = this.state.source;
+            newSource.buffer = decodedAudioBuffer;
+            newSource.loop =
+            this.setState({ source: newSource });
             this.state.source.connect(this.props.currentChain[this.props.currentChain.length - 1]);
             this.setState({ paused: false });
-            if (this.state.pausedAt) {
+            if (this.state.pausedAt && !this.state.nextAudioFileLoaded) {
                 this.setState({ startedAt: this.props.audioContext.currentTime - this.state.pausedAt });
                 this.state.source.start(0, this.props.pausedAt / 1000);
             }
@@ -102,8 +103,8 @@ class Player extends Component {
                         <label htmlFor='audio_file' className='fa fa-upload file-upload'>
                             <input id='audio_file' className='ui-button' type='file' onChange={this.loadAudio} accept='audio/*' />
                         </label>
-                        <button className='class="ui-button ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.playAudio}><i className="fa fa-play"></i></button>
-                        <button className='class="ui-button ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.pauseAudio}><i className="fa fa-pause"></i></button>
+                        <button className='class="ui-button ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.playAudio} disabled={this.blockPlayButton()}><i className="fa fa-play"></i></button>
+                        <button className='class="ui-button ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.pauseAudio} disabled={!this.blockPlayButton()}><i className="fa fa-pause"></i></button>
                     </div>
                 </div>
             </div>
