@@ -1,7 +1,7 @@
 .growl-wrapper-positive {
     position: absolute;
     z-index: 2000;
-    height: 60px;
+    height: 70px;
     width: 250px;
     top: 20px;
     right: 20px;
@@ -14,7 +14,7 @@
 .growl-wrapper-negative {
     position: absolute;
     z-index: 2000;
-    height: 60px;
+    height: 70px;
     width: 250px;
     top: 20px;
     right: 20px;

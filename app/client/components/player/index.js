@@ -13,8 +13,10 @@ class Player extends Component {
             startedAt: null,
             pausedAt: null,
             paused: true,
-            showGrowl: false
+            showGrowl: false,
+            fileInput: null
         };
+        this.blockPlayButton = this.blockPlayButton.bind(this);
         this.playAudio = this.playAudio.bind(this);
         this.pauseAudio = this.pauseAudio.bind(this);
         this.loadAudio = this.loadAudio.bind(this);
@@ -24,24 +26,35 @@ class Player extends Component {
     }
 
     playAudio(event) {
-        event.stopPropagation();
-        const fileInput = document.getElementById('audio_file');
-        if (fileInput.files.length > 0 && ['audio/mpeg', 'audio/mp3'].includes(fileInput.files[0].type))
-            this.loadAudioUsingFileAPI(fileInput.files[0], mp3BytesArray => this.decodeMp3FromBufferAndPlay(mp3BytesArray));
-        else this.setState({ showGrowl: true });
+        if (this.state.source) {
+            this.state.source.connect(this.props.currentChain[this.props.currentChain.length - 1]);
+        }
+        else {
+            event.stopPropagation();
+            if (this.state.fileInput.files.length > 0 && ['audio/mpeg', 'audio/mp3'].includes(this.state.fileInput.files[0].type))
+                this.loadAudioUsingFileAPI(this.state.fileInput.files[0], mp3BytesArray => this.decodeMp3FromBufferAndPlay(mp3BytesArray));
+            else this.setState({ showGrowl: true });
+        }
     }
 
     pauseAudio() {
-        this.state.source.stop(0);
+        this.state.source.disconnect(this.props.currentChain[this.props.currentChain.length - 1]);
         this.setState({ pausedAt: this.props.audioContext.currentTime - this.state.startedAt });
         this.setState({ paused: true });
     }
 
     loadAudio() {
-        const audioFile = document.getElementById('audio_file');
-        const audioPlayer = document.getElementById('audio_player');
-        const file = URL.createObjectURL(audioFile.files[0]);
-        audioPlayer.src = file;
+        const fileInput = document.getElementById('audio_file');
+        this.setState({ fileInput: fileInput });
+    }
+
+    blockPlayButton() {
+        if (!this.state.fileInput || this.state.paused === false) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     loadAudioUsingFileAPI(selectedFile, callback) {
@@ -54,6 +67,9 @@ class Player extends Component {
     }
 
     decodeMp3FromBufferAndPlay(mp3AudioBufferArray) {
+        if (this.state.source) {
+            this.state.source.noteOff(0);
+        }
         this.props.audioContext.decodeAudioData(mp3AudioBufferArray, decodedAudioBuffer => {
             this.setState({ source: this.props.audioContext.createBufferSource() });
             let source = this.state.source;
@@ -86,7 +102,6 @@ class Player extends Component {
                         <label htmlFor='audio_file' className='fa fa-upload file-upload'>
                             <input id='audio_file' className='ui-button' type='file' onChange={this.loadAudio} accept='audio/*' />
                         </label>
-                        <audio id='audio_player' />
                         <button className='class="ui-button ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.playAudio}><i className="fa fa-play"></i></button>
                         <button className='class="ui-button ui-widget ui-state-default ui-corner-all control-button ui-button-text-only' onClick={this.pauseAudio}><i className="fa fa-pause"></i></button>
                     </div>
