@@ -34,12 +34,10 @@ class MainPage extends Component {
         this.props.storeSocketCreator(this.socket);
         this.socket.on('cpu', data => {
             let bufferArray = this.state.cpuUsage;
-            if (bufferArray.length < 10) {
-                bufferArray.push(data.system / data.user * 100);
-            } else {
+            if (bufferArray.length > 9) {
                 bufferArray.shift();
-                bufferArray.push(data.system / data.user * 100);
             }
+            bufferArray.push(data.system / data.user * 100);
             this.setState({ cpuUsage: bufferArray });
         });
         this.socket.on('memory', data => this.setState({ usedMemory: data.heapUsed, freeMemory: data.heapTotal - data.heapUsed }));
@@ -69,7 +67,7 @@ class MainPage extends Component {
                 },
             ]
         };
-        
+
         const options = {
             animation: false,
             scales:
@@ -92,12 +90,12 @@ class MainPage extends Component {
             datasets: [{
                 data: [this.state.usedMemory, this.state.freeMemory],
                 backgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
+                    '#FF6384',
+                    '#36A2EB',
                 ],
                 hoverBackgroundColor: [
-                    "#FF6384",
-                    "#36A2EB",
+                    '#FF6384',
+                    '#36A2EB',
                 ],
             }],
             labels: [
@@ -130,7 +128,7 @@ class MainPage extends Component {
                                 <Chart className='diagnostics-chart' type='doughnut' data={doughnutData} options={doughnutOptions} />
                             </div>
                         </Sidebar>
-                        <button className='class="ui-button ui-widget ui-state-default ui-corner-all show-sidebar-button ui-button-text-only' onClick={this.showSidebar}><i className="fa fa-arrow-left"></i></button>
+                        <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only show-sidebar-button' onClick={this.showSidebar}><i className='fa fa-arrow-left'></i></button>
                         {this.props.inputStream && <AudioChain inputStream={this.props.inputStream} />}
                         <Header />
                         <div className='content-wrapper'>
