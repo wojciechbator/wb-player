@@ -22,7 +22,7 @@ class Recorder extends Component {
       showSavePopup: false,
       textFieldError: null
     };
-    this.waveInterface = new WAVEInterface();
+    this.waveInterface = new WAVEInterface(this.props.audioContext, this.props.analyserNode);
     this.startRecording = this.startRecording.bind(this);
     this.startPlayback = this.startPlayback.bind(this);
     this.stopPlayback = this.stopPlayback.bind(this);
@@ -179,7 +179,8 @@ class Recorder extends Component {
 
 const mapStateToProps = state => {
   return {
-    audioContext: state.audio.audioContext
+    audioContext: state.audio.audioContext,
+    analyserNode: state.audio.analyserNode
   };
 };
 

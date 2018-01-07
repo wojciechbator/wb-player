@@ -74,7 +74,7 @@ class Player extends Component {
             this.setState({ source: this.props.audioContext.createBufferSource() });
             let newSource = this.state.source;
             newSource.buffer = decodedAudioBuffer;
-            newSource.loop =
+            newSource.loop = true;
             this.setState({ source: newSource });
             this.state.source.connect(this.props.currentChain[this.props.currentChain.length - 1]);
             this.setState({ paused: false });

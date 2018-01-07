@@ -1,13 +1,14 @@
 import { encodeWAV } from './waveEncoder';
 
 export default class WAVEInterface {
-  constructor() {
+  constructor(context, analyserNode) {
+    this.source = analyserNode;
     this.playbackNode;
     this.recordingNodes = [];
     this.recordingStream;
     this.buffers;
     this.encodingCache;
-    this.audioContext = new AudioContext();
+    this.audioContext = context;
     this.bufferSize = 2048;
 
   }
@@ -20,28 +21,24 @@ export default class WAVEInterface {
 
   startRecording() {
     return new Promise((resolve, reject) => {
-      navigator.getUserMedia({ audio: true }, stream => {
-        const recGainNode = this.audioContext.createGain();
-        const recSourceNode = this.audioContext.createMediaStreamSource(stream);
-        const recProcessingNode = this.audioContext.createScriptProcessor(this.bufferSize, 2, 2);
+      const recSourceNode = this.source;
+      const recProcessingNode = this.audioContext.createScriptProcessor(this.bufferSize, 2, 2);
+      if (this.encodingCache) this.encodingCache = null;
+
+      recProcessingNode.onaudioprocess = event => {
         if (this.encodingCache) this.encodingCache = null;
+        for (let i = 0; i < 2; i++) {
+          const channel = event.inputBuffer.getChannelData(i);
+          this.buffers[i].push(new Float32Array(channel));
+        }
+      };
 
-        recProcessingNode.onaudioprocess = event => {
-          if (this.encodingCache) this.encodingCache = null;
-          for (let i = 0; i < 2; i++) {
-            const channel = event.inputBuffer.getChannelData(i);
-            this.buffers[i].push(new Float32Array(channel));
-          }
-        };
+      recSourceNode.connect(recProcessingNode);
+      recProcessingNode.connect(this.audioContext.destination);
 
-        recSourceNode.connect(recGainNode);
-        recGainNode.connect(recProcessingNode);
-        recProcessingNode.connect(this.audioContext.destination);
-
-        this.recordingStream = stream;
-        this.recordingNodes.push(recSourceNode, recGainNode, recProcessingNode);
-        resolve(stream);
-      }, err => reject(err));
+      this.recordingStream = this.audioContext.createMediaStreamDestination(recProcessingNode).stream;
+      this.recordingNodes.push(recSourceNode, recProcessingNode);
+      resolve(this.recordingStream);
     });
   }
 
@@ -54,6 +51,7 @@ export default class WAVEInterface {
       this.recordingNodes[i].disconnect();
       delete this.recordingNodes[i];
     }
+    this.source.connect(this.audioContext.destination);
   }
 
   startPlayback(loop = false, onended) {
