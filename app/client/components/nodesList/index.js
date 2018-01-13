@@ -11,7 +11,9 @@ class NodesList extends Component {
     }
 
     addAudioToChain(node) {
-        this.props.addNodeCreator(node);
+        if (!this.props.currentChain.includes(node)) {
+            this.props.addNodeCreator(node);
+        }
     }
 
     render() {

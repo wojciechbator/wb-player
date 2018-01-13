@@ -11,9 +11,6 @@ import './presets.css';
 class Presets extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            presets: []
-        };
         this.getPresets = this.getPresets.bind(this);
         this.removePreset = this.removePreset.bind(this);
         this.setPresetFromDatabase = this.setPresetFromDatabase.bind(this);
@@ -25,9 +22,13 @@ class Presets extends Component {
 
     setPresetFromDatabase(key) {
         this.props.clearChainCreator();
-        this.state.presets[key].currentChain.map((element, i) => {
+        this.props.presets[key].currentChain.map((element, i) => {
             this.props.availableNodes.map(availableNode => {
-                if (availableNode.constructor.name === element.name) {
+                if (availableNode.type && availableNode.type === element.name) {
+                    this.props.addNodeCreator(availableNode);
+                    availableNode.gain && this.props.nodeValueCreator(0, availableNode, element.value);
+                }
+                else if (availableNode.constructor.name === element.name) {
                     this.props.addNodeCreator(availableNode);
                     availableNode.gain && this.props.nodeValueCreator(0, availableNode, element.value);
                 }
@@ -47,7 +48,7 @@ class Presets extends Component {
     }
 
     removePreset(key) {
-        axios.delete(`/api/presets/${this.state.presets[key]._id}`)
+        axios.delete(`/api/presets/${this.props.presets[key]._id}`)
             .then(response => {
                 this.getPresets();
             });
@@ -58,7 +59,7 @@ class Presets extends Component {
             <div className='presets-container'>
                 <div className='presets-header'>Presets</div>
                 <div className='presets-list'>
-                    {this.state.presets.map((preset, key) =>
+                    {this.props.presets.map((preset, key) =>
                         <div key={key} className='flexible-preset'>
                             <div className='preset'
                                  onDoubleClick={() => this.setPresetFromDatabase(key)}>{preset.name}</div>
@@ -76,7 +77,7 @@ class Presets extends Component {
 
 const mapStateToProps = state => {
     return {
-        presets: state.preset.presets.data,
+        presets: state.preset.presets,
         currentChain: state.audio.currentChain,
         availableNodes: state.audio.availableNodes
     };

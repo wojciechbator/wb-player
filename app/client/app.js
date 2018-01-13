@@ -14,7 +14,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        (!sessionStorage.getItem('loggedUser') || this.props.isAuthenticated === false) && this.props.loginRedirectCreator();
+        (!sessionStorage.getItem('loggedUser')) && this.props.loginRedirectCreator();
     }
 
     render() {
@@ -26,12 +26,6 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        isAuthenticated: state.authentication.isAuthenticated
-    };
-};
-
 const mapDispatchToProps = dispatch => bindActionCreators({loginRedirectCreator}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

@@ -83,7 +83,7 @@ class Audio extends Component {
     }
 
     checkNodeIndexInChain(node, chain, i) {
-        return i === 0 ? chain.length - 1 : chain.indexOf(node) - 1;
+        return i === 0 ? chain.length - 1 : chain.length - chain.indexOf(node) - 1;
     }
 
     render() {
