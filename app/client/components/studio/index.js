@@ -10,11 +10,11 @@ import './studio.css';
 const StudioPage = props => (
     <div className='studio-container'>
         <div className='control-panel'>
-            <Player />
-            <Recorder />
+            <Player/>
+            <Recorder/>
         </div>
-        <Diagnostics />
-        <Audio />
+        <Diagnostics/>
+        <Audio/>
     </div>
 );
 

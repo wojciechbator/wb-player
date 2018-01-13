@@ -2,8 +2,8 @@ const Koa = require('koa');
 const router = require('koa-router')();
 const Webpack = require('webpack');
 const mongoose = require('mongoose');
-const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
-const { createReadStream } = require('fs');
+const {devMiddleware, hotMiddleware} = require('koa-webpack-middleware');
+const {createReadStream} = require('fs');
 const path = require('path');
 const config = require('../webpack.config');
 const app = new Koa();
@@ -20,7 +20,9 @@ const mongoUrl = process.env.MONGO || appConfig.mongoUrl;
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl).then(
     () => console.log(`Connected to database on url: ${mongoUrl}`),
-    error => { throw new Error(error); }
+    error => {
+        throw new Error(error);
+    }
 );
 
 router.get('/', async (req, res) => {
@@ -29,7 +31,7 @@ router.get('/', async (req, res) => {
 });
 
 app.use(devMiddleware(compiler, {
-    headers: { 'X-Custom-Header': 'yes' },
+    headers: {'X-Custom-Header': 'yes'},
     stats: {
         colors: true
     }
@@ -41,7 +43,7 @@ app.use(authenticationRouter.routes());
 app.use(filesSender.routes());
 
 app.use(router.routes())
-.use(router.allowedMethods());
+    .use(router.allowedMethods());
 
 const server = app.listen(3000);
 

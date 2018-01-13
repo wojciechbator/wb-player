@@ -1,5 +1,11 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, REDIRECT_TO_LOGIN, REDIRECT_TO_REGISTER } from '../types/authenticationTypes';
-import { push } from 'react-router-redux';
+import {
+    LOGIN_FAILURE,
+    LOGIN_SUCCESS,
+    LOGOUT,
+    REDIRECT_TO_LOGIN,
+    REDIRECT_TO_REGISTER
+} from '../types/authenticationTypes';
+import {push} from 'react-router-redux';
 
 const loginFailed = () => {
     return {
@@ -14,8 +20,8 @@ const loginSuccess = (token, loggedUser) => {
     return {
         type: LOGIN_SUCCESS,
         isAuthenticated: true
-    }
-}
+    };
+};
 
 const logout = () => {
     return {

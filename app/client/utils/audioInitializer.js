@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import Growl from '../components/growl';
-import { initContextCreator, inputStreamCreator } from '../redux/actions/audioActions';
+import {initContextCreator, inputStreamCreator} from '../redux/actions/audioActions';
 import AudioNodes from './audioNodes';
 
 class AudioInitializer extends Component {
@@ -25,11 +25,11 @@ class AudioInitializer extends Component {
             navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia ||
                 navigator.mediaDevices.mozGetUserMedia || navigator.mediaDevices.msGetUserMedia;
         if (navigator.mediaDevices.getUserMedia) {
-            await navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+            await navigator.mediaDevices.getUserMedia({audio: true}).then(stream => {
                 const inputStream = this.state.audioContext.createMediaStreamSource(stream);
                 this.props.inputStreamCreator(inputStream);
             }).catch(error => {
-                this.setState({ showGrowl: true });
+                this.setState({showGrowl: true});
                 throw new Error(error);
             });
         } else {
@@ -39,14 +39,15 @@ class AudioInitializer extends Component {
     }
 
     onGrowlClick() {
-        this.setState({ showGrowl: !this.state.showGrowl });
+        this.setState({showGrowl: !this.state.showGrowl});
     }
 
     render() {
         return (
             <div>
-                <Growl header='Problem' body='Error capturing audio' positive={false} showGrowl={this.state.showGrowl === true} onClick={this.onGrowlClick} />
-                <AudioNodes audioContext={this.state.audioContext} />
+                <Growl header='Problem' body='Error capturing audio' positive={false}
+                       showGrowl={this.state.showGrowl === true} onClick={this.onGrowlClick}/>
+                <AudioNodes audioContext={this.state.audioContext}/>
             </div>
         );
     }
@@ -56,8 +57,8 @@ const mapStateToProps = state => {
     return {
         analyserNode: state.audio.analyserNode
     }
-}
+};
 
-const mapDispatchToProps = dispatch => bindActionCreators({ initContextCreator, inputStreamCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({initContextCreator, inputStreamCreator}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AudioInitializer);

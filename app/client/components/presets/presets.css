@@ -9,7 +9,6 @@
     overflow-y: auto;
 }
 
-
 @media screen and (max-width: 480px) and (max-height: 480px) {
     .presets-container {
         height: 50%;
@@ -20,7 +19,7 @@
     text-align: center;
     background: #9fda58;
     font-size: 1.5em;
-    padding: 10px 10px; 
+    padding: 10px 10px;
 }
 
 .flexible-preset {
@@ -33,6 +32,6 @@
 
 .flexible-preset:hover {
     color: #cacbc7;
-    background:#666666;
+    background: #666666;
     cursor: pointer;
 }

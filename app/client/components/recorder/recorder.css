@@ -9,7 +9,7 @@
 }
 
 .control-button {
-    cursor: pointer; 
+    cursor: pointer;
     transition-duration: 0.5s;
     padding: .25em 1em;
     margin: 0px 10px;
@@ -22,7 +22,7 @@
 
 .recorder-buttons {
     padding: 10px;
-    display: inline-flex;    
+    display: inline-flex;
 }
 
 .save-file-wrapper {
@@ -33,11 +33,11 @@
     .control-button {
         margin: 0px;
     }
-    
+
     .recorder-buttons {
         padding: 0px;
     }
-    
+
     .save-file-wrapper {
         padding: 0px;
     }

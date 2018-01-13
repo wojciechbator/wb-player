@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import io from 'socket.io-client';
-import { Sidebar } from 'primereact/components/sidebar/Sidebar';
-import { Chart } from 'primereact/components/chart/Chart';
+import {Sidebar} from 'primereact/components/sidebar/Sidebar';
+import {Chart} from 'primereact/components/chart/Chart';
 
-import { storeSocketCreator } from '../redux/actions/socketActions';
+import {storeSocketCreator} from '../redux/actions/socketActions';
 import StudioPage from './studio';
 import Presets from './presets';
 import NodesList from './nodesList';
@@ -24,7 +24,7 @@ class MainPage extends Component {
             cpuUsage: [],
             usedMemory: 0,
             freeMemory: 0
-        }
+        };
         this.socket = io();
         this.showSidebar = this.showSidebar.bind(this);
         this.hideSidebar = this.hideSidebar.bind(this);
@@ -38,9 +38,12 @@ class MainPage extends Component {
                 bufferArray.shift();
             }
             bufferArray.push(data.system / data.user * 100);
-            this.setState({ cpuUsage: bufferArray });
+            this.setState({cpuUsage: bufferArray});
         });
-        this.socket.on('memory', data => this.setState({ usedMemory: data.heapUsed, freeMemory: data.heapTotal - data.heapUsed }));
+        this.socket.on('memory', data => this.setState({
+            usedMemory: data.heapUsed,
+            freeMemory: data.heapTotal - data.heapUsed
+        }));
     }
 
     componentWillUnmount() {
@@ -48,11 +51,11 @@ class MainPage extends Component {
     }
 
     showSidebar() {
-        this.setState({ showSidebar: true });
+        this.setState({showSidebar: true});
     }
 
     hideSidebar() {
-        this.setState({ showSidebar: false });
+        this.setState({showSidebar: false});
     }
 
     render() {
@@ -121,24 +124,29 @@ class MainPage extends Component {
                 {
                     (this.props.isAuthenticated || sessionStorage.getItem('loggedUser')) &&
                     <div className='app-container'>
-                        <AudioInitializer />
+                        <AudioInitializer/>
                         <Sidebar visible={this.state.showSidebar} position='right' onHide={this.hideSidebar}>
                             <div className='sidebar-content'>
-                                <Chart className='diagnostics-chart' type='line' data={data} options={options} />
-                                <Chart className='diagnostics-chart' type='doughnut' data={doughnutData} options={doughnutOptions} />
+                                <Chart className='diagnostics-chart' type='line' data={data} options={options}/>
+                                <Chart className='diagnostics-chart' type='doughnut' data={doughnutData}
+                                       options={doughnutOptions}/>
                             </div>
                         </Sidebar>
-                        <button className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only show-sidebar-button' onClick={this.showSidebar}><i className='fa fa-arrow-left'></i></button>
-                        {this.props.inputStream && <AudioChain inputStream={this.props.inputStream} />}
-                        <Header />
+                        <button
+                            className='ui-widget ui-state-default ui-corner-all control-button ui-button-text-only show-sidebar-button'
+                            onClick={this.showSidebar}>
+                            <i className='fa fa-arrow-left'></i>
+                        </button>
+                        {this.props.inputStream && <AudioChain inputStream={this.props.inputStream}/>}
+                        <Header/>
                         <div className='content-wrapper'>
                             <div className='left-menu'>
-                                <Presets />
-                                <NodesList />
+                                <Presets/>
+                                <NodesList/>
                             </div>
-                            <StudioPage />
+                            <StudioPage/>
                         </div>
-                        <Footer />
+                        <Footer/>
                     </div>
                 }
             </div>
@@ -153,6 +161,6 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ storeSocketCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({storeSocketCreator}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import { loginRedirectCreator } from './redux/actions/authenticationActions';
+import {loginRedirectCreator} from './redux/actions/authenticationActions';
 import './app.css';
 
 class App extends Component {
@@ -32,6 +32,6 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ loginRedirectCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({loginRedirectCreator}, dispatch);
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import { addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator, addAnalyserNodeCreator } from '../redux/actions/audioActions';
+import {
+    addNodeToAvailablesCreator,
+    addCompressorCreator,
+    addMasterCreator,
+    addAnalyserNodeCreator
+} from '../redux/actions/audioActions';
 
 class AudioNodes extends Component {
     constructor(props) {
@@ -71,7 +76,7 @@ class AudioNodes extends Component {
         let distorter;
         for (let i = 0; i < samplesNumber; ++i) {
             distorter = i * 2 / samplesNumber - 1;
-            curve[i] = (3 + count) * distorter * 20 * degree / ( Math.PI + count * Math.abs(distorter) );
+            curve[i] = (3 + count) * distorter * 20 * degree / (Math.PI + count * Math.abs(distorter));
         }
         return curve;
     }
@@ -89,8 +94,7 @@ class AudioNodes extends Component {
     createConvolver() {
         let convolver = this.props.audioContext.createConvolver();
         let convolverGain = this.props.audioContext.createGain();
-        let buffer = this.props.audioContext.createBuffer(2, this.props.audioContext.sampleRate / 2, this.props.audioContext.sampleRate);
-        convolver.buffer = buffer;
+        convolver.buffer = this.props.audioContext.createBuffer(2, this.props.audioContext.sampleRate / 2, this.props.audioContext.sampleRate);
         convolver.loop = true;
         convolver.normalize = true;
         convolverGain.gain.value = 0;
@@ -99,8 +103,7 @@ class AudioNodes extends Component {
     }
 
     createDelay() {
-        let delay = this.props.audioContext.createDelay(5.0);
-        return delay;
+        return this.props.audioContext.createDelay(5.0);
     }
 
     createAnalyser() {
@@ -146,6 +149,11 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addNodeToAvailablesCreator, addCompressorCreator, addMasterCreator, addAnalyserNodeCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({
+    addNodeToAvailablesCreator,
+    addCompressorCreator,
+    addMasterCreator,
+    addAnalyserNodeCreator
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(AudioNodes);

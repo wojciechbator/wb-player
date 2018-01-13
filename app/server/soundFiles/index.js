@@ -8,8 +8,7 @@ const files = new router();
 const soundFilesFolder = path.resolve(__dirname + '/../../sound_files');
 
 files.get('/soundFiles', async (ctx, next) => {
-    const fileNames = await readDirAsync(soundFilesFolder, {encoding: 'utf8'});
-    ctx.body = fileNames;
+    ctx.body = await readDirAsync(soundFilesFolder, {encoding: 'utf8'});
 });
 
 module.exports = files;

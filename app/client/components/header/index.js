@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Button } from 'primereact/components/button/Button';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {Button} from 'primereact/components/button/Button';
 
-import { logoutCreator } from '../../redux/actions/authenticationActions';
+import {logoutCreator} from '../../redux/actions/authenticationActions';
 
 import './header.css';
 import logo from '../../assets/images/logo.png';
@@ -23,7 +23,7 @@ class Header extends Component {
         return (
             <div className='header'>
                 <div className="logo-center">
-                    <img className='logo' src={logo} alt='logo' />
+                    <img className='logo' src={logo} alt='logo'/>
                     <div className='header-text'>Hello {sessionStorage.getItem('loggedUser')}!</div>
                 </div>
                 <div>
@@ -41,6 +41,6 @@ const mapStateToProps = store => {
     };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ logoutCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({logoutCreator}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

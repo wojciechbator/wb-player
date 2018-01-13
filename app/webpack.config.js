@@ -15,27 +15,27 @@ module.exports = {
         'index': [
             'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
             './index.js']
-        },
-        output: {
-            path: __dirname + '/dist',
-            filename: 'bundle.js',
-        },
-        devtool: '#cheap-module-source-map',
-        module: {
-            loaders: [{
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    'presets': ['es2015', 'react'],
-                    'plugins': ['transform-object-rest-spread'],
-                    'env': {
-                        'development': {
-                            'presets': ['react-hmre']
-                        }
+    },
+    output: {
+        path: __dirname + '/dist',
+        filename: 'bundle.js',
+    },
+    devtool: '#cheap-module-source-map',
+    module: {
+        loaders: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            query: {
+                'presets': ['es2015', 'react'],
+                'plugins': ['transform-object-rest-spread'],
+                'env': {
+                    'development': {
+                        'presets': ['react-hmre']
                     }
                 }
-            },
+            }
+        },
             {
                 test: /\.scss$/,
                 loader: "style-loader!css-loader!sass-loader"
@@ -44,9 +44,9 @@ module.exports = {
                 test: /\.css$/,
                 loader: "style-loader!css-loader"
             },
-            { 
-                test: /\.(png|woff|woff2|eot|ttf|svg|gif)$/, 
-                loader: 'url-loader?limit=100000' 
+            {
+                test: /\.(png|woff|woff2|eot|ttf|svg|gif)$/,
+                loader: 'url-loader?limit=100000'
             }
         ]
     },

@@ -1,4 +1,4 @@
-import { SAVE_PRESET, STORE_PRESETS, UPDATE_PRESET } from '../types/presetTypes';
+import {SAVE_PRESET, STORE_PRESETS, UPDATE_PRESET} from '../types/presetTypes';
 
 const savePreset = preset => {
     return {

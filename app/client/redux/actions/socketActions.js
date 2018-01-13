@@ -1,4 +1,4 @@
-import { STORE_SOCKET } from '../types/socketTypes';
+import {STORE_SOCKET} from '../types/socketTypes';
 
 const storeSocket = socket => {
     return {

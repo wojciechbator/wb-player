@@ -4,6 +4,9 @@ services:
   mongo:
     container_name: mongo
     image: mvertes/alpine-mongo
+    ports:
+      - "27017:27017"
+      - "28017:28017"
     networks:
       network:
         ipv4_address: 10.0.1.2
@@ -16,7 +19,7 @@ services:
     depends_on:
       - mongo
     ports:
-      - 3000:3000
+      - "3000:3000"
     networks:
       network:
         ipv4_address: 10.0.1.3

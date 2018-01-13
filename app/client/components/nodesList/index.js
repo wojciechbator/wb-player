@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { addNodeCreator } from '../../redux/actions/audioActions';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {addNodeCreator} from '../../redux/actions/audioActions';
 import './nodesList.css';
 
 class NodesList extends Component {
@@ -20,8 +20,10 @@ class NodesList extends Component {
                 <div className='nodes-header'>Nodes</div>
                 <div className='nodes-list'>
                     {this.props.availableNodes.map((node, key) => node.type ?
-                        <div key={key} className='node' onDoubleClick={() => this.addAudioToChain(node)}>{node.type}</div> :
-                        <div key={key} className='node' onDoubleClick={() => this.addAudioToChain(node)}>{node.constructor.name}</div>)
+                        <div key={key} className='node'
+                             onDoubleClick={() => this.addAudioToChain(node)}>{node.type}</div> :
+                        <div key={key} className='node'
+                             onDoubleClick={() => this.addAudioToChain(node)}>{node.constructor.name}</div>)
                     }
                 </div>
             </div>
@@ -34,9 +36,9 @@ const mapStateToProps = store => {
         availableNodes: store.audio.availableNodes,
         currentChain: store.audio.currentChain
     }
-}
+};
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addNodeCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({addNodeCreator}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(NodesList);
 

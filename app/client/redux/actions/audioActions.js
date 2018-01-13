@@ -85,10 +85,10 @@ const addNodeToAvailables = node => {
 
 const removeNodeFromAvailables = availableNodes => {
     return {
-        type: ADD_NODE_TO_AVAILABLE_NODES,
+        type: REMOVE_NODE_FROM_AVAILABLE_NODES,
         availableNodes
     };
-}
+};
 
 export const initContextCreator = audioContext => dispatch => dispatch(initializeAudioContext(audioContext));
 

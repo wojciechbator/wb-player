@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { push } from 'react-router-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {push} from 'react-router-redux';
 import axios from 'axios';
-import { InputText } from 'primereact/components/inputtext/InputText';
-import { Button } from 'primereact/components/button/Button';
+import {InputText} from 'primereact/components/inputtext/InputText';
+import {Button} from 'primereact/components/button/Button';
 
 import Growl from '../growl';
-import { registerRedirectCreator, loginSuccessCreator } from '../../redux/actions/authenticationActions';
-import { validField, validEmail } from '../../utils/formValidator';
+import {registerRedirectCreator, loginSuccessCreator} from '../../redux/actions/authenticationActions';
+import {validField, validEmail} from '../../utils/formValidator';
 
 import splash from '../../assets/images/splash.png';
 import './login.css';
@@ -34,16 +34,16 @@ class LoginPage extends Component {
 
     handleLogin() {
         !Object.values(this.state.errors).includes(true)
-            &&
-            axios.post('/login', this.state.values)
-                .then(response => {
-                    this.setState({ showGrowl: false });
-                    this.props.loginSuccessCreator(response.data.jwt, response.data.loggedUser);
-                })
-                .catch(error => {
-                    this.setState({ showGrowl: true });
-                    throw new Error(error);
-                });
+        &&
+        axios.post('/login', this.state.values)
+            .then(response => {
+                this.setState({showGrowl: false});
+                this.props.loginSuccessCreator(response.data.jwt, response.data.loggedUser);
+            })
+            .catch(error => {
+                this.setState({showGrowl: true});
+                throw new Error(error);
+            });
     }
 
     headToRegister() {
@@ -51,13 +51,14 @@ class LoginPage extends Component {
     }
 
     onGrowlClick() {
-        this.setState({ showGrowl: !this.state.showGrowl });
+        this.setState({showGrowl: !this.state.showGrowl});
     }
 
     render() {
         return (
             <div className='login-wrapper'>
-                <Growl header='Problem' body='Login failed' positive={false} showGrowl={this.state.showGrowl === true} onClick={this.onGrowlClick} />
+                <Growl header='Problem' body='Login failed' positive={false} showGrowl={this.state.showGrowl === true}
+                       onClick={this.onGrowlClick}/>
                 <img src={splash} alt='Splash image' draggable='false'></img>
                 <div className='label-text'>EMAIL</div>
                 <div>
@@ -67,15 +68,15 @@ class LoginPage extends Component {
                         onChange={event => {
                             let values = this.state.values;
                             values.email = event.target.value;
-                            this.setState({ values: values });
+                            this.setState({values: values});
                             let errors = this.state.errors;
                             errors.email = !validEmail(event.target.value);
-                            this.setState({ errors: errors });
+                            this.setState({errors: errors});
                         }}
                         onBlur={event => {
                             let errors = this.state.errors;
                             errors.email = !validEmail(event.target.value);
-                            this.setState({ errors: errors });
+                            this.setState({errors: errors});
                         }}
                     />
                 </div>
@@ -89,21 +90,22 @@ class LoginPage extends Component {
                         onChange={event => {
                             let values = this.state.values;
                             values.password = event.target.value;
-                            this.setState({ values: values });
+                            this.setState({values: values});
                             let errors = this.state.errors;
                             errors.password = !validField(event.target.value);
-                            this.setState({ errors: errors });
+                            this.setState({errors: errors});
                         }}
                         onBlur={event => {
                             let errors = this.state.errors;
                             errors.password = !validField(event.target.value);
-                            this.setState({ errors: errors });
+                            this.setState({errors: errors});
                         }}
                     />
                 </div>
                 {this.state.errors.password === true && <div className='error-message'>This field is wrong</div>}
                 <div className='submit-button-wrapper'>
-                    <Button label='SUBMIT' onClick={this.handleLogin} disabled={Object.values(this.state.errors).includes(true) || Object.values(this.state.errors).includes(null)}></Button>
+                    <Button label='SUBMIT' onClick={this.handleLogin}
+                            disabled={Object.values(this.state.errors).includes(true) || Object.values(this.state.errors).includes(null)}></Button>
                 </div>
                 <div className='label-text'>Want to register? Head right there!</div>
                 <div>
@@ -114,6 +116,6 @@ class LoginPage extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ registerRedirectCreator, loginSuccessCreator }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({registerRedirectCreator, loginSuccessCreator}, dispatch);
 
 export default connect(null, mapDispatchToProps)(LoginPage);

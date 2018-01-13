@@ -13,9 +13,9 @@
     flex-basis: 20%;
     height: 100%;
     background: #140603;
-    overflow:hidden; 
-    white-space:nowrap; 
-    text-overflow: ellipsis;    
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 480px) {
@@ -23,9 +23,9 @@
         flex-basis: 50%;
         height: 100%;
         background: #140603;
-        overflow:hidden; 
-        white-space:nowrap; 
-        text-overflow: ellipsis;    
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }
 
@@ -33,14 +33,14 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
     justify-content: center;
     margin: 0px 10px;
 }
 
 .show-sidebar-button {
     position: absolute;
-    cursor: pointer; 
+    cursor: pointer;
     transition-duration: 0.5s;
     padding: .25em 1em;
     margin: 0px 10px;
