@@ -11,6 +11,8 @@ import {
     STORE_ANALYSER_NODE,
     CLEAR_CHAIN
 } from '../types/audioTypes';
+import audioChain from '../../utils/audioChain';
+import {prependArray} from '../../utils/prependArray';
 
 const initialState = {
     audioContext: null,
@@ -38,7 +40,7 @@ export const audioReducer = (state = initialState, action) => {
             currentChain[action.nodeIndex].gain.value = action.node.type ? action.nodeValue : action.nodeValue / 100;
             return {...state, currentChain};
         case ADD_NODE:
-            return {...state, currentChain: state.currentChain.concat(action.node)};
+            return {...state, currentChain: prependArray(action.node, state.currentChain)};
         case REMOVE_NODE:
             return {...state, currentChain: state.currentChain.filter((element, index) => index !== action.nodeIndex)};
         case ADD_COMPRESSOR:
